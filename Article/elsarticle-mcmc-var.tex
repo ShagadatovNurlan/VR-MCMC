@@ -111,7 +111,7 @@ by using a larger value of $n$.  Alternatively,
 a new Monte Carlo experiment with the same expectation as the original one
 but with a lower variance $\sigma^2$. Methods to do this are known as variance
 reduction techniques. Variance reduction plays an important role in
-Monte Carlo and Markov Chain Monte Carlo methods. Introduction to many of the variance reduction techniques can be found in \cite{christian1999monte}, \cite{rubinstein2016simulation} and \cite{glasserman2013monte}. Recently one witnessed a revival of interest in efficient variance reduction methods  for MCMC algorithms, see for example \cite{dellaportas2012control}, \cite{mira2013zero}, \cite{brosse2018diffusion} and references therein. 
+Monte Carlo and Markov Chain Monte Carlo methods. Introduction to many of the variance reduction techniques can be found in \cite{christian1999monte}, \cite{rubinstein2016simulation} and \cite{glasserman2013monte}. Recently one witnessed a revival of interest in efficient variance reduction methods  for MCMC algorithms, see for example \cite{dellaportas2012control}, \cite{mira2013zero}, \cite{brosse2018diffusion} and references therein.
 
 Suppose that we wish to compute $\pi(f):=\mathsf{E}\left[f(X)\right]$, where $X$
 is a random vector-valued in $\mathcal{X}\subseteq\mathbb{R}^{d}$ with a density $\pi$ and $f:$
@@ -125,7 +125,7 @@ For example, if \(\pi\) is analytically known and satisfies some regularity cond
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
 Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p)\) \eric{this is not exactly true, the minimal condition for the existence of a Poisson equation is $\sum_{k=0}^\infty \pi(|G|) < \infty$}, the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. In \cite{mijatovic2018poisson} a quantisation type  algorithm is proposed to approximate a solution of the corresponding Poisson equation for reversible Markov chains.
 \par
-In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{DurmusMoulines:18} and references therein. We propose  a generic variance reduction method for such algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
+In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for such algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
 The paper is organized as follows.  In Section~\ref{sec:setup} we set up the problem and introduce some notations. Section~\ref{seq:mart_repr} contains a novel martingale representation and shows how this representation can be used for variance reduction. In Section~\ref{sec:ula_analysis} we analyze the performance of the proposed variance reduction algorithm in the case of Unadjusted Langevin Algorithm (ULA). Section~\ref{sec:coeff} studies the complexity of the variance reduced ULA. Finally, numerical examples are presented in Section~\ref{sec:num}.
 \section{Setup}\label{sec:setup}
@@ -431,7 +431,7 @@ Notice that this remains true also when we substitute
 the coefficients $a_{p,l,\mathbf{k}}$ in~\eqref{eq:29032018a5}
 with some independent approximations $\widehat a_{p,l,\mathbf{k}}.$ For a bounded Borel function~$f$,
 we can estimate the conditional bias
-similarly to the beginning of ~\cite[Section~4]{DurmusMoulines:18}:
+similarly to the beginning of ~\cite[Section~4]{durmus:moulines:2017}:
 \begin{align}
 \left(\mathsf{E}[\pi_{K,n}^N(f)|\mathcal G_N]-\pi(f)\right)^2
 &=\left(\mathsf{E}[\pi_{n}^N(f)|\mathcal G_N]-\pi(f)\right)^2
@@ -471,7 +471,7 @@ used in the right-hand side of~\eqref{eq:06042018a2}.
 
 Different specific upper bounds for the squared bias
 can be deduced from~\eqref{eq:06042018a2}
-using results of Section~3 in~\cite{DurmusMoulines:18}
+using results of Section~3 in~\cite{durmus:moulines:2017}
 on bounds in the total variation distance.
 
 
@@ -481,7 +481,7 @@ on bounds in the total variation distance.
 
 \subsection{Conditional variance}
 An upper bound for the variance of the classical estimator~\eqref{eq:29032018a2}
-is provided in Theorem~17 in~\cite{DurmusMoulines:18}.
+is provided in  in~\cite[Theorem~17]{durmus:moulines:2017}.
 As for estimator~\eqref{eq:29032018a3},
 it follows from~\eqref{eq:29032018a5}
 and Proposition~\ref{prop:29032018a1}
