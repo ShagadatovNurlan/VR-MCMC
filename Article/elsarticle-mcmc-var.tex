@@ -13,6 +13,8 @@
 
 \newcommand{\eric}[1]{\todo[size=\tiny,color=purple!10, author=Eric]{#1}}
 \newcommand{\erici}[1]{\todo[inline,color=purple!10, author=Eric]{#1}}
+\def\rmd{\mathrm{d}}
+\def\rme{\mathrm{e}}
 
 \modulolinenumbers[5]
 
@@ -109,7 +111,7 @@ $\sigma^{2}/n,$ where $n$ is a sample size and \(\sigma^2\) is the variance of t
 by using a larger value of $n$.  Alternatively,
  we can  reduce $\sigma^2$ instead of increasing the sample size \(n\). To this end, one can try to construct
 a new Monte Carlo experiment with the same expectation as the original one
-but with a lower variance $\sigma^2$. Methods to do this are known as variance
+but with a lower variance $\sigma^2$. Methods to achieve this are known as variance
 reduction techniques. Variance reduction plays an important role in
 Monte Carlo and Markov Chain Monte Carlo methods. Introduction to many of the variance reduction techniques can be found in \cite{christian1999monte}, \cite{rubinstein2016simulation} and \cite{glasserman2013monte}. Recently one witnessed a revival of interest in efficient variance reduction methods  for MCMC algorithms, see for example \cite{dellaportas2012control}, \cite{mira2013zero}, \cite{brosse2018diffusion} and references therein.
 
@@ -120,10 +122,15 @@ The idea of the so-called control variates variance reduction method
  is to find a cheaply computable random variable $\xi$ with $\mathsf{E}[\xi]=0$ and \(\mathsf{E}[\xi^2]<\infty,\)
 such that the variance of the r.v. $f(X)-\xi$ is small.  The complexity of the problem of constructing classes $\Xi$ of control variates \(\xi\) satisfying   $\mathsf{E}[\xi]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
 For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\xi\) as a linear combination of the corresponding basis functions. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of
- \cite{mira2013zero} and further worked out in\cite{oates2017control}  suggesting  control variates  depending only on the quotient \(\nabla \log \pi.\)  In some situations \(\pi\) is unknown analytically, but \(X\) can be represented as a function of  simple random variables with known distribution. Such  situation arises, for example, in the case of functionals of the discretized diffusion processes. In this case a Wiener chaos-type decomposition can be used to construct control variates with nice properties, see \cite{belomestny2018stratified}.   Note that in order to compare different  variance reduction approaches, one has to analyze their complexity, that is, the number of numerical operations needed to achieve a prescribed magnitude of the resulting variance.
-\par
+ \cite{mira2013zero} and further worked out in\cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\)  
+ 
+In some situations \(\pi\) is not known analytically, but \(X\) can be represented as a function of  simple random variables with known distribution. 
+Such  situation arises, for example, in the case of functionals of the discretized diffusion processes. In this case a Wiener chaos-type decomposition can be used to construct control variates with nice properties, see \cite{belomestny2018stratified}.   
+Note that in order to compare different  variance reduction approaches, one has to analyze their complexity, that is, the number of numerical operations required to achieve a prescribed magnitude of the resulting variance.
+
+
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
-Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p)\) \eric{this is not exactly true, the minimal condition for the existence of a Poisson equation is $\sum_{k=0}^\infty \pi(|G|) < \infty$}, the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. In \cite{mijatovic2018poisson} a quantisation type  algorithm is proposed to approximate a solution of the corresponding Poisson equation for reversible Markov chains.
+Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p)\) \eric{this is not exactly true, the minimal condition for the existence of a Poisson equation is $\sum_{k=0}^\infty \pi(|G|) < \infty$}, the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. In \cite{mijatovic2018poisson} a quantisation type  algorithm is proposed to approximate a solution of the corresponding Poisson equation for reversible Markov chains.
 \par
 In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for such algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
@@ -134,7 +141,7 @@ Let  \(\mathcal{X}\) be a domain in \( \mathbb{R}^d.\)  Our aim is to numericall
 \pi(f)=\int_{\mathcal{X}} f(x)\pi(dx),
 \]
 where \(f:\) \(\mathcal{X}\longrightarrow \mathbb{R}\) and \(\pi\) is a probability measure supported on \(\mathcal{X}.\)
-If  the dimension of the space \(\mathcal{X}\) is large and \(\pi(f)\) can not be computed analytically, one can apply Monte Carlo methods. However, in many practical situations  direct sampling from \(\pi\) is impossible and this precludes the use of plain Monte Carlo methods in this case. One popular alternative to Monte Carlo  is Markov Chain Monte Carlo, where one is looking for a discrete time  Markov chain   \((X_p)_{p\geq 0}\) such that \(\pi\) is its unique invariant measure. In this paper we study a class of MCMC algorithms with \((X_p)_{p\geq 0}\) satisfying the  the following recurrence relation:
+If  the dimension of the space \(\mathcal{X}\) is large and \(\pi(f)\) can not be computed analytically, one can apply Monte Carlo methods. However, in many practical situations  direct sampling from \(\pi\) is impossible and this precludes the use of plain Monte Carlo methods in this case. One popular alternative to Monte Carlo  is Markov Chain Monte Carlo, where one is looking for a discrete time  (possibly non-homogeneous) Markov chain   \((X_p)_{p\geq 0}\) such that \(\pi\) is its unique invariant measure. In this paper we study a class of MCMC algorithms with \((X_p)_{p\geq 0}\) satisfying the  the following recurrence relation:
 \begin{equation}\label{eq:chain_gen}
 X_{p}=\Phi_{p}(X_{p-1},\xi_{p}),\quad p=1,2,\ldots ,\quad X_{0}=x_0,
 \end{equation}
@@ -155,9 +162,9 @@ standard Gaussian random vectors. If
 ${\mu=(1/2)\nabla U}$
 for some continuously differentiable function $U,$ then Markov chain~\eqref{eq:chain} can be used to approximately sample from the density
 \begin{equation}\label{eq:stationary_distr}
-\pi(x)= \mathrm{const}\,e^{-U(x)}, \quad \mathrm{const}= \left. 1 \middle /{\int_{\mathbb{R}^{d}}e^{-U(x)}\,dx,} \right.
+\pi(x)= \mathrm{const}\,\rme^{-U(x)}, \quad \mathrm{const}= \left. 1 \middle /{\int_{\mathbb{R}^{d}} \rme^{-U(x)}\, \rmd x,} \right.
 \end{equation}
-provided that \(\int_{\mathbb{R}^{d}}e^{-U(x)}\,dx\) is finite. This method is usually referred to as
+provided that \(\int_{\mathbb{R}^{d}} \rme^{-U(x)}\,\rmd x\) is finite. This method is usually referred to as
 Unadjusted Langevin Algorithm (ULA).
 In fact the Markov chain~\eqref{eq:chain}
 arises as the Euler-Maruyama discretization
