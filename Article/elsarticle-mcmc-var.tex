@@ -130,7 +130,7 @@ Note that in order to compare different  variance reduction approaches, one has 
 
 
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
-Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p)\) \eric{this is not exactly true, the minimal condition for the existence of a Poisson equation is $\sum_{k=0}^\infty \pi(|G|) < \infty$}, the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.  
+Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\sum_{k=0}^\infty \pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.  
 \par
 In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed analytically or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
@@ -1001,7 +1001,9 @@ Applying the estimate
 we get
 \begin{eqnarray*}
 \sum_{\mathbf{k}\colon\|\mathbf{k}\|\geq K+1}\left[\bar{a}_{l,\mathbf{k}}^{2}(X_{l-1})|\mathcal{G}_{N}\right]&\leq &
-\sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset} (\gamma_{l}/2)^{|I|K} \sum_{\mathbf{m}_{I}\in\mathbb{N}_{I}^{d}} \sum_{\mathbf{m}_{I^c}\in \mathbb{N}^d_{0,I^c},\,\|\mathbf{m}_{I^c}\|\leq K} Q(\mathbf{\mathbf{K}}_{I},\mathbf{m}_{I}+\mathbf{m}_{I^c})
+\sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset} (\gamma_{l}/2)^{|I|K} 
+\\
+&& \times\sum_{\mathbf{m}_{I}\in\mathbb{N}_{I}^{d}} \sum_{\mathbf{m}_{I^c}\in \mathbb{N}^d_{0,I^c},\,\|\mathbf{m}_{I^c}\|\leq K} Q(\mathbf{\mathbf{K}}_{I},\mathbf{m}_{I}+\mathbf{m}_{I^c})
 \\
 &\leq &
 \sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset} (\gamma_{l}/2)^{|I|K} \sum_{\mathbf{m}\in\mathbb{N}_0^{d}} Q(\mathbf{\mathbf{K}}_{I},\mathbf{m}).
@@ -1020,7 +1022,8 @@ we derive
 \sum_{\mathbf{k}\colon\|\mathbf{k}\|\geq K+1}\left[\bar{a}_{l,\mathbf{k}}^{2}(X_{l-1})|\mathcal{G}_{N}\right]
 &\leq & \sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset}
 \left(\frac{\gamma_{l}}{2}\right)^{|I|K}
-\mathsf E\left[
+\\
+&& \times\mathsf E\left[
 \mathsf{Var}\left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}\partial_{y_{l}}^{\mathbf{K}_I}f\left(X_{p}\right)
 \Big|X_{l-1}\right)
 \Bigg|\mathcal G_N\right]
@@ -1226,11 +1229,13 @@ and the fact that $m_{1}+\ldots+m_{r-1}\ge2$
 for $(r-1)$-tuples of nonnegative integers
 satisfying~\eqref{eq:09062018a1},
 we can bound $|\epsilon_{l,j,p}|$ as follows
-\begin{align*}
-\left|\epsilon_{l,j,p}\right| & \leq B_{\mu}C_{r}\prod_{k=l+1}^{p-1}\alpha_{k}\prod_{k=j+1}^{p-1}\alpha_{k}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\left[\prod_{k=j+1}^{p-1}\alpha_{k}\right]\prod_{s=1}^{r-1}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
- &\hspace{1em}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\sum_{t=1}^{r-1}\frac{m_t}{t!}\left(\frac{C_{t}\prod_{k=l+1}^{p-1}\alpha_{k}}{t!}\right)^{m_{t}-1}c_t\left[\prod_{k=l+1}^{p-1}\alpha_{k}\right]\prod_{s\le r-1,\,s\neq t}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
- & \leq \const\prod_{k=l+1}^{j}\alpha_{k}\prod_{k=j+1}^{p}\alpha_{k}^{2}
-\end{align*}
+\begin{eqnarray*}
+\left|\epsilon_{l,j,p}\right| & \leq & B_{\mu}C_{r}\prod_{k=l+1}^{p-1}\alpha_{k}\prod_{k=j+1}^{p-1}\alpha_{k}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\left[\prod_{k=j+1}^{p-1}\alpha_{k}\right]\prod_{s=1}^{r-1}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
+ &&\hspace{1em}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\sum_{t=1}^{r-1}\frac{m_t}{t!}\left(\frac{C_{t}\prod_{k=l+1}^{p-1}\alpha_{k}}{t!}\right)^{m_{t}-1}
+ \\
+ && \times c_t\left[\prod_{k=l+1}^{p-1}\alpha_{k}\right]\prod_{s\le r-1,\,s\neq t}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
+ & \leq &\const\prod_{k=l+1}^{j}\alpha_{k}\prod_{k=j+1}^{p}\alpha_{k}^{2}
+\end{eqnarray*}
 with some constant ``$\const$'',
 which is, in fact, $\frac1{(1-\gamma_1 b_\mu)^2}$ times
 the expression involving
@@ -1313,7 +1318,8 @@ Then
 &=\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K}+1)}(X_{p})\left[\partial_{y_{j}}X_{p}\right]\prod_{k=1}^{K}\left(\frac{\partial_{y_{l}}^{k}X_{p}}{k!}\right)^{m_{k}}
 \\
 &\hspace{1em}+\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K})}(X_{p})
-\sum_{s=1}^{K}\frac{m_{s}}{s!}
+\\
+&\sum_{s=1}^{K}\frac{m_{s}}{s!}
 \left(\frac{\partial_{y_{l}}^{s}X_{p}}{s!}\right)^{m_{s}-1}
 \left[\partial_{y_{j}}\partial_{y_{l}}^{s}X_{p}\right]
 \prod_{k\le K,\,k\neq s}\left(\frac{\partial_{y_{l}}^{k}X_{p}}{k!}\right)^{m_{k}}.
