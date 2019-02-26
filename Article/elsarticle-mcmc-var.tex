@@ -122,17 +122,17 @@ The idea of the so-called control variates variance reduction method
  is to find a cheaply computable random variable $\xi$ with $\mathsf{E}[\xi]=0$ and \(\mathsf{E}[\xi^2]<\infty,\)
 such that the variance of the r.v. $f(X)-\xi$ is small.  The complexity of the problem of constructing classes $\Xi$ of control variates \(\xi\) satisfying   $\mathsf{E}[\xi]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
 For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\xi\) as a linear combination of the corresponding basis functions. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of
- \cite{mira2013zero} and further worked out in\cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\)  
- 
-In some situations \(\pi\) is not known analytically, but \(X\) can be represented as a function of  simple random variables with known distribution. 
-Such  situation arises, for example, in the case of functionals of the discretized diffusion processes. In this case a Wiener chaos-type decomposition can be used to construct control variates with nice properties, see \cite{belomestny2018stratified}.   
+ \cite{mira2013zero} and further worked out in\cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\)
+
+In some situations \(\pi\) is not known analytically, but \(X\) can be represented as a function of  simple random variables with known distribution.
+Such  situation arises, for example, in the case of functionals of  discretized diffusion processes. In this case a Wiener chaos-type decomposition can be used to construct control variates with nice theoretical properties, see \cite{belomestny2018stratified}.
 Note that in order to compare different  variance reduction approaches, one has to analyze their complexity, that is, the number of numerical operations required to achieve a prescribed magnitude of the resulting variance.
 
 
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
-Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\sum_{k=0}^\infty \pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, it still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.  
+Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\sum_{k=0}^\infty \pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
 \par
-In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed analytically or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
+In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed explicitely or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
 The paper is organized as follows.  In Section~\ref{sec:setup} we set up the problem and introduce some notations. Section~\ref{seq:mart_repr} contains a novel martingale representation and shows how this representation can be used for variance reduction. In Section~\ref{sec:ula_analysis} we analyze the performance of the proposed variance reduction algorithm in the case of Unadjusted Langevin Algorithm (ULA). Section~\ref{sec:coeff} studies the complexity of the variance reduced ULA. Finally, numerical examples are presented in Section~\ref{sec:num}.
 \section{Setup}\label{sec:setup}
@@ -152,6 +152,7 @@ In fact, this is quite general class of Markov chains (see Theorem~1.3.6 in ~\ci
 and many well-known MCMC algorithms can be represented in form \eqref{eq:chain_gen}.
 Let us consider two popular examples.
 \begin{example}[Unadjusted Langevin Algorithm]
+\label{exam:langevin-algorithm}
 Fix a sequence of positive time steps \((\gamma_p)_{p\geq 1}.\) Given a Borel function $\mu\colon\mathbb{R}^{d}\to\mathbb{R}^{d}$,
 consider a non-homogeneous
 discrete-time Markov chain $(X_{p})_{p\geq0}$ defined by
@@ -212,11 +213,10 @@ where
 $\boldsymbol{\varphi}(z)=(2\pi)^{-d/2} \exp\{-|z|^2/2\}$,
 $z\in\mathbb R^d$, denotes the density of a $d$-dimensional
 standard Gaussian random vector.  MALA algorithms usually provide noticeable speed-ups in convergence for most problems. It is not difficult to see that the MALA chain can be compactly represented in the form
-\begin{eqnarray*}
-X_{p+1}=X_p+\mathbbm{1}\bigl(U_{p+1}\leq \alpha(X_{p},Y_{p})\bigr)(Y_{p}-X_p),
-\quad
-Y_{p}=X_p-\gamma_{p+1}\mu(X_p)+\sqrt{\gamma_{p+1}}Z_{p+1},
-\end{eqnarray*}
+\begin{align*}
+X_{p+1} &=X_p+\mathbbm{1}\bigl(U_{p+1}\leq \alpha(X_{p},Y_{p})\bigr)(Y_{p}-X_p),  \\
+Y_{p}&=X_p-\gamma_{p+1}\mu(X_p)+\sqrt{\gamma_{p+1}}Z_{p+1},
+\end{align*}
 where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \([0,1]\) random variables independent of \((Z_p)_{p\geq 1}.\) Thus we recover \eqref{eq:chain_gen} with  \(\xi_p=(U_p,Z_p)\in \mathbb{R}^{d+1}\) and
 \begin{eqnarray*}
 \Phi_p(x,(u,z)^\top)=x+\mathbbm{1}\bigl(u\leq \alpha(x,x-\gamma_{p}\mu(x)+\sqrt{\gamma_{p}}z)\bigr)(-\gamma_{p}\mu(x)+\sqrt{\gamma_{p}}z).
@@ -366,13 +366,13 @@ Since \(X_{l-1}\) is independent of \(\xi_{l}\) and \(\mathsf{E}[\phi_k(\xi_{l})
 should be small for \(K\) large enough. In the next section  we make this statement more precise for the case of ULA.
 \section{Analysis of variance reduced ULA}
 \label{sec:ula_analysis}
-In this section we provide   analysis of the variance reduced ULA  algorithm.
+In this section we provide   analysis of the variance reduced ULA  algorithm (see Example~\ref{exam:langevin-algorithm}).
 We shall use the notations $\mathbb N=\{1,2,\ldots\}$
 and $\mathbb N_0=\mathbb N\cup\{0\}$.
 By $H_k$, $k\in\mathbb N_0$,
 we denote the normalized Hermite polynomial on $\mathbb R$, that is,
 $$
-H_k(x)=\frac{(-1)^k}{\sqrt{k!}}e^{x^2/2}\frac{\partial^k}{\partial x^k}e^{-x^2/2},
+H_k(x)=\frac{(-1)^k}{\sqrt{k!}}\rme^{x^2/2}\frac{\partial^k}{\partial x^k}\rme^{-x^2/2},
 \quad x\in\mathbb R.
 $$
 For a multi-index $\mathbf{k}=(k_i)\in\mathbb N_0^d$,
@@ -1001,7 +1001,7 @@ Applying the estimate
 we get
 \begin{eqnarray*}
 \sum_{\mathbf{k}\colon\|\mathbf{k}\|\geq K+1}\left[\bar{a}_{l,\mathbf{k}}^{2}(X_{l-1})|\mathcal{G}_{N}\right]&\leq &
-\sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset} (\gamma_{l}/2)^{|I|K} 
+\sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset} (\gamma_{l}/2)^{|I|K}
 \\
 && \times\sum_{\mathbf{m}_{I}\in\mathbb{N}_{I}^{d}} \sum_{\mathbf{m}_{I^c}\in \mathbb{N}^d_{0,I^c},\,\|\mathbf{m}_{I^c}\|\leq K} Q(\mathbf{\mathbf{K}}_{I},\mathbf{m}_{I}+\mathbf{m}_{I^c})
 \\
