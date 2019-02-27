@@ -11,8 +11,11 @@
 \newcommandx{\CPE}[3][1=]{{\mathbb E}_{#1}\left[\left. #2 \, \right| #3 \right]}
 \usepackage[textsize=footnotesize]{todonotes} % pour voir les commentaires
 
-\newcommand{\eric}[1]{\todo[size=\tiny,color=purple!10, author=Eric]{#1}}
+\newcommand{\eric}[1]{\todo[color=purple!10, author=Eric]{#1}}
 \newcommand{\erici}[1]{\todo[inline,color=purple!10, author=Eric]{#1}}
+\newcommand{\denis}[1]{\todo[color=green!10, author=Eric]{#1}}
+\newcommand{\denisi}[1]{\todo[inline,color=green!10, author=Eric]{#1}}
+
 \def\rmd{\mathrm{d}}
 \def\rme{\mathrm{e}}
 
@@ -130,7 +133,7 @@ Note that in order to compare different  variance reduction approaches, one has 
 
 
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
-Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\sum_{k=0}^\infty \pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
+Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
 \par
 In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed explicitely or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
@@ -270,9 +273,9 @@ Given $f$ with $\mathsf{E}\left[|f(X_{p})|^2\right]<\infty$,
 due to the orthonormality and completeness
 of the system $\left(\phi_{k}\right)$, we get by
 conditioning on $\mathcal{G}_{q}$,
-$$
+\[
 f(X_{p})=\mathsf{E}\left[\left.f(X_{p})\right|{\mathcal{G}}_q\right]+\sum_{k\geq1}\alpha_{p,q+1,k}\phi_{k}(\xi_{q+1}),
-$$
+\]
 where
 \begin{equation*}
 \alpha_{p,q+1,k}
@@ -282,16 +285,15 @@ By the Markov property of $(X_{l})$,
 we have
 $\mathsf{E}[f(X_{p})|\mathcal{G}_q]
 =\mathsf{E}[f(X_{p})|X_{q}]$.
-\eric{I am not sure to understand why we need an additional argument here; this is straightforward}
 Furthermore, a calculation involving
 intermediate conditioning on $\mathcal G_{q+1}$
 and the recurrence relation
 $X_{q+1}=\Phi_{q+1}(X_{q},\xi_{q+1})$
 verifies that
-$$
+\[
 \alpha_{p,q+1,k}=\mathsf{E}\left[\left.f(X_{p})\phi_{k}(\xi_{q+1})\right|X_{q}\right]
 =a_{p,q+1,k}(X_{q})
-$$
+\]
 for suitably chosen
 Borel-measurable functions $a_{p,q+1,k}$.
 We thus arrive at
@@ -317,8 +319,6 @@ a_{p,l,k}(X_{l-1}) &= \mathsf{E}\left[\left.\mathsf{E}\left[\left.f(X_{p})\right
 \end{align*}
 Formulas \eqref{berm:sig_X}
 and~\eqref{eq:28082017a1} conclude the proof.
-
-
 \end{proof}
 From  numerical point of view another representation of the coefficients \(a_{p,l,k}\)  turns out to be more useful.
 \begin{prop}
@@ -397,7 +397,7 @@ with \(\|\mathbf{k}\|=\max_{i} k_i\) and
 & =\mathsf{E}\left[\left.\left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})\right)\mathbf{H}_\mathbf{k}\left(Z_{l}\right)\right|X_{l-1}=x\right].
 \end{align*}
 For an estimator $\rho(f)\in\{\pi_n^N(f),\pi_{K,n}^N(f)\}$
-of $\pi(f)$, we are interested in its conditional
+of $\pi(f)$ (see \eqref{eq:29032018a2} and \eqref{eq:29032018a5}), we are interested in its conditional
 Mean Squared Error (MSE),
 which can be decomposed as the sum of the squared conditional bias
 and the conditional variance:
@@ -515,9 +515,10 @@ x\in\mathbb R^d
 \end{eqnarray*}
 for \(\|\mathbf{k}\|\leq  K+1\),
 and that first order derivatives $\mu$ is bounded away from zero
-$$
+\eric{this one really needed ? Strong convexity is not enough ?}
+\[
 \partial_{x_i}\mu(x)\ge b_\mu,\quad x\in\mathbb R^d,
-$$
+\]
 for some $b_\mu\in(0,B_\mu]$ and all \(i=1,\ldots, d.\)
 Let $(\gamma_k)_{k\in\mathbb N}$ be a sequence of positive
 and non-increasing step sizes with $\sum_{k=1}^\infty \gamma_k=\infty$.
@@ -910,8 +911,8 @@ $$
 This enables to use the integration by parts in vector form as follows
 (below $\prod_{j=l+1}^p:=1$ whenever $l=p$)
 \begin{align*}
-a_{p,l,\mathbf k}(x)
-& =
+&a_{p,l,\mathbf k}(x)
+ =
 \int_{\mathbb R^d}\ldots\int_{\mathbb R^d}
 f\circ G_{p,l}(x,\sqrt{\gamma_{l}}z_{l},\ldots,\sqrt{\gamma_{p}}z_{p})
 \mathbf{H}_{\mathbf{k}}(z_{l})\boldsymbol{\varphi}(z_l)
