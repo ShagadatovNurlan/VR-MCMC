@@ -540,20 +540,20 @@ $\gamma_k=\const/k^\alpha$ with $\alpha\in (0,1)$.
 \end{remark}
 
 
-\section{Complexity analysis of variance reduced ULA}
+\section{Practical implementation and complexity analysis for ULA}
 \label{sec:coeff}
-The coefficients \((\bar a_{l,k})\) in \eqref{eq:29032018a5}  need to be estimated before one can apply the proposed variance reduction approach. One way of estimating them can be based on nonparametric regression.
-We present two regression algorithms. While the first algorithm directly estimates  the coefficients \((\bar a_{l,k})\) via regression, the second one starts with estimating the functions
-\begin{eqnarray*}
-\bar{Q}_{l}(x)=\sum_{p=N+1}^{N+n}Q_{p,l}\left(x\right)=\mathsf{E}\left[\left.\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})\right|X_{l}=x\right],\quad l=N+1,\ldots,N+n.
-\end{eqnarray*}
-In both algorithms we first generate \(N_{tr}\)  independent paths
+The coefficients \((\bar a_{l,k})\) defined in \eqref{eq:29032018a5}  need to be estimated before one can apply the proposed variance reduction approach. One way of estimating them can be based on nonparametric regression.
+We present two regression algorithms. While the first algorithm directly estimates  the coefficients \((\bar a_{l,k})\) via regression, the second one starts with estimating the functions $\bar{Q}_{l}$ for $l=N+1,\ldots,N+n$ where
+\begin{equation*}
+\bar{Q}_{l}(x)=\sum_{p=l}^{N+n} \omega_{p,n}^{N} Q_{p,l}\left(x\right)=\mathsf{E}\left[\left.\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})\right|X_{l}=x\right],\quad .
+\end{equation*}
+In both algorithms we first generate \(N_{tr}\)  paths conditionally independent of the burn-in sequence $X_1,\dots,X_N$ (hence, from the $\sigma$-algebra $\mathcal{G}_N$),  
 \[
 \mathcal{D}_{tr}=\Bigl\{(X^{(s)}_{N+1},\ldots,X^{(s)}_{N+n}),\quad s=1,\ldots,N_{tr}\Bigr\}
 \]
 of the chain \(X\)
 (the so-called ``training paths'').
-The first algorithm estimates each coefficient \(\bar a_{l,k}\) via the least-squares approach:
+The first algorithm estimates each coefficient \(\bar a_{l,k}\) for $l=N+1,\dots, N+n$  and $k=1,\dots,K$  via solving the least-squares problem:
 \begin{equation}\label{eq:est_a_direct}
 \widehat a_{l,k}=\argmin_{\psi\in \Psi}\sum_{s=1}^{N_{tr}} \left | \left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})\right)\phi_k\bigl(\xi^{(s)}_{l}\bigr)-\psi(X^{(s)}_{l-1})\right|^2,
 \end{equation}
@@ -567,27 +567,31 @@ Next  we estimate the coefficients \( \bar a_{l,k}\) using
 the formula
 \begin{eqnarray}
 \label{eq:a_est_int}
-\widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \mathcal{D}_{tr}\right]
+\widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \mathcal{D}_{tr}\right] \,.
 \end{eqnarray}
-and some integration method. Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
+The integration \eqref{eq:a_est_int} is done with respect to simple distribution. For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
+
+Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
 \end{eqnarray*}
 Obviously \(\mathsf{E}[\widehat M_{K,n}^N(f)|\mathcal{D}_{tr}]=0\) and \(\widehat M_{K,n}^N(f)\) is indeed a valid control variate in that it
-does not introduce any bias. Note that the integration \eqref{eq:a_est_int} needs to be done with respect to some known and simple distribution of \(\xi\) and this an advantage of the second algorithm.  For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
+does not introduce any bias.
 \subsection{Convergence analysis}
 The following result quantifies the error of estimating the functions \((\bar Q_l)\)
 via the second algorithm and its proof follows from Theorem~2.2 in \cite{audibert2011robust}.
 \begin{thm}\label{berm:theorem:regression_cv}
  Suppose that for any \(l\in \{N+1,\ldots,N+n+1\},\)
-\begin{eqnarray*}
+\eric{I would put $\mathcal{G}_N$ there, no $X_j$}
+\[
 \mathsf{E}\left[\left.\left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})-\bar Q_l(X_l)\right)^4\right | X_l\right]\leq \sigma_l^4,
-\end{eqnarray*}
+\]
 with probability \(1\) for some finite positive numbers \(\sigma_{N+1},\ldots, \sigma_{N+n}. \)
 Furthermore, assume that \(\Psi=\mathrm{span}\{\psi_1,\ldots,\psi_D\},\) where the functions  \(\psi_1,\ldots,\psi_D\) are uniformly bounded and satisfy
-\begin{eqnarray*}
+\eric{I would put $\mathsf{E}[g^2(X_l) | \mathcal{G}_N]$ here}
+\[
 \max_{l}\sup_{g\in \Psi\setminus \{0\}} \|g\|^2_\infty/\mathsf{E}[g^2(X_l)]\leq B<\infty.
-\end{eqnarray*}
+\]
 Then for any values of \(\varepsilon\) and \(N_{tr}\) such that \(2/N_{tr}\leq \varepsilon\leq 1\) and
 \begin{eqnarray*}
 N_{tr}\gtrsim B^2\left[BD+\log(2/\varepsilon)+\frac{B^2D^2}{N_{tr}}\right]
@@ -596,7 +600,7 @@ it holds with probability at least \(1-\varepsilon,\)
 \begin{multline}
 \mathsf{E}\left[ \left.\Bigl|\bar Q_l(X_l)
 -\widehat Q_l(X_l)\Bigr|^2\right | \mathcal{D}_{tr}, \mathcal{G}_N\right]
-\lesssim  \sigma^2_l BF
+\lesssim  \sigma^2_l B
 \left(\frac{BD+\log(2/\varepsilon)}{N_{tr}}+\frac{B^2D^2}{N_{tr}^2}\right)
 \\
  +
@@ -610,18 +614,17 @@ Now we are able to give  a bound for the difference between \( M_{K,n}^N\) and \
 \begin{prop}
 \label{cor:dif_m}
 Under  conditions of Theorem~\ref{berm:theorem:regression_cv}, we have with probability at least \(1-\varepsilon,\)
-\begin{multline}
+\begin{align}
 \label{eq:main_bound}
-\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \mathcal{D}_{tr},\mathcal{G}_N\right]
-\\
-\lesssim K\left[\sum_{l=N+1}^{N+n} \sigma^2_l \right]
+&\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \mathcal{D}_{tr},\mathcal{G}_N\right] \\
+\nonumber 
+&\phantom{\mathsf{E}\widehat{M}_{K,n}^{N}}  \lesssim K\left[\sum_{l=N+1}^{N+n} \sigma^2_l \right]
 B
 \left(\frac{BD+\log(2/\varepsilon)}{N_{tr}}+\frac{B^2D^2}{N_{tr}^2}\right)
-\\
-+
-K \sum_{l=n+1}^{N+n}\inf_{\psi\in \Psi}
+\\ \nonumber
+& \phantom{\mathsf{E}|\widehat{M}_{K,n}^{N}} + K \sum_{l=n+1}^{N+n}\inf_{\psi\in \Psi}
 \mathsf{E}\left[\left.\left|\bar Q_l(X_{l})-\psi(X_{l})\right|^{2}\right | \mathcal{G}_N \right].
-\end{multline}
+\end{align}
 \end{prop}
 \begin{proof}
 Using the conditional Cauchy-Schwarz inequality and  orthonormality of \((\phi_k)_{k\geq 0}\), we derive
@@ -635,7 +638,7 @@ By the Jensen inequality and orthonormality of \((\phi_k)_{k\geq 0},\)
 \leq \sum_{1\leq k\le K}\sum_{l=N+1}^{N+n}\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \mathcal{D}_{tr}, \mathcal{G}_N\right].
 \end{multline*}
 \end{proof}
-\subsection{Complexity analysis of ULA}
+\subsection{Complexity analysis of variance reduction for the ULA algorithm}
 In the case of ULA one can bound the quantities \(\sigma_l^2\) using  Poincar\'e moment inequalities  (see \cite{aida1994moment}) similar to the proof of Lemma~\ref{lem:var_poincare}.
 In particular, we can derive that  under conditions of Theorem~\ref{th:mr} with \(K=0,\)
 \begin{eqnarray*}
@@ -1119,19 +1122,18 @@ and the constant $\ol C_2$ in~\eqref{eq:10062018a1}
 being independent of~$j$.
 \end{remark}
 
-\eric{problem ?}
 \begin{lem}\label{lem:06062018a2}
 Under assumptions of Theorem~\ref{th:mr},
-for all natural $r\le K$ and $l\le p$, we have
+for all natural $r\le K$ and $l\le p$, there exist constants $C_r$ (not depending on $l$ and $p$) such that
 \begin{equation}
 \label{eq:08062018b2}
-\left|\partial_{y_l}^r G_{p,l}(x,y_l,\dots,y_p)\right| \le C_r\prod_{k=l+1}^p \alpha_k
+\left|\partial_{y_l}^r X_p \right| \le C_r\prod_{k=l+1}^p \alpha_k \,,
 \end{equation}
-with some constants $C_r$
-not depending on $l$ and $p$.
-Moreover, we can choose $C_1=1$.
+where $\partial_{y_l}^r X_p$ is defined in \eqref{eq:definition-differential-f-p}. Moreover, we can choose $C_1=1$.
 \end{lem}
-
+\begin{proof}
+The proof is along the same lines as Lemma~\ref{lem:06062018a3}.
+\end{proof}
 \begin{lem}\label{lem:06062018a3}
 Under assumptions of Theorem~\ref{th:mr},
 for all natural $r\le K$, $j\ge l$ and $p>j$, we have
@@ -1214,14 +1216,14 @@ on the right-hand side of~\eqref{eq:08062018a1}
 is listed separately.
 For $p>j$, we then have
 \begin{align}
-\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p}
-&=\left[1-\gamma_{p}\mu'(X_{p-1})\right]\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p-1}-\gamma_{p}\mu''(X_{p-1})\partial_{y_{l}}^{r}X_{p-1}\partial_{y_{j}}X_{p-1}
+&\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p}
+=\left[1-\gamma_{p}\mu'(X_{p-1})\right]\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p-1}-\gamma_{p}\mu''(X_{p-1})\partial_{y_{l}}^{r}X_{p-1}\partial_{y_{j}}X_{p-1}
 \label{eq:09062018a2}\\
 &\hspace{1em}-\gamma_{p}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\mu^{(m_{1}+\ldots+m_{r-1}+1)}(X_{p-1})\partial_{y_{j}}X_{p-1}\prod_{k=1}^{r-1}\left(\frac{\partial_{y_{l}}^{k}X_{p-1}}{k!}\right)^{m_{k}}
 \notag\\
 &\hspace{1em}-\gamma_{p}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\mu^{(m_{1}+\ldots+m_{r-1})}(X_{p-1})\partial_{y_{j}}\left[\prod_{k=1}^{r-1}\left(\frac{\partial_{y_{l}}^{k}X_{p-1}}{k!}\right)^{m_{k}}\right]
 \notag\\
-&=\left[1-\gamma_{p}\mu'(X_{p-1})\right]\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p-1}+\gamma_{p}\epsilon_{l,j,p},
+&\hspace{1em} =\left[1-\gamma_{p}\mu'(X_{p-1})\right]\partial_{y_{j}}\partial_{y_{l}}^{r}X_{p-1}+\gamma_{p}\epsilon_{l,j,p},
 \notag
 \end{align}
 where the last equality defines the quantity $\epsilon_{l,j,p}$.
@@ -1235,13 +1237,12 @@ and the fact that $m_{1}+\ldots+m_{r-1}\ge2$
 for $(r-1)$-tuples of nonnegative integers
 satisfying~\eqref{eq:09062018a1},
 we can bound $|\epsilon_{l,j,p}|$ as follows
-\begin{eqnarray*}
-\left|\epsilon_{l,j,p}\right| & \leq & B_{\mu}C_{r}\prod_{k=l+1}^{p-1}\alpha_{k}\prod_{k=j+1}^{p-1}\alpha_{k}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\left[\prod_{k=j+1}^{p-1}\alpha_{k}\right]\prod_{s=1}^{r-1}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
- &&\hspace{1em}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\sum_{t=1}^{r-1}\frac{m_t}{t!}\left(\frac{C_{t}\prod_{k=l+1}^{p-1}\alpha_{k}}{t!}\right)^{m_{t}-1}
- \\
- && \times c_t\left[\prod_{k=l+1}^{p-1}\alpha_{k}\right]\prod_{s\le r-1,\,s\neq t}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
- & \leq &\const\prod_{k=l+1}^{j}\alpha_{k}\prod_{k=j+1}^{p}\alpha_{k}^{2}
-\end{eqnarray*}
+\begin{align*}
+&\left|\epsilon_{l,j,p}\right|  \leq  B_{\mu}C_{r}\prod_{k=l+1}^{p-1}\alpha_{k}\prod_{k=j+1}^{p-1}\alpha_{k}+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\left[\prod_{k=j+1}^{p-1}\alpha_{k}\right]\prod_{s=1}^{r-1}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
+&+B_{\mu}\sum\frac{r!}{m_{1}!\ldots m_{r-1}!\,}\sum_{t=1}^{r-1}\frac{m_t}{t!}\left(\frac{C_{t}\prod_{k=l+1}^{p-1}\alpha_{k}}{t!}\right)^{m_{t}-1}
+c_t\left[\prod_{k=l+1}^{p-1}\alpha_{k}\right]\prod_{s\le r-1,\,s\neq t}\left(\frac{C_{s}\prod_{k=l+1}^{p-1}\alpha_{k}}{s!}\right)^{m_{s}}\\
+& \leq \const\prod_{k=l+1}^{j}\alpha_{k}\prod_{k=j+1}^{p}\alpha_{k}^{2}
+\end{align*}
 with some constant ``$\const$'',
 which is, in fact, $\frac1{(1-\gamma_1 b_\mu)^2}$ times
 the expression involving
@@ -1320,12 +1321,10 @@ $$
 $$
 Then
 \begin{align*}
-\partial_{y_{j}}\partial_{y_{l}}^{K}f\left(X_{p}\right)
-&=\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K}+1)}(X_{p})\left[\partial_{y_{j}}X_{p}\right]\prod_{k=1}^{K}\left(\frac{\partial_{y_{l}}^{k}X_{p}}{k!}\right)^{m_{k}}
-\\
-&\hspace{1em}+\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K})}(X_{p})
-\\
-&\sum_{s=1}^{K}\frac{m_{s}}{s!}
+&\partial_{y_{j}}\partial_{y_{l}}^{K}f\left(X_{p}\right)
+=\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K}+1)}(X_{p})\left[\partial_{y_{j}}X_{p}\right]\prod_{k=1}^{K}\left(\frac{\partial_{y_{l}}^{k}X_{p}}{k!}\right)^{m_{k}} \\
+&+\sum\frac{K!}{m_{1}!\ldots m_{K}!}f^{(m_{1}+\ldots+m_{K})}(X_{p})
+\sum_{s=1}^{K}\frac{m_{s}}{s!}
 \left(\frac{\partial_{y_{l}}^{s}X_{p}}{s!}\right)^{m_{s}-1}
 \left[\partial_{y_{j}}\partial_{y_{l}}^{s}X_{p}\right]
 \prod_{k\le K,\,k\neq s}\left(\frac{\partial_{y_{l}}^{k}X_{p}}{k!}\right)^{m_{k}}.
@@ -1376,7 +1375,7 @@ where $C$ is the bound from~\eqref{eq:17042018a1}.
 The proof is completed.
 \end{proof}
 
-\section{Proof of Lemma~\ref{a_decay}}
+\subsection{Proof of Lemma~\ref{a_decay}}
 
 We have for any \(\mathbf{k}\neq \mathbf{0}\)
 \begin{eqnarray*}
