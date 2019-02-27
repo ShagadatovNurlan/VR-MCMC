@@ -18,6 +18,8 @@ def H(k, x):
         return 1.0
     if k ==1:
         return x
+    if k==2:
+        return (x**2 - 1)/np.sqrt(2)
     h = hermitenorm(k)(x) /  np.sqrt(math.factorial(k))
     return h
 
@@ -38,28 +40,24 @@ def generate_X_poly(train_traj, r, max_deg):
     X = poly.fit_transform(all_points)
     return X, poly.powers_
 
-def generate_y_meansum(train_traj, r):
+def generate_y_mean(train_traj, r, f_target = "sum"):
     N_train = train_traj.shape[0]
     N = train_traj.shape[1]
     y = np.zeros(N_train * (N-r))
-    y = train_traj[:, r:].sum(axis = 2).reshape(-1)
+    if f_target == "sum":
+        y = train_traj[:, r:].sum(axis = 2).reshape(-1)
+    elif f_target == "sum_squared":
+        y = np.square(train_traj[:, r:]).sum(axis = 2).reshape(-1)
+    elif f_target == "sum_4th":
+        y = (train_traj[:, r:]**4).sum(axis = 2).reshape(-1)
+    elif f_target == "exp_sum":
+        y = np.exp(train_traj[:, r:]).sum(axis =2).reshape(-1)
+    else:
+        raise Exception('unrecognized target function')
     return y
 
-def generate_y_meansum_squared(train_traj, r):
-    N_train = train_traj.shape[0]
-    N = train_traj.shape[1]
-    y = np.zeros(N_train * (N-r))
-    y = (train_traj[:, r:])**2.sum(axis = 2).reshape(-1)
-    return y
 
-def generate_y_meancoord(train_traj, r, i):
-    N_train = train_traj.shape[0]
-    N = train_traj.shape[1]
-    y = np.zeros(N_train * (N-r))
-    y = train_traj[:, r:, i].reshape(-1)
-    return y
-
-def G_pml_fit_meansum(train_traj, max_deg = 1):
+def G_pml_fit_mean(train_traj, f_target="sum", max_deg = 1):
     N_train = train_traj.shape[0]
     N = train_traj.shape[1]
     d = train_traj.shape[2]
@@ -70,43 +68,7 @@ def G_pml_fit_meansum(train_traj, max_deg = 1):
             X, degrees = generate_X_poly(train_traj, r, max_deg)
         else:
             raise Exception('max_deg should be 1 or 2')
-        y = generate_y_meansum(train_traj, r)
-
-        beta = np.linalg.inv(X.T @ X) @ X.T @ y
-        Betas[r] = beta
-    return Betas, degrees
-
-def G_pml_fit_meansum_squared(train_traj, max_deg = 1):
-    N_train = train_traj.shape[0]
-    N = train_traj.shape[1]
-    d = train_traj.shape[2]
-    Betas = np.zeros((N, d+ 1 + (max_deg-1) * int(d*(d+1)/2)))
-    for r in tqdm(range(N)):
-        # Linear Regression
-        if 0 < max_deg < 3:
-            X, degrees = generate_X_poly(train_traj, r, max_deg)
-        else:
-            raise Exception('max_deg should be 1 or 2')
-        y = generate_y_meansum_squared(train_traj, r)
-
-        beta = np.linalg.inv(X.T @ X) @ X.T @ y
-        Betas[r] = beta
-    return Betas, degrees
-
-def G_pml_fit_meancoord(train_traj, max_deg = 1, coord = 0):
-    N_train = train_traj.shape[0]
-    N = train_traj.shape[1]
-    d = train_traj.shape[2]
-    if coord < 0 or coord>=d:
-        raise Exception('wrong coord')  
-    Betas = np.zeros((N, d+ 1 + (max_deg-1) * int(d*(d+1)/2)))
-    for r in tqdm(range(N)):
-        # Linear Regression
-        if 0 < max_deg < 3:
-            X, degrees = generate_X_poly(train_traj, r, max_deg)
-        else:
-            raise Exception('max_deg should be 1 or 2')
-        y = generate_y_meancoord(train_traj, r, coord)
+        y = generate_y_mean(train_traj, r, f_target)
 
         beta = np.linalg.inv(X.T @ X) @ X.T @ y
         Betas[r] = beta
