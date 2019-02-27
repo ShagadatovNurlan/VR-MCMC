@@ -91,7 +91,7 @@
 \address[address3]{Centre de Math\'ematiques Appliqu\'ees, UMR 7641, Ecole Polytechnique, France}
 
 \begin{abstract}
-In this paper we propose a novel efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.  We rigorously analyze the convergence  and  complexity of the proposed algorithm. The numerical performance is illustrated  in the case of Gaussian mixtures and binary regression.
+In this paper we propose an efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.   We rigorously analyze   complexity of the proposed algorithm and prove its reduction. The numerical performance is illustrated  in the case of Gaussian mixtures and binary regression.
 \end{abstract}
 
 \begin{keyword}
@@ -613,7 +613,10 @@ Now we are able to give  a bound for the difference between \( M_{K,n}^N\) and \
 Under  conditions of Theorem~\ref{berm:theorem:regression_cv}, we have with probability at least \(1-\varepsilon,\)
 \begin{multline}
 \label{eq:main_bound}
-\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \mathcal{D}_{tr},\mathcal{G}_N\right]\lesssim  K\left[\sum_{l=N+1}^{N+n} \sigma^2_l \right]B
+\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \mathcal{D}_{tr},\mathcal{G}_N\right]  
+\\
+\lesssim K\left[\sum_{l=N+1}^{N+n} \sigma^2_l \right]
+B
 \left(\frac{BD+\log(2/\varepsilon)}{N_{tr}}+\frac{B^2D^2}{N_{tr}^2}\right)
 \\
 +
