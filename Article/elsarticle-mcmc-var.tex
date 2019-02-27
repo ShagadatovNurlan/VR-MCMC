@@ -513,7 +513,8 @@ x\in\mathbb R^d,
 |\partial^{\mathbf{k}}\mu(x)|&\le & B_\mu,\quad
 x\in\mathbb R^d
 \end{eqnarray*}
-for all \(\mathbf{k}\) with \(0<\|\mathbf{k}\|\leq  K+1\),
+for all \(\mathbf{k}\) with \(1 <\|\mathbf{k}\|\leq  K+1\),\eric{I put \(1 <\|\mathbf{k}\|\leq  K+1\) instead of 
+ \(0 <\|\mathbf{k}\|\leq  K+1\)...check :-)}
 and that first order derivatives $\mu$ is bounded away from zero
 \eric{this one really needed ? Strong convexity is not enough ?}
 \[
@@ -864,9 +865,10 @@ For $l\le p$, we have the representation
 X_{p}=G_{p,l}(X_{l-1},\sqrt{\gamma_{l}}Z_{l},\ldots,\sqrt{\gamma_{p}}Z_{p}),
 \]
 where the function \(G_{p,l}:\) \(\mathbb{R}^{d\times(p-l+2)}\to \mathbb{R}^{d}\) is defined as
-\[
+\begin{equation}
+\label{eq:definition-G-p-l}
 G_{p,l}(x,y_l,\ldots,y_p):=\Phi_{p}(\cdot,y_{p})\circ\Phi_{p-1}(\cdot,y_{p-1})\circ\ldots\circ\Phi_{l}(x,y_{l})
-\]
+\end{equation}
 with
 \[
 \Phi_{j}(x,y)=x-\gamma_{j}\mu(x)+y,
@@ -880,10 +882,11 @@ f\left(X_{p}\right) =f\circ G_{p,l}(X_{l-1},\sqrt{\gamma_{l}}Z_{l},\ldots,\sqrt{
 $$
 In what follows, for $\mathbf{k}\in\mathbb N_0^d$,
 we use the shorthand notation
-\[
+\begin{equation}
+\label{eq:definition-differential-f-p}
 \partial_{y_l}^{\mathbf k} f\left(X_{p}\right)
 :=\partial_{y_l}^{\mathbf k} [f\circ G_{p,l}](X_{l-1},\sqrt{\gamma_{l}}Z_{l},\ldots,\sqrt{\gamma_{p}}Z_{p})
-\]
+\end{equation}
 whenever the function $f\circ G_{p,l}$ is smooth enough
 (that is, $f$ and $\mu$ need to be smooth enough).
 Finally, for a multi-index $\mathbf{k}=(k_i)\in\mathbb N_0^d$, we use the notation
@@ -1089,9 +1092,10 @@ which, together with~\eqref{eq:06062018a3}, completes the proof.
 \end{proof}
 
 In what follows, we use the notation
-$$
+\begin{equation}
+\label{eq:definition-alpha}
 \alpha_k=1-\gamma_k b_\mu,\quad k\in\mathbb N.
-$$
+\end{equation}
 
 \begin{remark}\label{rem:10062018a1}
 Notice that, under~\eqref{eq:17042018a1},
@@ -1115,12 +1119,13 @@ and the constant $\ol C_2$ in~\eqref{eq:10062018a1}
 being independent of~$j$.
 \end{remark}
 
+\eric{problem ?}
 \begin{lem}\label{lem:06062018a2}
 Under assumptions of Theorem~\ref{th:mr},
 for all natural $r\le K$ and $l\le p$, we have
-\begin{equation}\label{eq:08062018b2}
-\left|\partial_{y_l}^r X_p\right|
-\le C_r\prod_{k=l+1}^p \alpha_k
+\begin{equation}
+\label{eq:08062018b2}
+\left|\partial_{y_l}^r G_{p,l}(x,y_l,\dots,y_p)\right| \le C_r\prod_{k=l+1}^p \alpha_k
 \end{equation}
 with some constants $C_r$
 not depending on $l$ and $p$.
