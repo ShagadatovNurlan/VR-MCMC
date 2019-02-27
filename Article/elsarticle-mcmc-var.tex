@@ -8,7 +8,7 @@
 \usepackage{multirow,algorithm2e}%
 \usepackage{xargs}
 
-\newcommandx{\CPE}[3][1=]{{\mathbb E}_{#1}\left[\left. #2 \, \right| #3 \right]}
+\newcommandx{\CPE}[3][1=]{{\mathsf E}_{#1}\left[\left. #2 \, \right| #3 \right]}
 \usepackage[textsize=footnotesize]{todonotes} % pour voir les commentaires
 
 \newcommand{\eric}[1]{\todo[color=purple!10, author=Eric]{#1}}
@@ -708,31 +708,26 @@ is of order  \(\varepsilon^{-2/(1-\alpha)},\) we get the same bound for \(\pi_{K
 \subsection{Polynomial approximation}
 In this section we apply  polynomial regression to approximate functions \(Q_{p,l}(x) \) appearing in \eqref{eq:qpl}.  In this case one can derive explicit formula for the coefficients $ a_{p,l,k}(x)$  in the case of ULA with constant step size. Suppose we constructed a polynomial approximation  for \(Q_{p,l}(x) \)  of the form:
 \begin{eqnarray*}
-\widehat Q_{p,l}(x) = \sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} x^{\mathbf{s}},\quad s=(s_1,\ldots,s_d)
+\widehat Q_{p,l}(x) = \sum_{\|\mathbf{s}\|\leq m} \hat{\beta}_{\mathbf{s}} x^{\mathbf{s}},\quad s=(s_1,\ldots,s_d)
 \end{eqnarray*}
 for some \(\beta_{\mathbf{s}}\in \mathbb{R}.\)
 Then using the identity
-\begin{eqnarray*}
+\[
 \xi^j = j! \sum_{r = 0}^{j/2} \frac{1}{2^r  r! \sqrt{(j-2r)!}} H_{j-2r}(\xi),\quad \xi \in \mathbb{R},
-\end{eqnarray*}
-we derive
-\begin{eqnarray*}
-\widehat a_{p,l,\mathbf{k}} (x) &=&\mathsf{E} \left[ \mathbf{H}_\mathbf{k}(x) Q_{p,l}(x - \gamma \mu(x) + \sqrt{\gamma}\xi)\right] =
-\\
-%&=&  \mathsf{E} \left[\prod_{i=1}^d H_{k_i}(\xi_i) \cdot \left(\sum_{t_1=0, \dots, t_d=0}^{max_k(t_k) \leq m} \beta_{t_1, \dots t_d} \prod_{i=1}^d (x_i - \gamma \mu(x)_i + \sqrt{\gamma} \xi_i)^{t_i} \right) \right] =
-%\\
-&=&\sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} \,\mathsf{E} \left[ \prod_{i=1}^d H_{k_i}(\xi_i) (x_i - \gamma \mu_i(x) + \sqrt{\gamma} \xi_i)^{s_i} \right]
-\\
-&=& \sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} \prod_{i=1}^d E_i
-\end{eqnarray*}
+\]
+we derive for all $x \in \mathbb{R}^d$, 
+\eric{simplify this expression}
+\begin{align*}
+\widehat a_{p,l,\mathbf{k}} (x) =\CPE{\mathbf{H}_\mathbf{k}(x) \hat{Q}_{p,l}(x - \gamma \mu(x) + \sqrt{\gamma}\xi)}{\mathcal{D}_{tr} \vee \mathcal{G}_N} = \sum_{\|\mathbf{s}\|\leq m} \hat{\beta}_{\mathbf{s}} \prod_{i=1}^d E_i
+\end{align*}
 with
-\begin{eqnarray*}
-E_i &=& \mathsf{E} \left[ H_{k_i}(\xi_i) (x_i - \gamma \mu_i(x) + \sqrt{\gamma} \xi_i)^{s_i} \right]
+\begin{align*}
+E_i &= \mathsf{E} \left[ H_{k_i}(\xi_i) (x_i - \gamma \mu_i(x) + \sqrt{\gamma} \xi_i)^{s_i} \right]
 \\
 %& = &  \int_{\mathbb{R}} H_{k_i}(\xi_i) (x_i - \gamma \mu(x)_i + \sqrt{\gamma} \xi_i)^{t_i} \varphi(\xi_i) d \xi_i =
 %\\
-& = & \sum_{j=0}^{s_i} \sum_{r= 0}^{ j/2} j! \frac{1}{2^r} \frac{1}{r! \sqrt{(t-2r)!}} \binom{s_i}{j} \left[ x_i - \gamma \mu_i(x) \right]^{s_i-j} \gamma^{j/2} \int_{\mathbb{R}} H_{k_i}(y) H_{j - 2r}(y) \varphi(y)\, d y
-\end{eqnarray*}
+& =  \sum_{j=0}^{s_i} \sum_{r= 0}^{ j/2} j! \frac{1}{2^r} \frac{1}{r! \sqrt{(t-2r)!}} \binom{s_i}{j} \left[ x_i - \gamma \mu_i(x) \right]^{s_i-j} \gamma^{j/2} \int_{\mathbb{R}} H_{k_i}(y) H_{j - 2r}(y) \varphi(y)\, d y
+\end{align*}
 and
 \begin{eqnarray*}
 \int_{\mathbb{R}} H_{k_i}(y) H_{j - 2r}(y) \varphi(y)\, d y = \delta_{k_i, j-2r}.
