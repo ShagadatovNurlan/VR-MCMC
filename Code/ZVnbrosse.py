@@ -1,9 +1,18 @@
 import numpy as np
 
-def ZVpolyOne(traj, traj_grad):
+def ZVpolyOne(traj, traj_grad, f_target= "sum"):
     n, d = traj.shape
-    samples = traj.sum(axis = 1).reshape(-1,1)
-#     samples = np.concatenate((traj, np.square(traj)), axis=1)
+    if f_target == "sum":
+        samples = traj.sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_squared":
+        samples = np.square(traj).sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_4th":
+        samples = ((traj)**4).sum(axis = 1).reshape(-1,1)
+    elif f_target == "exp_sum":
+        samples = np.exp(traj).sum(axis = 1).reshape(-1,1)
+    else:
+        raise Exception('unrecognized target function')
+
     cov1 = np.cov(traj_grad, rowvar=False)
     A = np.linalg.inv(cov1)
     covariance = np.cov(np.concatenate((-traj_grad, samples), axis=1), rowvar=False)
@@ -12,10 +21,18 @@ def ZVpolyOne(traj, traj_grad):
     mean_ZV1 = np.mean(ZV1, axis = 0)
     return mean_ZV1
 
-def ZVpolyTwo(traj, traj_grad):
+def ZVpolyTwo(traj, traj_grad, f_target):
     n, d = traj.shape
-    samples = traj.sum(axis = 1).reshape(-1,1)
-#     samples = np.concatenate((traj, np.square(traj)), axis=1)
+    if f_target == "sum":
+        samples = traj.sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_squared":
+        samples = np.square(traj).sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_4th":
+        samples = ((traj)**4).sum(axis = 1).reshape(-1,1)
+    elif f_target == "exp_sum":
+        samples = np.exp(traj).sum(axis = 1).reshape(-1,1)
+    else:
+        raise Exception('unrecognized target function')
     Lpoisson = np.zeros((n,int(d*(d+3)/2)))
     Lpoisson[:,np.arange(d)] = - traj_grad
     Lpoisson[:,np.arange(d, 2*d)] = 2*(1. - np.multiply(traj, traj_grad))
@@ -35,20 +52,36 @@ def ZVpolyTwo(traj, traj_grad):
     mean_ZV2 = np.mean(ZV2, axis = 0)
     return mean_ZV2
 
-def CVpolyOne(traj,traj_grad):
+def CVpolyOne(traj,traj_grad, f_target):
     n, d = traj.shape
-#     samples = np.concatenate((traj, np.square(traj)), axis=1)
-    samples = traj.sum(axis = 1).reshape(-1,1)
+    if f_target == "sum":
+        samples = traj.sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_squared":
+        samples = np.square(traj).sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_4th":
+        samples = ((traj)**4).sum(axis = 1).reshape(-1,1)
+    elif f_target == "exp_sum":
+        samples = np.exp(traj).sum(axis = 1).reshape(-1,1)
+    else:
+        raise Exception('unrecognized target function')
     covariance = np.cov(np.concatenate((traj, samples), axis=1), rowvar=False)
     paramCV1 = covariance[:d, d:]
     CV1 = samples - np.dot(traj_grad, paramCV1)
     mean_CV1 = np.mean(CV1, axis = 0)
     return mean_CV1
 
-def CVpolyTwo(traj, traj_grad):
+def CVpolyTwo(traj, traj_grad, f_target):
     n, d = traj.shape
-    samples = traj.sum(axis = 1).reshape(-1,1)
-#     samples = np.concatenate((traj, np.square(traj)), axis=1)
+    if f_target == "sum":
+        samples = traj.sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_squared":
+        samples = np.square(traj).sum(axis = 1).reshape(-1,1)
+    elif f_target == "sum_4th":
+        samples = ((traj)**4).sum(axis = 1).reshape(-1,1)
+    elif f_target == "exp_sum":
+        samples = np.exp(traj).sum(axis = 1).reshape(-1,1)
+    else:
+        raise Exception('unrecognized target function')
     poisson = np.zeros((n,int(d*(d+3)/2)))
     poisson[:,np.arange(d)] = traj
     poisson[:,np.arange(d, 2*d)] = np.multiply(traj, traj)
