@@ -1,0 +1,89 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{christian1999monte}
+P.~R. Christian, G.~Casella, Monte carlo statistical methods (1999).
+
+\bibitem{rubinstein2016simulation}
+R.~Y. Rubinstein, D.~P. Kroese, Simulation and the Monte Carlo method, Vol.~10,
+  John Wiley \& Sons, 2016.
+
+\bibitem{glasserman2013monte}
+P.~Glasserman, Monte Carlo methods in financial engineering, Vol.~53, Springer
+  Science \& Business Media, 2013.
+
+\bibitem{dellaportas2012control}
+P.~Dellaportas, I.~Kontoyiannis, Control variates for estimation based on
+  reversible markov chain monte carlo samplers, Journal of the Royal
+  Statistical Society: Series B (Statistical Methodology) 74~(1) (2012)
+  133--161.
+
+\bibitem{mira2013zero}
+A.~Mira, R.~Solgi, D.~Imparato, Zero variance markov chain {M}onte {C}arlo for
+  bayesian estimators, Statistics and Computing 23~(5) (2013) 653--662.
+
+\bibitem{brosse2018diffusion}
+N.~Brosse, A.~Durmus, S.~Meyn, E.~Moulines, Diffusion approximations and
+  control variates for mcmc, arXiv preprint arXiv:1808.01665.
+
+\bibitem{dimov2008monte}
+I.~T. Dimov, Monte Carlo methods for applied scientists, World Scientific,
+  2008.
+
+\bibitem{oates2017control}
+C.~J. Oates, M.~Girolami, N.~Chopin, Control functionals for monte carlo
+  integration, Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology) 79~(3) (2017) 695--718.
+
+\bibitem{belomestny2018stratified}
+D.~Belomestny, S.~H{\"a}fner, M.~Urusov, Variance reduction for discretised
+  diffusions via regression, Journal of Mathematical Analysis and Applications
+  458 (2018) 393--418.
+
+\bibitem{henderson1997variance}
+S.~G. Henderson, Variance reduction via an approximating markov process, Ph.D.
+  thesis, Stanford University (1997).
+
+\bibitem{duncan2016variance}
+A.~B. Duncan, T.~Lelievre, G.~Pavliotis, Variance reduction using nonreversible
+  {L}angevin samplers, Journal of statistical physics 163~(3) (2016) 457--491.
+
+\bibitem{dalalyan2017theoretical}
+A.~S. Dalalyan, Theoretical guarantees for approximate sampling from smooth and
+  log-concave densities, Journal of the Royal Statistical Society: Series B
+  (Statistical Methodology) 79~(3) (2017) 651--676.
+
+\bibitem{durmus:moulines:2017}
+A.~Durmus, E.~Moulines, \href{https://doi.org/10.1214/16-AAP1238}{Nonasymptotic
+  convergence analysis for the unadjusted {L}angevin algorithm}, Ann. Appl.
+  Probab. 27~(3) (2017) 1551--1587.
+\newblock \href {http://dx.doi.org/10.1214/16-AAP1238}
+  {\path{doi:10.1214/16-AAP1238}}.
+\newline\urlprefix\url{https://doi.org/10.1214/16-AAP1238}
+
+\bibitem{moulines2018}
+R.~Douc, E.~Moulines, P.~Priouret, P.~Soulier, Markov Chains, Springer New
+  York, 2018.
+
+\bibitem{metropolis1953equation}
+N.~Metropolis, A.~W. Rosenbluth, M.~N. Rosenbluth, A.~H. Teller, E.~Teller,
+  Equation of state calculations by fast computing machines, The journal of
+  chemical physics 21~(6) (1953) 1087--1092.
+
+\bibitem{mengersen:tweedie:1996}
+K.~Mengersen, R.~L. Tweedie, Rates of convergence of the {H}astings and
+  {M}etropolis algorithms, Ann. Statist. 24 (1996) 101--121.
+
+\bibitem{audibert2011robust}
+J.-Y. Audibert, O.~Catoni, et~al., Robust linear least squares regression, The
+  Annals of Statistics 39~(5) (2011) 2766--2794.
+
+\bibitem{aida1994moment}
+S.~Aida, D.~Stroock, Moment estimates derived from poincar{\'e} and logarithmic
+  sobolev inequalities, Mathematical Research Letters 1~(1) (1994) 75--86.
+
+\end{thebibliography}
