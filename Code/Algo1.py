@@ -51,7 +51,7 @@ def generate_y_mean(train_traj, r, f_target = "sum"):
     elif f_target == "sum_4th":
         y = (train_traj[:, r:]**4).sum(axis = 2).reshape(-1)
     elif f_target == "exp_sum":
-        y = np.exp(train_traj[:, r:]).sum(axis =2).reshape(-1)
+        y = np.exp(train_traj[:, r:].sum(axis =2)).reshape(-1)
     else:
         raise Exception('unrecognized target function')
     return y
