@@ -658,18 +658,18 @@ B
 \begin{proof}
 Using the conditional Cauchy-Schwarz inequality and  orthonormality of \((\phi_k)_{k\geq 0}\), we derive
 \begin{eqnarray*}
-\CPE{\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}}{TrainAlg}
+\CPE{\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}}{\TrainAlg}
 \leq
 \CPE{\left|\EstFuncSmp{l}{n} \left(X_{l}\right)-\bar Q_{l}\left(X_{l}\right)\right|^{2}}{\TrainAlg}
 \end{eqnarray*}
 By the Jensen inequality and orthonormality of \((\phi_k)_{k\geq 0},\)
 \begin{multline*}
-\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \TrainSet, \mathcal{G}_N\right]
+\CPE{\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}}{\TrainAlg}
 \\
-\leq \sum_{1\leq k\le K}\sum_{l=N+1}^{N+n}\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \TrainSet, \mathcal{G}_N\right].
+\leq \sum_{1\leq k\le K}\sum_{l=N+1}^{N+n}
+\CPE{\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}}{\TrainAlg} \,.
 \end{multline*}
 \end{proof}
-\subsection{Complexity analysis of variance reduction for the ULA algorithm}
 In the case of ULA one can bound the quantities \(\sigma_l^2\) using  Poincar\'e moment inequalities  (see \cite{aida1994moment}) similar to the proof of Lemma~\ref{lem:var_poincare}.
 In particular, we can derive that  under conditions of Theorem~\ref{th:mr} with \(K=0,\)
 \begin{eqnarray*}
