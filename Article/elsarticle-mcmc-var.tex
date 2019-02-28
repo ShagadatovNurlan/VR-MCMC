@@ -23,6 +23,8 @@
 \def\TrainSet{\mathcal{T}}
 \newcommandx{\EstFunc}[3][1=N]{\bar{Q}^{#1}_{#2,#3}}
 \newcommandx{\EstFuncSmp}[3][1=N]{\widehat{Q}^{#1}_{#2,#3}}
+\def\bX{\mathbf{X}}
+\def\bY{\mathbf{Y}}
 \modulolinenumbers[5]
 
 \journal{Journal of \LaTeX\ Templates}
@@ -816,20 +818,21 @@ In order to illustrate the dependence of variances of the proposed variance redu
 \end{figure}
 
 \subsection{Binary Logistic regression}
-Second experiment considers the problem of logistic regression, similar to that considered by Dalalyan \cite{dalalyan2017theoretical}. Suppose we have i.i.d. sample $\left\{ (\mathbf{X}_i, Y_i)\right\}$ for $ i =1, \dots , m$ with features $\mathbf{X}_i \in \mathbb{R}^p $ and binary labels $Y_i \in \left\{0,1 \right\}$. The binary logistic regression model defines the conditional distribution of $Y$ given $X$ by a logistic function
+Second experiment considers the problem of logistic regression, similar to that considered by Dalalyan \cite{dalalyan2017theoretical}. Suppose we have i.i.d. sample $\left\{ (\bX_i, Y_i)\right\}_{i=1}^m$ with features $\bX_i \in \mathbb{R}^p $ and binary labels $Y_i \in \left\{0,1 \right\}$. The binary logistic regression model defines the conditional distribution of $Y$ given $\bX$ as Bernoulli random variable with
+success probability specified by the logistic function
+\begin{equation}
+r(\theta, \bX) = \frac{\rme^{\theta^T \bX}}{1 + \rme^{\theta^T \bX}}
+\end{equation}
+where $\theta$ is parameter of model. We use a Bayesian setting and denote by $\pi_0(\theta)$ the prior distribution. We are willing to sample the posterior density $\pi_m(\theta)$ of the parameter $\theta$ given the observations  $\left\{ (\bX_i, Y_i)\right\}_{i=1}^m$. Taking a Gaussian prior $\pi_0$ with zero mean and covariance matrix proportional to the inverse of the Gram matrix $\Sigma_{\bX} = \frac{1}{n} \sum_{i=1}^m \bX_i \bX_i^T$ \eric{I think this is called a Zellner prior} the posterior density takes the form
 \begin{eqnarray*}
-r(\theta, x) = \frac{\rme^{\theta^T x}}{1 + \rme^{\theta^T x}}
+\pi(\theta) \propto \exp \left\{ -  \bY^T \mathbf{X \theta} - \sum_{i=1}^m \text{log} (1 + \rme^{-\mathbf{\theta}^T \bX_i}) - \frac{\lambda}{2} \left\| \Sigma_{\bX}^{1/2} \mathbf{\theta}\right\|_2^2 \right\}
 \end{eqnarray*}
-where $\theta$ is parameter of model. In order to estimate $\theta$ according to given data, the Bayessian approach introduces prior distribution $\pi_0(\theta)$ and inferences the posterior density $\pi(\theta)$ using Bayes' rule. In case of Gaussian prior $\pi_0$ with zero mean and covariance matrix proportional to the inverse of the Gram matrix $\mathbf{\Sigma_X} = \frac{1}{n} \sum_{i=1}^m \mathbf{X}_i \mathbf{X}_i^T$, the posterior density takes the form
+where $\bY=(Y_1, \dots, Y_m)^T \in \left\{ 0,1\right\}$ and $\lambda > 0$ additional parameter specified by practitioner. Denote
 \begin{eqnarray*}
-\pi(\theta) \propto \exp \left\{ -  \mathbf{Y}^T \mathbf{X \theta} - \sum_{i=1}^m \text{log} (1 + \rme^{-\mathbf{\theta}^T \mathbf{X}_i}) - \frac{\lambda}{2} \left\| \mathbf{\Sigma_X}^{1/2} \mathbf{\theta}\right\|_2^2 \right\}
-\end{eqnarray*}
-where $\mathbf{Y}$ defined as $(Y_1, \dots, Y_m)^T \in \left\{ 0,1\right\}$ and $\lambda > 0$ additional parameter specified by practitioner. Denote
-\begin{eqnarray*}
-U( \mathbf{\theta}) = \mathbf{Y}^T \mathbf{X \theta} + \sum_{i=1}^m \text{log} (1 + \rme^{-\mathbf{\theta}^T \mathbf{X}_i}) + \frac{\lambda}{2} \left\| \mathbf{\Sigma_X}^{1/2} \mathbf{\theta}\right\|_2^2
+U( \mathbf{\theta}) = \bY^T \mathbf{X \theta} + \sum_{i=1}^m \text{log} (1 + \rme^{-\mathbf{\theta}^T \bX_i}) + \frac{\lambda}{2} \left\| \Sigma_{\bX}^{1/2} \mathbf{\theta}\right\|_2^2
 \end{eqnarray*}
 \begin{eqnarray*}
-\nabla U(\mathbf{\theta}) = \mathbf{X}^T \mathbf{Y} - \sum_{i=1}^m \frac{\mathbf{X}_i}{1 + \rme^{\mathbf{\theta}^T \mathbf{X}_i}} + \lambda \mathbf{\Sigma_X \theta}
+\nabla U(\mathbf{\theta}) = \bX^T \bY - \sum_{i=1}^m \frac{\bX_i}{1 + \rme^{\mathbf{\theta}^T \bX_i}} + \lambda \Sigma_{\bX} \theta \, .
 \end{eqnarray*}
 
 \begin{table}[h]
@@ -844,7 +847,8 @@ $\operatorname{Var}(\pi_{2,n}^N)$& 0.00182 &  0.00117 &  0.00213  & 0.00100  & 0
 \label{table:blr}
 \end{table}
 
-In our second experiment, we randomly generated $m$ independent samples as in paper \cite{dalalyan2017theoretical}, more precisely features $\mathbf{X}_i$ were generated from a Rademacher distribution and then normalized to have an norm equal to one. Each target variable $Y_i$ has been obtained from a Bernoulli distribution with parameter $r (\mathbf{\theta}_{\text{true}},\mathbf{x})$, where $\mathbf{\theta}_{\text{true}}$ is defined as $(1, \dots, 1)^T$. We fix $d = 2$ and generated $m = 50$ samples according Rademacher distribution. To construct trajectories of length $n = 500 $ we determined constant step size $\gamma_i = 0.02$ for ULA scheme. As in previous experiment we use polynomials approximations to explicitly compute $a_{p,l,k}$ and fixed $\NtrainPath = 300$, $N_{test} = 200$ and $K=2$. The target function defined as
+In our second experiment, we randomly generated $m$ independent samples as in paper \cite{dalalyan2017theoretical}, more precisely features $\bX_i$ were generated from a Rademacher distribution and then normalized to have an norm equal to one. Each target variable $Y_i$ has been obtained from a Bernoulli distribution with parameter $r (\mathbf{\theta}_{\text{true}},\mathbf{x})$, where $\mathbf{\theta}_{\text{true}}$ is defined as $(1, \dots, 1)^T$. We fix $d = 2$ and generated $m = 50$ samples according Rademacher distribution. To construct trajectories of length $n = 500 $ we determined constant step size $\gamma_i = 0.02$ for ULA scheme. As in previous experiment we use polynomials approximations to explicitly compute $a_{p,l,k}$ and fixed $\NtrainPath = 300$, $N_{test} = 200$ and $K=2$. The target function defined as
+\eric{$\lambda$ is not specified}
 \begin{eqnarray*}
 f(\mathbf{\theta}) = 2 \theta_1^2 + 7 \theta_2^2
 \end{eqnarray*}
