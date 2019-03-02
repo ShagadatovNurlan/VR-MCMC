@@ -6,7 +6,7 @@
   \def\href#1#2{#2} \def\path#1{#1}\fi
 
 \bibitem{christian1999monte}
-P.~R. Christian, G.~Casella, Monte carlo statistical methods (1999).
+C.~Robert, G.~Casella, {M}onte {C}arlo statistical methods (1999).
 
 \bibitem{rubinstein2016simulation}
 R.~Y. Rubinstein, D.~P. Kroese, Simulation and the Monte Carlo method, Vol.~10,

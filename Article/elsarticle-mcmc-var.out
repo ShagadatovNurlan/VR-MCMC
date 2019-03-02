@@ -5,11 +5,10 @@
 \BOOKMARK [2][-]{subsection.4.1}{Squared conditional bias}{section.4}% 5
 \BOOKMARK [2][-]{subsection.4.2}{Conditional variance}{section.4}% 6
 \BOOKMARK [1][-]{section.5}{Complexity analysis for ULA}{}% 7
-\BOOKMARK [2][-]{subsection.5.1}{Complexity analysis of variance reduction for the ULA algorithm}{section.5}% 8
-\BOOKMARK [1][-]{section.6}{Numerical results}{}% 9
-\BOOKMARK [2][-]{subsection.6.1}{Polynomial approximation}{section.6}% 10
-\BOOKMARK [2][-]{subsection.6.2}{Gaussian mixtures}{section.6}% 11
-\BOOKMARK [2][-]{subsection.6.3}{Binary Logistic regression}{section.6}% 12
-\BOOKMARK [1][-]{section.7}{Proofs}{}% 13
-\BOOKMARK [2][-]{subsection.7.1}{Proof of Theorem 3}{section.7}% 14
-\BOOKMARK [2][-]{subsection.7.2}{Proof of Lemma 6}{section.7}% 15
+\BOOKMARK [1][-]{section.6}{Numerical results}{}% 8
+\BOOKMARK [2][-]{subsection.6.1}{Polynomial approximation}{section.6}% 9
+\BOOKMARK [2][-]{subsection.6.2}{Gaussian mixtures}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.3}{Binary Logistic regression}{section.6}% 11
+\BOOKMARK [1][-]{section.7}{Proofs}{}% 12
+\BOOKMARK [2][-]{subsection.7.1}{Proof of Theorem 3}{section.7}% 13
+\BOOKMARK [2][-]{subsection.7.2}{Proof of Lemma 6}{section.7}% 14
