@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Setup}{}% 2
+\BOOKMARK [1][-]{section.3}{Martingale representation and variance reduction}{}% 3
+\BOOKMARK [1][-]{section.4}{Analysis of variance reduced ULA}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Squared conditional bias}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Conditional variance}{section.4}% 6
+\BOOKMARK [1][-]{section.5}{Complexity analysis for ULA}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{Complexity analysis of variance reduction for the ULA algorithm}{section.5}% 8
+\BOOKMARK [1][-]{section.6}{Numerical results}{}% 9
+\BOOKMARK [1][-]{section.7}{Proofs}{}% 10
+\BOOKMARK [2][-]{subsection.7.1}{Proof of Theorem 3}{section.7}% 11
+\BOOKMARK [2][-]{subsection.7.2}{Proof of Lemma 6}{section.7}% 12
+\BOOKMARK [1][-]{section*.2}{References}{}% 13
+\BOOKMARK [1][-]{section*.3}{Author's addresses}{}% 14

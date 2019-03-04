@@ -1,0 +1,111 @@
+\begin{thebibliography}{10}
+
+\bibitem{Adamczak}
+Rados\l~aw Adamczak, Witold Bednorz, and Pawe\l Wolff.
+\newblock Moment estimates implied by modified log-{S}obolev inequalities.
+\newblock {\em ESAIM Probab. Stat.}, 21:467--494, 2017.
+
+\bibitem{audibert2011robust}
+Jean-Yves Audibert, Olivier Catoni, et~al.
+\newblock Robust linear least squares regression.
+\newblock {\em The Annals of Statistics}, 39(5):2766--2794, 2011.
+
+\bibitem{belomestny2018stratified}
+Denis Belomestny, Stefan H{\"a}fner, and Mikhail Urusov.
+\newblock Variance reduction for discretised diffusions via regression.
+\newblock {\em Journal of Mathematical Analysis and Applications},
+  458:393--418, 2018.
+
+\bibitem{GobetCV}
+Tarik Ben~Zineb and Emmanuel Gobet.
+\newblock Preliminary control variates to improve empirical regression methods.
+\newblock {\em Monte Carlo Methods Appl.}, 19(4):331--354, 2013.
+
+\bibitem{brosse2018diffusion}
+Nicolas Brosse, Alain Durmus, Sean Meyn, and Eric Moulines.
+\newblock Diffusion approximations and control variates for mcmc.
+\newblock {\em arXiv preprint arXiv:1808.01665}, 2018.
+
+\bibitem{christian1999monte}
+P~Robert Christian and George Casella.
+\newblock Monte carlo statistical methods, 1999.
+
+\bibitem{dalalyan2017theoretical}
+Arnak~S Dalalyan.
+\newblock Theoretical guarantees for approximate sampling from smooth and
+  log-concave densities.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 79(3):651--676, 2017.
+
+\bibitem{dellaportas2012control}
+Petros Dellaportas and Ioannis Kontoyiannis.
+\newblock Control variates for estimation based on reversible markov chain
+  monte carlo samplers.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 74(1):133--161, 2012.
+
+\bibitem{dimov2008monte}
+Ivan~T Dimov.
+\newblock {\em Monte Carlo methods for applied scientists}.
+\newblock World Scientific, 2008.
+
+\bibitem{moulines2018}
+R~Douc, E~Moulines, P~Priouret, and P~Soulier.
+\newblock {\em Markov Chains}.
+\newblock Springer New York, 2018.
+
+\bibitem{duncan2016variance}
+Andrew~B Duncan, Tony Lelievre, and GA~Pavliotis.
+\newblock Variance reduction using nonreversible {L}angevin samplers.
+\newblock {\em Journal of statistical physics}, 163(3):457--491, 2016.
+
+\bibitem{durmus:moulines:2017}
+A.~Durmus and \'{E}. Moulines.
+\newblock Nonasymptotic convergence analysis for the unadjusted {L}angevin
+  algorithm.
+\newblock {\em Ann. Appl. Probab.}, 27(3):1551--1587, 2017.
+
+\bibitem{glasserman2013monte}
+Paul Glasserman.
+\newblock {\em Monte Carlo methods in financial engineering}, volume~53.
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem{GobetBook}
+Emmanuel Gobet.
+\newblock {\em Monte-{C}arlo methods and stochastic processes}.
+\newblock CRC Press, Boca Raton, FL, 2016.
+\newblock From linear to non-linear.
+
+\bibitem{henderson1997variance}
+Shane~G Henderson.
+\newblock {\em Variance reduction via an approximating Markov process}.
+\newblock PhD thesis, Stanford University, 1997.
+
+\bibitem{mengersen:tweedie:1996}
+K.~Mengersen and R.~L. Tweedie.
+\newblock Rates of convergence of the {H}astings and {M}etropolis algorithms.
+\newblock {\em Ann. Statist.}, 24:101--121, 1996.
+
+\bibitem{metropolis1953equation}
+Nicholas Metropolis, Arianna~W Rosenbluth, Marshall~N Rosenbluth, Augusta~H
+  Teller, and Edward Teller.
+\newblock Equation of state calculations by fast computing machines.
+\newblock {\em The journal of chemical physics}, 21(6):1087--1092, 1953.
+
+\bibitem{mira2013zero}
+Antonietta Mira, Reza Solgi, and Daniele Imparato.
+\newblock Zero variance markov chain {M}onte {C}arlo for bayesian estimators.
+\newblock {\em Statistics and Computing}, 23(5):653--662, 2013.
+
+\bibitem{oates2017control}
+Chris~J Oates, Mark Girolami, and Nicolas Chopin.
+\newblock Control functionals for monte carlo integration.
+\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 79(3):695--718, 2017.
+
+\bibitem{rubinstein2016simulation}
+Reuven~Y Rubinstein and Dirk~P Kroese.
+\newblock {\em Simulation and the Monte Carlo method}, volume~10.
+\newblock John Wiley \& Sons, 2016.
+
+\end{thebibliography}
