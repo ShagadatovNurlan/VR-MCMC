@@ -22,7 +22,7 @@ def ULA_with_burnin(d, step, burn_in, n, f_grad):
     traj_grad[0] = f_grad(traj[0])
 
     for i in range(1,burn_in + n):
-        traj[i] = traj[i-1] - step*traj_grad[i-1] + np.sqrt(2*step) * traj_noise[i]
+        traj[i] = traj[i-1] - step/2*traj_grad[i-1] + np.sqrt(step) * traj_noise[i]
         traj_grad[i] = f_grad(traj[i])
     return traj[burn_in:], traj_grad[burn_in:], traj_noise[burn_in:]
 
@@ -46,7 +46,7 @@ def ULA_from_initial(d, step, x_initial, n, f_grad):
 	traj_grad[0] = f_grad(traj[0])
 
 	for i in range(1, n):
-		traj[i] = traj[i-1] - step*traj_grad[i-1] + np.sqrt(2*step) * traj_noise[i]
+		traj[i] = traj[i-1] - step/2*traj_grad[i-1] + np.sqrt(step) * traj_noise[i]
 		traj_grad[i] = f_grad(traj[i])
 	return traj, traj_grad, traj_noise
 

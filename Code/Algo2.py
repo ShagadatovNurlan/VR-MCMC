@@ -39,13 +39,13 @@ def generate_y_sum(train_traj, l, f_target, n_tilde):
     y = np.zeros(N_train)
     for s in range(N_train):
         if f_target == "sum":
-            y[s] = train_traj[s][l:l+n_tilde].sum()
+            y[s] = train_traj[s][l:].sum() / N
         elif f_target == "sum_squared":
-            y[s] = np.square(train_traj[s][l:l+n_tilde]).sum()
+            y[s] = np.square(train_traj[s][l:]).sum() / N
         elif f_target == "sum_4th":
-            y[s] = (train_traj[s][l:l+n_tilde]**4).sum()
+            y[s] = (train_traj[s][l:]**4).sum() / N
         elif f_target == "exp_sum":
-            y[s] = np.exp(train_traj[s, l:l+n_tilde].sum(axis = 1)).sum()
+            y[s] = np.exp(train_traj[s, l:].sum(axis = 1)).sum() / N
         else:
             raise Exception('unrecognized target function')
 
@@ -71,7 +71,7 @@ def Q_l_fit(train_traj, f_target="sum", max_deg = 1, n_tilde = 100):
 def a_lk(traj, traj_grad, l, k_vec, step, degrees, Betas):
     dim = traj.shape[1]
     S = 0
-    x_hat = traj[l-1] - step*traj_grad[l-1]
+    x_hat = traj[l-1] - step/2 *traj_grad[l-1] 
     Small_s = np.zeros(dim)
     for ind,deg in enumerate(degrees):
         Small_s[:] = 0
@@ -79,7 +79,7 @@ def a_lk(traj, traj_grad, l, k_vec, step, degrees, Betas):
             for t in range (i+1):
                 for s in range (int(t/2 +1)):
                     if (k_vec[d] == t - 2*s):
-                        Small_s[d] = Small_s[d] + comb(N=i, k = t, exact = True) * x_hat[0]**(i-t) * math.factorial(t)*1/math.factorial(s)*1 / np.sqrt(math.factorial(t-2*s)) *np.sqrt(2*step)**t /2**s
+                        Small_s[d] = Small_s[d] + comb(N=i, k = t, exact = True) * x_hat[0]**(i-t) * math.factorial(t)*1/math.factorial(s)*1 / np.sqrt(math.factorial(t-2*s)) *np.sqrt(step)**t /2**s
                     else:
                         pass
         S = S + Betas[l,ind] * Small_s.prod()
@@ -91,7 +91,7 @@ def M_bias(k_vec, traj, traj_grad, traj_noise, step, degrees, Betas):
     for l in range (N):
         s = a_lk(traj,traj_grad,l, k_vec, step, degrees, Betas)* Hermite_val(k_vec,traj_noise[l])
         S = S + s
-    return S/N
+    return S
 
 def estimator_bias(k_vec, test_traj, test_traj_grad, test_traj_noise, step, degrees, Betas, n_jobs = -1):
     N_test = test_traj.shape[0]
