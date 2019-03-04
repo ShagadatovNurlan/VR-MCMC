@@ -382,8 +382,8 @@ the formula
 \end{equation}
 where $\Phi_l$ is defined in \eqref{eq:chain_gen}. Note that the integration \eqref{eq:a_est_int} is done with respect to the known distribution of the sequence $\{\xi_k\}_{k=1}^\infty$ and can in many cases be done in closed analytical form.
 
-\erici{insert but later: For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
-}
+ For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
+
 Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
@@ -590,9 +590,7 @@ the formula
 \widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,.
 \end{eqnarray}
 The integration \eqref{eq:a_est_int} is done with respect to simple distribution.
-
-\erici{insert but later: For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
-}
+\par
 Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
@@ -604,13 +602,11 @@ The following result quantifies the error of estimating the functions \((\bar Q_
 via the second algorithm and its proof follows from Theorem~2.2 in \cite{audibert2011robust}.
 \begin{thm}\label{berm:theorem:regression_cv}
  Suppose that for any \(l\in \{N+1,\ldots,N+n+1\},\)
-\eric{I would put $\mathcal{G}_N$ there, no $X_j$}
 \[
 \mathsf{E}\left[\left.\left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})-\bar Q_l(X_l)\right)^4\right | X_{l-1}\right]\leq \sigma_l^4,
 \]
 with probability \(1\) for some finite positive numbers \(\sigma_{N+1},\ldots, \sigma_{N+n}. \)
 Furthermore, assume that \(\Psi=\mathrm{span}\{\psi_1,\ldots,\psi_D\},\) where the functions  \(\psi_1,\ldots,\psi_D\) are uniformly bounded and satisfy
-\eric{I would put $\mathsf{E}[g^2(X_l) | \mathcal{G}_N]$ here}
 \[
 \max_{l}\sup_{g\in \Psi\setminus \{0\}} \|g\|^2_\infty/\mathsf{E}[g^2(X_l) | \mathcal{G}_N]\leq B<\infty.
 \]
@@ -724,7 +720,8 @@ is of order  \(\varepsilon^{-2/(1-\alpha)},\) we get the same bound for \(\pi_{K
 \[
 \varepsilon^{-1/(1-\alpha)}\log^{1/(1-\alpha)} (\varepsilon).
 \]
-
+\section{Numerical results}
+\label{sec:num}
 \section{Proofs}
 \label{sec:proofs}
 \subsection{Proof of Theorem~\ref{th:mr}}
