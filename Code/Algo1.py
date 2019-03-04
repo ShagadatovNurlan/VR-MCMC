@@ -83,7 +83,7 @@ def G_pml_predict(x, pml, Betas, max_deg = 1):
 def a_plk(traj, traj_grad, p, l, k_vec, step, degrees, Betas):
     dim = traj.shape[1]
     S = 0
-    x_hat = traj[l-1] - step*traj_grad[l-1]
+    x_hat = traj[l-1] - step*traj_grad[l-1]/2
     Small_s = np.zeros(dim)
     for ind,deg in enumerate(degrees):
         Small_s[:] = 0
@@ -91,7 +91,7 @@ def a_plk(traj, traj_grad, p, l, k_vec, step, degrees, Betas):
             for t in range (i+1):
                 for s in range (int(t/2 +1)):
                     if (k_vec[d] == t - 2*s):
-                        Small_s[d] = Small_s[d] + comb(N=i, k = t, exact = True) * x_hat[0]**(i-t) * math.factorial(t)*1/math.factorial(s)*1 / np.sqrt(math.factorial(t-2*s)) *np.sqrt(2*step)**t /2**s
+                        Small_s[d] = Small_s[d] + comb(N=i, k = t, exact = True) * x_hat[0]**(i-t) * math.factorial(t)*1/math.factorial(s)*1 / np.sqrt(math.factorial(t-2*s)) *np.sqrt(step)**t /2**s
                     else:
                         pass
         S = S + Betas[p-l,ind] * Small_s.prod()
