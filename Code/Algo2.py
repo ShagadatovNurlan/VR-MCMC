@@ -29,26 +29,29 @@ def generate_X_poly(train_traj, l, max_deg):
     N = train_traj.shape[1]
     d = train_traj.shape[2]
     poly = PolynomialFeatures(max_deg)
-    X = poly.fit_transform(train_traj[:,l])
+    all_points = train_traj[:, :l+1].reshape(-1,d)
+    X = poly.fit_transform(all_points)
     return X, poly.powers_
 
 def generate_y_sum(train_traj, l, f_target, n_tilde):
     N_train = train_traj.shape[0]
     N = train_traj.shape[1]
     d = train_traj.shape[2]
-    y = np.zeros(N_train)
+    y = np.zeros(N_train*(l+1))
     for s in range(N_train):
-        if f_target == "sum":
-            y[s] = train_traj[s][l:].sum() / N
-        elif f_target == "sum_squared":
-            y[s] = np.square(train_traj[s][l:]).sum() / N
-        elif f_target == "sum_4th":
-            y[s] = (train_traj[s][l:]**4).sum() / N
-        elif f_target == "exp_sum":
-            y[s] = np.exp(train_traj[s, l:].sum(axis = 1)).sum() / N
-        else:
-            raise Exception('unrecognized target function')
-
+        for i in range(l+1):
+            if f_target == "sum":
+                y[s*l + i] = train_traj[s, i:i + N - l].sum()/N
+                # y[s*l + i] = train_traj[s, i:i + n_tilde].sum()/N
+            elif f_target == "sum_squared":
+                y[s*l + i] = np.square(train_traj[s, i:i + N - l]).sum()/N
+                # y[s*l + i] = np.square(train_traj[s, i:i + n_tilde]).sum()/N
+            elif f_target == "sum_4th":
+                y[s*l + i] = (train_traj[s, i:i + N - l]**4).sum()/N
+            elif f_target == "exp_sum":
+                y[s*l + i] = np.exp(train_traj[s, i:i + N - l].sum(axis =1)).sum()/N
+            else:
+                raise Exception('unrecognized target function')
     return y
 
 def Q_l_fit(train_traj, f_target="sum", max_deg = 1, n_tilde = 100):
