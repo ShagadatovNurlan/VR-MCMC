@@ -647,13 +647,13 @@ B
 \begin{proof}
 Using the conditional Cauchy-Schwarz inequality and  orthonormality of \((\phi_k)_{k\geq 0}\), we derive
 \begin{eqnarray*}
-\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \TrainSet, \mathcal{G}_N\right]\leq\mathsf{E}\left[\left.\left|\widehat{Q}_{l}\left(X_{l}\right)-\bar Q_{l}\left(X_{l}\right)\right|^{2}\right | \TrainSet, \mathcal{G}_N\right]
+\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \TrainSet \vee \mathcal{G}_N\right]\leq\mathsf{E}\left[\left.\left|\widehat{Q}_{l}\left(X_{l}\right)-\bar Q_{l}\left(X_{l}\right)\right|^{2}\right | \TrainSet \vee \mathcal{G}_N\right]
 \end{eqnarray*}
 By the Jensen inequality and orthonormality of \((\phi_k)_{k\geq 0},\)
 \begin{multline*}
-\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \TrainSet, \mathcal{G}_N\right]
+\mathsf{E}\left[\left.\left|\widehat{M}_{K,n}^{N}(f)-M_{K,n}^{N}(f)\right|^{2}\right | \TrainSet \vee \mathcal{G}_N\right]
 \\
-\leq \sum_{1\leq k\le K}\sum_{l=N+1}^{N+n}\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \TrainSet, \mathcal{G}_N\right].
+\leq \sum_{1\leq k\le K}\sum_{l=N+1}^{N+n}\mathsf{E}\left[\left.\left|\widehat{a}_{l,k}(X_{l-1})-\bar a_{l,k}(X_{l-1})\right|^{2}\right | \TrainSet \vee \mathcal{G}_N\right].
 \end{multline*}
 \end{proof}
 \subsection{Complexity analysis of variance reduction for the ULA algorithm}
@@ -675,7 +675,7 @@ where \(\lesssim \) stands for the inequality up to a multiplicative constant no
 \label{eq:ula_red_var}
 && +
 K \sum_{l=n+1}^{N+n}\inf_{\psi\in \Psi}
-\mathsf{E}\left[\left.\left|\bar Q_l(X_{l})-\psi(X_{l})\right|^{2}\right | \mathcal{G}_N \right].
+\mathsf{E}\left[\left.\left|\bar Q_l(X_{l})-\psi(X_{l})\right|^{2}\right | \TrainSet \vee \mathcal{G}_N \right].
 \end{eqnarray}
 In order to assess the complexity of the proposed algorithm,  we first prove that under some conditions the coefficients \(a_{p,l,\mathbf{k}}\) decay exponentially fast as \(|p-l|\to \infty.\)
 \begin{lem}
@@ -706,15 +706,15 @@ Suppose for simplicity that all functions \(\bar{Q}_l\) are in \(\Psi\) for some
 \end{eqnarray*}
 for some constant not depending on \(d.\) Then we have with high probability
 \begin{eqnarray*}
-\mathsf{Var}\left[\left.\widehat \pi_{K,n}^N(f)\right | \TrainSet, \mathcal{G}_N\right]\lesssim \frac{1}{n^{2(1-\alpha)}}\left[1+\frac{n}{\NtrainPath}\right],
+\mathsf{Var}\left[\left.\widehat \pi_{K,n}^N(f)\right | \TrainSet \vee \mathcal{G}_N\right]\lesssim \frac{1}{n^{2(1-\alpha)}}\left[1+\frac{n}{\NtrainPath}\right],
 \end{eqnarray*}
 with corresponding cost proportional to \(\log^{1/(1-\alpha)} (n) \NtrainPath,\) provided \(N/n=o(1).\) We should compare this to the standard weighted estimator \(\pi_{n}^N(f)\) with variance
 \begin{eqnarray*}
-\mathsf{Var}\left[\left. \pi_{n}^N(f)\right | \mathcal{G}_N\right]\lesssim \frac{1}{n^{1-\alpha}}
+\mathsf{Var}\left[\left. \pi_{n}^N(f)\right |  \mathcal{G}_N\right]\lesssim \frac{1}{n^{1-\alpha}}
 \end{eqnarray*}
 and cost of order \(n.\) Thus while the cost of achieving
 \begin{eqnarray*}
-\mathsf{Var}\left[\left. \pi_{n}^N(f)\right | \TrainSet, \mathcal{G}_N\right]\leq \varepsilon^2
+\mathsf{Var}\left[\left. \pi_{n}^N(f)\right | \TrainSet \vee \mathcal{G}_N\right]\leq \varepsilon^2
 \end{eqnarray*}
 is of order  \(\varepsilon^{-2/(1-\alpha)},\) we get the same bound for \(\pi_{K,n}^N(f)\) at a cost of order
 \[
@@ -722,6 +722,27 @@ is of order  \(\varepsilon^{-2/(1-\alpha)},\) we get the same bound for \(\pi_{K
 \]
 \section{Numerical results}
 \label{sec:num}
+If each function  \(Q_{p,l}(x) \) can be well approximated by polynomials, then we can use polynomial basis functions in   \eqref{eq:06042018a1} to approximate \(\bar Q_l\). Suppose that we constructed a polynomial approximation  for each function \(Q_{l}\)  in the form:
+\begin{equation*}
+\widehat{Q}_{l}(x) = \sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} x^{\mathbf{s}},\quad s=(s_1,\ldots,s_d)
+\end{equation*}
+with some coefficients \(\beta_{\mathbf{s}}\in \mathbb{R}.\)
+Then using the identity
+\[
+\xi^j = j! \sum_{r = 0}^{\lfloor j/2 \rfloor} \frac{1}{2^r  r! \sqrt{(j-2r)!}} H_{j-2r}(\xi),\quad \xi \in \mathbb{R},
+\]
+we derive for all $x \in \mathbb{R}^d$, 
+\begin{eqnarray*}
+\widehat a_{l,\mathbf{k}} (x) &=&\CPE{\mathbf{H}_\mathbf{k}(x) \widehat{Q}_{l}(x - \gamma_l \mu(x) + \sqrt{\gamma_l}\xi)}{\TrainSet \vee \mathcal{G}_N} 
+\\
+&=& \sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} \prod_{i=1}^d P_{i,k_i,s_i}(x),
+\end{eqnarray*}
+where for all integers $i,k,s$ and $x \in \rset^d$,
+\begin{align*}
+P_{l,k,s}(x) &= \mathsf{E} \left[ H_{k}(\xi_l) (x_l - \gamma_l \mu_l(x) + \sqrt{\gamma_l} \xi_l)^{s} \right]
+\end{align*}
+is a polynomial (in \(x\)) of degree at most \(s\) with analytically computable coefficients. 
+
 \section{Proofs}
 \label{sec:proofs}
 \subsection{Proof of Theorem~\ref{th:mr}}
