@@ -617,7 +617,7 @@ Then for any values of \(\varepsilon\) and \(\NtrainPath\) such that \(2/\Ntrain
 it holds with probability at least \(1-\varepsilon,\)
 \begin{multline}
 \mathsf{E}\left[ \left.\Bigl|\bar Q_l(X_l)
--\widehat Q_l(X_l)\Bigr|^2\right | \TrainSet, \mathcal{G}_N\right]
+-\widehat Q_l(X_l)\Bigr|^2\right | \TrainSet \vee \mathcal{G}_N\right]
 \lesssim  \sigma^2_l B
 \left(\frac{BD+\log(2/\varepsilon)}{\NtrainPath}+\frac{B^2D^2}{\NtrainPath^2}\right)
 \\
@@ -660,7 +660,7 @@ By the Jensen inequality and orthonormality of \((\phi_k)_{k\geq 0},\)
 In the case of ULA one can bound the quantities \(\sigma_l^2\) using  \(L^p\)-type Sobolev inequalities  (see \cite{Adamczak}), see Remark~\ref{rem:p-norm} in Section~\ref{sec:proofs}. 
 In particular, we can derive that  under conditions of Theorem~\ref{th:mr} with \(K=1,\)
 \begin{eqnarray*}
-\sigma_l^2\lesssim \frac{1}{\Gamma^2_{N+2,N+n+1}},
+\sigma_l^2\lesssim \frac{1}{\Gamma^2_{N+2,N+n+1}},\quad l=N+1,\ldots,N+n+1,
 \end{eqnarray*}
 where \(\lesssim \) stands for the inequality up to a multiplicative constant not depending on \(n\) and \(N.\) Using this inequality and combining \eqref{eq:main_bound} with Theorem~\ref{th:mr}, we get for the variance of \(\widehat \pi_{K,n}^N(f)=\pi_n^N(f)-\widehat M_{K,n}^N(f),\) with probability at least \(1-\varepsilon,\)
 \begin{eqnarray}
@@ -682,33 +682,38 @@ In order to assess the complexity of the proposed algorithm,  we first prove tha
 \label{a_decay}
 Suppose that \(f,\mu\in C^1(\mathbb{R}^d),\) \(0<b_\mu I\leq \nabla \mu(x)\leq B_\mu I\) and \(B_\mu\gamma_{l}\leq 1,\) then
 \begin{eqnarray*}
-\|a_{p,l,\mathbf{k}}\|_{\infty}\leq \sqrt{\gamma_l}\, \|\nabla f\|_\infty\exp\left(-b_{\mu}\sum_{r=l+1}^p \gamma_{r}  \right),\quad \mathbf{k}\in \mathbb{N}^d\setminus \{\mathbf{0}\}
+\|a_{p,l,\mathbf{k}}\|_{\infty}\leq \sqrt{\gamma_l}\, \|\nabla f\|_\infty\exp\left(-b_{\mu}\sum_{r=l+1}^p \gamma_{r}  \right),\quad \mathbf{k}\in \mathbb{N}^d\setminus \{\mathbf{0}\}.
 \end{eqnarray*}
 \end{lem}
 \begin{cor}
-Assume that \(\gamma_k=\gamma_1 k^{-\alpha}\) for some \(\alpha\in (0,1),\) then
+Assume that 
+\begin{eqnarray}
+\label{eq:gamk-decay}
+\gamma_k=\gamma_1 k^{-\alpha},\quad \alpha\in (0,1),
+\end{eqnarray}
+ then
 \begin{eqnarray*}
 \|a_{p,l,\mathbf{k}}\|_{\infty}\leq \sqrt{\gamma_1} l^{-\alpha/2}\, \|\nabla f\|_\infty\exp\left(-c b_{\mu}\gamma_1 (p^{1-\alpha}-l^{1-\alpha}) \right)
 \end{eqnarray*}
 for some constant \(c>0.\)
 \end{cor}
-Suppose that the chain is close to stationarity, then \(Q_{p,l}\) are functions of \(p-l\) only.
+Suppose now that the chain is close to stationarity, then \(Q_{p,l}\) are functions of \(p-l\) only.
 Furthermore,  according to Lemma~\ref{a_decay}, \(a_{p,l,\mathbf{k}}\) are exponentially small for \(p-l\) large.
 As a result we only need to compute a logarithmic (in \(n\)) number of functions \(Q_{p,l}.\)
 Hence the cost of computing the estimates  \(\widehat {a}_{p,l,\mathbf{k}}(x)\) for \(l=N+1,\ldots,N+n,\) and \(\|\mathbf{k}\|\leq K\) using regression on \(\Psi,\) is of order
 \[
 \log^{1/(1-\alpha)} (n) K^d  \NtrainPath D^2.
 \]
-Suppose for simplicity that all functions \(\bar{Q}_l\) are in \(\Psi\) for some \(D>0,\) that is, the third term in \eqref{eq:ula_red_var} is zero.  Then it is enough to take \(K=\lceil 1/\alpha \rceil+1\) to get
+Suppose for simplicity that all functions \(\bar{Q}_l\) are in \(\Psi\) for some \(D>0,\) that is, the third term in \eqref{eq:ula_red_var} is zero.  Then under \eqref{eq:gamk-decay} it is enough to take \(K=\lceil 1/\alpha \rceil+1\) to get
 \begin{eqnarray*}
 \sum_{l=N+1}^{N+n}\sum_{I\subseteq\{1,\ldots,d\},\, I\neq \emptyset}
 \left(\frac{\gamma_{l}}{2}\right)^{|I|K}\leq C
 \end{eqnarray*}
-for some constant not depending on \(d.\) Then we have with high probability
+for some constant \(C\) not depending on \(d.\) Then we have with high probability
 \begin{eqnarray*}
 \mathsf{Var}\left[\left.\widehat \pi_{K,n}^N(f)\right | \TrainSet \vee \mathcal{G}_N\right]\lesssim \frac{1}{n^{2(1-\alpha)}}\left[1+\frac{n}{\NtrainPath}\right],
 \end{eqnarray*}
-with corresponding cost proportional to \(\log^{1/(1-\alpha)} (n) \NtrainPath,\) provided \(N/n=o(1).\) We should compare this to the standard weighted estimator \(\pi_{n}^N(f)\) with variance
+with corresponding cost proportional to \(\NtrainPath\log^{1/(1-\alpha)} (n) ,\) provided \(N/n=o(1).\) We should compare this to the standard weighted estimator \(\pi_{n}^N(f)\) with variance
 \begin{eqnarray*}
 \mathsf{Var}\left[\left. \pi_{n}^N(f)\right |  \mathcal{G}_N\right]\lesssim \frac{1}{n^{1-\alpha}}
 \end{eqnarray*}
@@ -720,9 +725,10 @@ is of order  \(\varepsilon^{-2/(1-\alpha)},\) we get the same bound for \(\pi_{K
 \[
 \varepsilon^{-1/(1-\alpha)}\log^{1/(1-\alpha)} (\varepsilon).
 \]
+In the presence of approximation errors we have to increase \(D\) with \(n\) to balance  the statistical and approximation errors resulting in a smaller complexity reduction. Note that our approach does not require the computation of \(\nabla \log(\pi)\) for the construction of control variates. This leads to an additional complexity reduction especially in statistical application where the computation of \(\nabla \log(\pi)\) can be very costly.
 \section{Numerical results}
 \label{sec:num}
-If each function  \(Q_{p,l}(x) \) can be well approximated by polynomials, then we can use polynomial basis functions in   \eqref{eq:06042018a1} to approximate \(\bar Q_l\). Suppose that we constructed a polynomial approximation  for each function \(Q_{l}\)  in the form:
+If each function  \(Q_{p,l}(x) \) can be well approximated by polynomials, then we can use polynomial basis functions in   \eqref{eq:06042018a1} to approximate \(\bar Q_l\). Suppose that we constructed a polynomial approximation  for each function \(\bar Q_{l}\)  in the form:
 \begin{equation*}
 \widehat{Q}_{l}(x) = \sum_{\|\mathbf{s}\|\leq m} \beta_{\mathbf{s}} x^{\mathbf{s}},\quad s=(s_1,\ldots,s_d)
 \end{equation*}
@@ -741,7 +747,7 @@ where for all integers $i,k,s$ and $x \in \rset^d$,
 \begin{align*}
 P_{l,k,s}(x) &= \mathsf{E} \left[ H_{k}(\xi_l) (x_l - \gamma_l \mu_l(x) + \sqrt{\gamma_l} \xi_l)^{s} \right]
 \end{align*}
-is a polynomial (in \(x\)) of degree at most \(s\) with analytically computable coefficients. 
+is a one-dimensional polynomial (in \(x\)) of degree at most \(s\) with analytically known coefficients. 
 
 \section{Proofs}
 \label{sec:proofs}
@@ -1287,17 +1293,25 @@ where $C$ is the bound from~\eqref{eq:17042018a1}.
 The proof is completed.
 \end{proof}
 \begin{remark}\label{rem:p-norm}
-In fact in the proof of Lemma~\ref{lem:var_poincare} using \eqref{eq:part-part} we have proved that the expectations
+In fact in the proof of Lemma~\ref{lem:var_poincare} using \eqref{eq:part-part} we have shown that the expectations
 \begin{eqnarray*}
 \mathsf E\left[\left.
 \|\nabla_Z F(X_{l-1},Z_l,Z_{l+1},\ldots,Z_q)\|^r
 \right|X_{l-1}\right]
 \end{eqnarray*}
-are uniformly bounded for all natural \(l\leq q\) and any \(r\geq 2.\)  This stronger results in combination with a \(L^r\)-Sobolev-type inequalities (see e.g. \cite{Adamczak}) implies that also higher order conditional (on \(X_{l-1}\)) central moments of the r.v. 
+are uniformly bounded for all natural \(l\leq q\) and any \(r\geq 2.\) Indeed it follows from \eqref{eq:17042018a1} that  the quantities
+\begin{eqnarray*}
+\left(\sum_{j=l}^{q} \gamma_{j}
+\prod_{k=l}^{j} \alpha_{k}\right)^{r/2}
+\left(
+\sum_{p=j+1}^{q+1} \gamma_{p} \prod_{k=j+1}^{p} \alpha_{k}
+\right)^{r}
+\end{eqnarray*}
+are bounded. This stronger result in combination with a \(L^r\)-Sobolev-type inequalities (see e.g. \cite{Adamczak}) implies that also higher order conditional (on \(X_{l-1}\)) central moments of the r.v. 
 \begin{eqnarray*}
 \sum_{p=l}^{q}\gamma_{p+1}\partial_{y_{l}}^{K}f\left(X_{p}\right)
 \end{eqnarray*}
-are uniformly bounded in \(l\leq q\) and \(p.\)
+are uniformly bounded in \(l\leq q\) and \(p.\) 
 
 \end{remark}
 
