@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section.1}{Variance reduced estimator}{}% 1
+\BOOKMARK [1][-]{section.2}{Algorithm 1}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Polynomial approximation}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Algorithm 2}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Truncation}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.2}{Polynomial approximation}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Experiment 1. Gaussian mixture \(2d, 8d\)}{}% 7
+\BOOKMARK [1][-]{section.5}{Experiment 2. Binary Logistic regression}{}% 8
+\BOOKMARK [1][-]{section.6}{CV and ZV}{}% 9
+\BOOKMARK [2][-]{subsection.6.1}{Papamarkou, Mira, Girolami Zero Variance estimator \(ZV\)}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.2}{N. Brosse Zero-variance estimator \(CV\)}{section.6}% 11
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 12
