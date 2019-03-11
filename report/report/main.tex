@@ -277,21 +277,21 @@ X has been generated from a Rademacher distribution and then normalized to have 
     \item $d =2, f(x) = x_1 + x_2$
     \begin{enumerate}
     \item Algorithm 1: $n = 1000,N_{train} = 50, \Psi = \{\text{polinomials max}_\text{deg} = 3\}, K =1, \tilde{n} = 10$\\
-    K = 1: 117.44 ( 2.18 * 10^{-4} -> 1.858 * 10^{-6} )\\
+    $K = 1: 117.44 ( 2.18 * 10^{-4} -> 1.858 * 10^{-6} )$\\
 
     
     \item Algorithm 2 :$n = 1000,N_{train} = 50, \Psi = \{\text{polinomials max}_\text{deg} = 2\}, K =1, \tilde{n} = 3$\\
-    K = 1 : 9.4 (2.18 * 10^{-4} -> 2.32 * 10^{-5})\\
+    $K = 1 : 9.4 (2.18 * 10^{-4} -> 2.32 * 10^{-5})$\\
     
     \end{enumerate}
     \item $d =8, f(x) = \sum_{i=1}^d x_i$
     \begin{enumerate}
         
     \item Algorithm 1 $n = 1000,N_{train} = 50, \Psi = \{\text{polinomials max}_\text{deg} = 1\}, K =1, \tilde{n} = 100$\\
-    K = 1 : 38.67  ( 1.44 * 10^{-3} -> 3.71 * 10^{-5})
+    $K = 1 : 38.67  ( 1.44 * 10^{-3} -> 3.71 * 10^{-5})$
     
     \item Algorithm 2 $n = 1000,N_{train} = 500, \Psi = \{\text{polinomials max}_\text{deg} = 1\}, K =1, \tilde{n} = 3$\\
-    K = 1 : 19.5 ( 1.44 * 10^{-3} -> 7.37 * 10^{-5})
+    $K = 1 : 19.5 ( 1.44 * 10^{-3} -> 7.37 * 10^{-5})$
     \end{enumerate}
 \end{enumerate}
 
@@ -322,7 +322,7 @@ $$\tilde{f}(x) = f(x) - \frac{1}{2} \Delta_x \left[ P(x)\right] + \nabla_x \left
 
 $$z(x) = -\frac{1}{2} \nabla_x \left[ln (\pi(x)) \right] = \frac{1}{2} \nabla_x \left[U(x) \right]$$
 
-#### First degree polynomials:
+ First degree polynomials:
 
 $$P(x) = a^T x$$
 
@@ -344,7 +344,7 @@ $$\hat{Cov}_{(n)} \left[ f(x), z(x)\right] = \frac{1}{n-1} \sum_{i=1}^n \left( f
 
 $$\pi_n^{ZV_1}(f) = \frac{1}{n} \sum_{k=1}^n \left\{ f(X_k) + \hat{a}^T \nabla U(X_k)\right\}$$
 
-#### Second degree polynomials:
+ Second degree polynomials:
 
 $$P(x) = c^T x + \frac{1}{2} x^T B x$$
 
@@ -384,7 +384,7 @@ $$\hat{\theta}^{*}_n = H_n^{+} \left[ \frac{1}{n} \sum_{k=1}^n\psi(X_k) \left\{ 
 where
 $$ (H_n)_{ij} = \frac{1}{n} \sum_{k=1}^n \left< \nabla \psi_i (X_k), \nabla \psi_j (X_k)\right>$$
 
-#### First degree polynomials:
+ First degree polynomials:
 
 $$\psi = (\psi_1, \dots, \psi_d)$$
 
@@ -398,7 +398,7 @@ $$\pi_n^{CV_1} (f) = \frac{1}{n} \sum_{k=1}^n \left\{ f(X_k) - \left< \nabla U(X
 
 $$\hat{\theta}^{*}_n (f) = \left[ \hat{Cov}_n(x_1, f(x)), \dots, \hat{Cov}_n(x_d, f(x)) \right]^T$$
 
-#### Second degree polynomials:
+ Second degree polynomials:
 
 $$\psi = \left(x_1, \dots, x_d, x_1^2, \dots, x_2^2, x_1x_2, \dots \right)$$
 
@@ -411,7 +411,7 @@ $$\psi = \left(x_1, \dots, x_d, x_1^2, \dots, x_2^2, x_1x_2, \dots \right)$$
 \subfloat[Subfigure 2 list of figures text][d = 8]{
 \includegraphics[width=0.4\textwidth]{GM_8d_violin_cv_zv.png}
 \label{fig:subfig2}}
-\caption{Gaussian mixture violins (cv_B1 - algorithm 1, cv_B2 - algorithm 2, ZV, CV)}
+\caption{Gaussian mixture violins (cvB1 - algorithm 1, cvB2 - algorithm 2, ZV, CV)}
 \end{figure}
 
 
@@ -424,7 +424,7 @@ $$\psi = \left(x_1, \dots, x_d, x_1^2, \dots, x_2^2, x_1x_2, \dots \right)$$
 \subfloat[Subfigure 2 list of figures text][d = 8]{
 \includegraphics[width=0.4\textwidth]{BLR_8d_violin_cv_zv.png}
 \label{fig:subfig2}}
-\caption{Logistic regression violins (cv_B1 - algorithm 1, cv_B2 - algorithm 2, ZV, CV)}
+\caption{Logistic regression violins (cvB1 - algorithm 1, cvB2 - algorithm 2, ZV, CV)}
 \end{figure}
 
 \section{Conclusion}
