@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.8.9)  11 MAR 2019 13:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.8.9)  12 MAR 2019 16:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,105 +883,96 @@ Overfull \hbox (10.95255pt too wide) in alignment at lines 649--651
  []
 
 [13] [14] [15] [16]
-Overfull \hbox (4.42992pt too wide) detected at line 789
-[] \OT1/cmr/m/n/10.95 = [] [] \OML/cmm/m/it/10.95 ![] [] []\OT1/cmr/m/n/10.95 (
-\OML/cmm/m/it/10.95 X[]\OT1/cmr/m/n/10.95 )\OT1/cmr/bx/n/10.95 H[]\OT1/cmr/m/n/
-10.95 (\OML/cmm/m/it/10.95 Z[]\OT1/cmr/m/n/10.95 )\U/msb/m/n/10.95 I\OMS/cmsy/m
-/n/10.95 fj\OML/cmm/m/it/10.95 p \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 l\
-OMS/cmsy/m/n/10.95 j \OML/cmm/m/it/10.95 < n[]\OMS/cmsy/m/n/10.95 g\OML/cmm/m/i
-t/10.95 :
- []
-
 <pictures/GM_2d_violin_cv_zv.png, id=307, 615.29875pt x 593.21625pt>
 File: pictures/GM_2d_violin_cv_zv.png Graphic file (type png)
 <use pictures/GM_2d_violin_cv_zv.png>
-Package pdftex.def Info: pictures/GM_2d_violin_cv_zv.png  used on input line 79
-7.
+Package pdftex.def Info: pictures/GM_2d_violin_cv_zv.png  used on input line 80
+2.
 (pdftex.def)             Requested size: 143.9978pt x 138.82652pt.
 <pictures/GM_8d_violin_cv_zv.png, id=309, 609.27625pt x 593.21625pt>
 File: pictures/GM_8d_violin_cv_zv.png Graphic file (type png)
 <use pictures/GM_8d_violin_cv_zv.png>
 Package pdftex.def Info: pictures/GM_8d_violin_cv_zv.png  used on input line 80
-1.
+6.
 (pdftex.def)             Requested size: 143.9978pt x 140.2024pt.
-[17] [18 <./pictures/GM_2d_violin_cv_zv.png> <./pictures/GM_8d_violin_cv_zv.png
->]
-Overfull \hbox (37.75897pt too wide) detected at line 918
+ [17] [18 <./pictures/GM_2d_violin_cv_zv.png> <./pictures/GM_8d_violin_cv_zv.pn
+g>]
+Overfull \hbox (37.75897pt too wide) detected at line 923
 []
- []
-
-
-Overfull \hbox (4.65645pt too wide) detected at line 942
-[]
- []
-
-
-Overfull \hbox (4.65645pt too wide) in alignment at lines 941--942
-[] [] 
  []
 
 [19]
-Overfull \hbox (26.7385pt too wide) detected at line 965
- []$[] \OT1/cmr/m/n/10.95 = \OT1/cmss/m/n/10.95 E [] \OML/cmm/m/it/10.95 :  $ 
+Overfull \hbox (4.65645pt too wide) detected at line 947
+[]
+ []
+
+
+Overfull \hbox (4.65645pt too wide) in alignment at lines 946--947
+[] [] 
  []
 
 [20]
-Overfull \hbox (6.77745pt too wide) in alignment at lines 977--985
+Overfull \hbox (26.7385pt too wide) detected at line 970
+ []$[] \OT1/cmr/m/n/10.95 = \OT1/cmss/m/n/10.95 E [] \OML/cmm/m/it/10.95 :  $ 
+ []
+
+
+Overfull \hbox (6.77745pt too wide) in alignment at lines 982--990
  [][][] []
  []
 
 
-Overfull \hbox (3.97285pt too wide) in alignment at lines 996--1009
+Overfull \hbox (3.97285pt too wide) in alignment at lines 1001--1014
  [][][] []
  []
 
-[21] [22] [23]
-Overfull \hbox (29.61165pt too wide) in paragraph at lines 1173--1176
+[21] [22] [23] [24]
+Overfull \hbox (29.61165pt too wide) in paragraph at lines 1178--1181
 \OT1/cmr/m/n/10.95 where the sum is taken over all $(\OML/cmm/m/it/10.95 r \OMS
 /cmsy/m/n/10.95 ^^@ \OT1/cmr/m/n/10.95 1)$-tuples of non-neg-a-tive in-te-gers 
 $(\OML/cmm/m/it/10.95 m[]; [] ; m[]\OT1/cmr/m/n/10.95 )$
  []
 
-[24] [25]
-Overfull \hbox (1.83846pt too wide) detected at line 1268
+[25]
+Overfull \hbox (1.83846pt too wide) detected at line 1273
 [] [] \OMS/cmsy/m/n/10.95 ^^T \OT1/cmss/m/n/10.95 E [] \OML/cmm/m/it/10.95 ;
  []
 
-
-Overfull \hbox (6.51297pt too wide) detected at line 1278
+[26]
+Overfull \hbox (6.51297pt too wide) detected at line 1283
 [] [] \OMS/cmsy/m/n/10.95 ^^T [] \OML/cmm/m/it/10.95 ^^M[]\OT1/cmss/m/n/10.95 E
  [] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (6.51297pt too wide) detected at line 1284
+Overfull \hbox (6.51297pt too wide) detected at line 1289
 [] [] \OMS/cmsy/m/n/10.95 ^^T [] \OML/cmm/m/it/10.95 ^^M[]\OT1/cmss/m/n/10.95 E
  [] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (4.74237pt too wide) in paragraph at lines 1289--1292
+Overfull \hbox (4.74237pt too wide) in paragraph at lines 1294--1297
 \OT1/cmr/m/n/10.95 where the sum is taken over all $\OML/cmm/m/it/10.95 K$\OT1/
 cmr/m/n/10.95 -tuples of non-neg-a-tive in-te-gers $(\OML/cmm/m/it/10.95 m[]; [
 ] ; m[]\OT1/cmr/m/n/10.95 )$
  []
 
 
-Overfull \hbox (16.38554pt too wide) in alignment at lines 1296--1305
+Overfull \hbox (16.38554pt too wide) in alignment at lines 1301--1310
  [][][] []
  []
 
-[26]
-Overfull \hbox (30.54207pt too wide) detected at line 1348
+
+Overfull \hbox (30.54207pt too wide) detected at line 1353
 []
  []
 
-[27] (./vr-mcmc.bbl [28]) [29] [30]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1407.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1407.
+[27] [28] (./vr-mcmc.bbl [29]) [30]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1412.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1412.
  (./vr-mcmc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1407.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1407.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1412.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1412.
 
 Package rerunfilecheck Info: File `vr-mcmc.out' has not changed.
 (rerunfilecheck)             Checksum: 4CF63A4664557A5A54A7E6346F638ECB;950.
@@ -989,7 +980,7 @@ Package rerunfilecheck Info: File `vr-mcmc.out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1407.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1412.
  ) 
 Here is how much of TeX's memory you used:
  20248 strings out of 492649
@@ -1022,7 +1013,7 @@ cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/loca
 l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/
 texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on vr-mcmc.pdf (30 pages, 429937 bytes).
+Output written on vr-mcmc.pdf (30 pages, 430892 bytes).
 PDF statistics:
  551 PDF objects out of 1000 (max. 8388607)
  485 compressed objects within 5 object streams
