@@ -793,7 +793,7 @@ and
 respectively.
 In our experiments we considered dimensions $d = 2$ and $d = 8$ and defined vector $a$ as $( (2d)^{-1/2}, \dots, (2d)^{-1/2})$. 
 In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,\) 
- we have used constant step sizes $\gamma_i = \gamma=0.1.$   We generated $\NtrainPath = 50$ independent "training" trajectories and solved the least squares  problems \eqref{eq:Qcircr} with polynomial basis functions of degree \(3\) for \(d=2\) and degree \(1\) for \(d=8.\) The truncation level \(n_{\mathrm{trunc}}\) is chosen to be \(100.\)
+ we have used constant step sizes $\gamma_i = \gamma=0.1.$   We generated $\NtrainPath = 50$ independent "training" trajectories and solved the least squares  problems \eqref{eq:Qcircr} using a first order polynomials for \(d=2\) and  \(d=8.\) The truncation level \(n_{\mathrm{trunc}}\) is chosen to be \(100.\) To test our variance reduction algorithm, we generated 100 independent trajectories. 
  
  \begin{figure}[tbh]
 \centering
@@ -808,7 +808,7 @@ In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,
 \end{figure}
  
  
-In Figure ~\ref{fig:1} we compare our approach to variance reduction methods of \cite{mira2013zero} and \cite{brosse2018diffusion}
+In Figure ~\ref{fig:1} we compare our approach to variance reduction methods of \cite{mira2013zero} and \cite{brosse2018diffusion}.
 
 
 \section{Proofs}
