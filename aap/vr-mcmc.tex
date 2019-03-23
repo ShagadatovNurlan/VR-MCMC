@@ -1,4 +1,4 @@
-\documentclass[aap,preprint]{imsart}
+\documentclass[preprint]{imsart}
 
 
 \usepackage{lineno,hyperref}
@@ -46,7 +46,7 @@
 \begin{frontmatter}
 \title{Variance reduction for MCMC methods via martingale representations}
 \runtitle{Variance reduction for MCMC}
-\thankstext{T1}{This research was }
+%\thankstext{T1}{This research was }
 
 
 \begin{aug}
@@ -76,6 +76,13 @@ UMR 7641 \\
 Ecole Polytechnique \\ 
 France
 }
+
+\address{
+National University Higher School of Economics \\ 
+Moscow \\
+Russia 
+}
+
 \end{aug}
 
 \begin{abstract}
@@ -798,11 +805,11 @@ In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,
  \begin{figure}[tbh]
 \centering
 \subfloat[Subfigure 1 list of figures text][d = 2]{
-\includegraphics[width=0.4\textwidth]{pictures/GM_2d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.4\textwidth]{GM_2d_K1_n1000_deg1_ntrunc100_gamma01.png}
 \label{fig:subfig1}}
 \qquad
 \subfloat[Subfigure 2 list of figures text][d = 8]{
-\includegraphics[width=0.4\textwidth]{pictures/GM_8d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.4\textwidth]{GM_8d_K1_n1000_deg1_ntrunc100_gamma01.png}
 \label{fig:subfig2}}
 \caption{Boxplots of $f(x) = \sum_{i=1}^d x_i$ using ULA algorithms for the Gaussian mixture model. The compared estimators are the ordinary empirical average  (pi), our estimator of control variates (CV-B), zero variance estimator (ZV-1) and control variates using diffusion approximation (CV-1). \label{fig:1}}
 \end{figure}
