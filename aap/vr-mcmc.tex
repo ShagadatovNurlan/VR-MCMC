@@ -121,7 +121,8 @@ The idea of the so-called control variates variance reduction method
  is to find a cheaply computable random variable $\xi$ with $\mathsf{E}[\xi]=0$ and \(\mathsf{E}[\xi^2]<\infty,\)
 such that the variance of the r.v. $f(X)-\xi$ is small.  The complexity of the problem of constructing classes $\Xi$ of control variates \(\xi\) satisfying   $\mathsf{E}[\xi]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
 For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\xi\) as a linear combination of the corresponding basis functions, see \cite{GobetCV}. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of
- \cite{mira2013zero} and further worked out in \cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\)
+ \cite{mira2013zero} and further worked out in \cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\) 
+ \eric{mention the Stein operator}
 
 In some situations \(\pi\) is not known analytically, but \(X\) can be represented as a function of  simple random variables with known distribution.
 Such  situation arises, for example, in the case of functionals of  discretized diffusion processes. In this case a Wiener chaos-type decomposition can be used to construct control variates with nice theoretical properties, see \cite{belomestny2018stratified}.
@@ -129,9 +130,10 @@ Note that in order to compare different  variance reduction approaches, one has 
 
 
 The situation becomes much more difficult in the case of MCMC algorithms, where one  has to work with a
-Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\), provided that \(\pi(|G|) < \infty\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
+Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) \eric{not completely cleqr what is meant here} \\
+Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
 \par
-In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed  or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
+In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} \eric{add papers by Gilles Pages, Clement Rey, Vinvent Lemaire} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed  or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
 The paper is organized as follows.  In Section~\ref{sec:setup} we set up the problem and introduce some notations. Section~\ref{seq:mart_repr} contains a novel martingale representation and shows how this representation can be used for variance reduction. In Section~\ref{sec:ula_analysis} we analyze the performance of the proposed variance reduction algorithm in the case of Unadjusted Langevin Algorithm (ULA). Section~\ref{sec:coeff} studies the complexity of the variance reduced ULA. Finally, numerical examples are presented in Section~\ref{sec:num}.
 
@@ -146,6 +148,7 @@ If  the dimension of the space \(\mathcal{X}\) is large and \(\pi(f)\) can not b
 \label{eq:chain_gen}
 X_{p}=\Phi_{p}(X_{p-1},\xi_{p}),\quad p=1,2,\ldots ,\quad X_{0}=x_0,
 \end{equation}
+\eric{use only one $\xi$; change the notation of the control variable}
 for some i.i.d.  random vectors \(\xi_p\in \mathbb{R}^m\) with distribution \(P_{\xi}\)
 and some Borel-measurable
 functions $\Phi_{p}\colon\mathcal{X}\times\mathbb{R}^{m}\to\mathcal{X}.$
@@ -223,19 +226,25 @@ where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \(
 \Phi_p(x,(u,z)^\top)=x+\mathbbm{1}\bigl(u\leq \alpha(x,x-\gamma_{p}\mu(x)+\sqrt{\gamma_{p}}z)\bigr)(-\gamma_{p}\mu(x)+\sqrt{\gamma_{p}}z).
 \end{eqnarray*}
 \end{example}
+\erici{add here an example where $\pi$ is not explicitely known; tpicqlly we start from a diffusion $dX_t= b(X_t)dt + dW_t$ with $b$ Lipshitz and coercive. $\pi$ is not known but nevertheless we might be interested to estimate expectations under the stationary distribution of the diffusion... Our technique has no competitor in such problems. We can even be interested in estimating functionals of general Feller processes: see the recent results of Clement Rey, Gilles Pages, etc...}
 \section{Martingale representation and variance reduction}
 \label{seq:mart_repr}
-In this section we give a general discrete-time martingale representation for the chain \eqref{eq:chain_gen} which later will be used to construct an efficient variance reduction algorithm. Let \((\phi_k)_{k\in \mathbb{Z}_+}\) be a complete orthonormal system in \(L^2(\mathbb{R}^m, P_{\xi})\) with \(\phi_0\equiv 1\). In particular, we have
+In this section we give a general discrete-time martingale representation for the Markov chain \eqref{eq:chain_gen} which is  used below to construct an efficient variance reduction algorithm. Let \((\phi_k)_{k\in \mathbb{Z}_+}\) be a complete orthonormal system in \(L^2(\mathbb{R}^m, P_{\xi})\) with \(\phi_0\equiv 1\). In particular, we have
 \begin{eqnarray*}
 \mathsf{E}[\phi_i(\xi)\phi_j(\xi)]=\delta_{ij},\quad i,j\in  \mathbb{Z}_{+}.
 \end{eqnarray*}
+\eric{say here where the $\xi$ you are referreing to is defined}
 Notice that this implies that the random variables
-$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and products of Hermite and Legendre polynomials for MALA, as the Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([-1,1].\)
+$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and products of Hermite and Legendre polynomials for MALA, as the Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([-1,1].\) \eric{it is more tensor product than a product. and I need that perhaps some more precise notations are needed there}
+
+In the sequel, we denote by $(\mathcal{G}_p)_{p\in \mathbb{Z}_+}$  the filtration
+generated by generated by $(\xi_p)_{p \in \mathbb{N}^*}$ with the convention $\mathcal{G}_0=\mathrm{triv}$
+
 \begin{thm}\label{prop:29032018a1}
-Denote by $(\mathcal{G}_p)_{p\in \mathbb{Z}_+}$  a filtration
-with $\mathcal{G}_0=\mathrm{triv}$
-generated by $(\xi_p)_{p=1,2,\ldots,}$. Let $f$ be a Borel function $\mathbb{R}^{d}\to\mathbb R$ such that
-$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$. Then,
+ Let $f$ be a Borel function $\mathbb{R}^{d}\to\mathbb R$ such that
+$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$. 
+\eric{say where $X_p$ is defined... add a sentence like "where $X_p$ is defined in Eq. (xx)"}
+Then,
 for $p>j$, the following representation holds in \(L^2(P)\)
 \begin{eqnarray}
 \label{eq:mart_repr}
@@ -325,13 +334,12 @@ a_{p,l,k}(x)=\mathsf{E}\left[\phi_k\left(\xi\right)Q_{p,l}\left(\Phi_l(x,\xi)\ri
 \end{eqnarray*}
 with \(Q_{p,l}(x)=\mathsf{E}\left[\left.f(X_{p})\right|X_{l}=x\right],\) \(p\geq l.\)
 %where   a r.v. \(\xi\) independent of \(\mathcal{G}_{l-1}.\)
-The functions \(Q_{p,l}(x)\)   satisfy the recursion
+The functions \((Q_{p,l})_{l=0}^p\)  can be computed by the backward recurrence: $Q_{p,p}(x)=f(x)$ and for $l \in \{0,\cdots,p-1\}$
 \begin{eqnarray}
 \label{eq:qpl}
-Q_{p,l}(x)=\mathsf{E}\left[\left.Q_{p,l+1}(X_{l+1})\right|X_{l}=x\right],\quad Q_{p,p}(x)=f(x),
-%=\mathsf{E}[Q_{p,l+1}(\Phi_{l+1}(x,\xi))],
+Q_{p,l}(x)=\mathsf{E}\left[\left.Q_{p,l+1}(X_{l+1})\right|X_{l}=x\right].
+%=\mathsf{E}[Q_{p,l+1}(\Phi_{l+1}(x,\xi))]
 \end{eqnarray}
-that is, they can be computed backward via  one-step expectations.
 \end{prop}
 Next we show how  the representation \eqref{eq:mart_repr} can be used to efficiently reduce the variance of MCMC algorithms.  Let $(\gamma_{p})_{p\in\mathbb N}$ be a sequence of positive and non-increasing
 step sizes
@@ -360,27 +368,23 @@ where
 Since \(X_{l-1}\) is independent of \(\xi_{l}\) and \(\mathsf{E}[\phi_k(\xi_{l})]=0,\) \(k\geq 1,\)  the r.v.  \(M_{K,n}^N(f)\) has zero mean and can be viewed as a control variate. 
 
 
-The coefficients \((\bar a_{l,k})\) need to be estimated before one can apply the proposed variance reduction approach. One way of estimating them can be based on nonparametric regression.
-We present two regression algorithms. While the first algorithm directly estimates  the coefficients \((\bar a_{l,k})\) via regression, the second one starts with estimating the functions $\bar{Q}_{l}$ for $l=N+1,\ldots,N+n,$ where
+The functions \((\bar a_{l,k})\) need to be estimated before one can apply the proposed variance reduction approach. This amounts to solve a nonparametric regression problem.
+We present a generic regression algorithm. Algorithm starts with estimating the functions $\bar{Q}_{l}$ for $l=N+1,\ldots,N+n,$ where
 \begin{equation*}
 \bar{Q}_{l}(x)=\sum_{p=l}^{N+n} \omega_{p,n}^{N} Q_{p,l}\left(x\right)=\omega_{l,n}^{N}f(x)+\mathsf{E}\left[\left.\sum_{p=l+1}^{N+n}\omega_{p,n}^{N}f(X_{p})\right|X_{l}=x\right] .
 \end{equation*}
-In both algorithms we first generate \(\NtrainPath\)  paths conditionally independent of the $\sigma$-algebra generated by the burn-in sequence $X_1,\dots,X_N$:
+We first generate \(\NtrainPath\)  paths conditionally independent of the $\sigma$-algebra generated by the burn-in sequence $X_1,\dots,X_N$:
 \[
 \TrainSet=\Bigl\{(X^{(s)}_{N+1},\ldots,X^{(s)}_{N+n}),\quad s=1,\ldots,\NtrainPath\Bigr\}
 \]
 of the chain \(X\)
 (the so-called ``training paths'').
-The first algorithm estimates each coefficient \(\bar a_{l,k}\) for $l=N+1,\dots, N+n$  and $k=1,\dots,K$  via solving the least-squares problem:
-\begin{equation}\label{eq:est_a_direct}
-\widehat a_{l,k}=\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})\right)\phi_k\bigl(\xi^{(s)}_{l}\bigr)-\psi(X^{(s)}_{l-1})\right|^2,
-\end{equation}
-where \(\Psi\) is a  class of  functions on \(\mathbb{R}^d.\)
-The second algorithm starts with estimating  functions \((\bar Q_{l})\) by solving  the least squares optimization problems
+The regression algorithm proceeds with estimating the  functions \((\bar Q_{l})\) by solving  the least squares optimization problems
 \begin{equation}\label{eq:06042018a1}
-{\widehat  Q}_{l}=\omega_{l,n}^{N}f(x)+\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \sum_{p=l+1}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})-\psi(X^{(s)}_{l})\right|^2
+{\widehat  Q}_{l}=\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})-\psi(X^{(s)}_{l})\right|^2
 \end{equation}
 for \(l=N+1,\ldots, N+n-1.\)
+where \(\Psi\) is a  class of  functions on \(\mathbb{R}^d.\)
 Next  we estimate the coefficients \( \bar a_{l,k}\) using
 the formula
 \begin{equation}
@@ -805,11 +809,11 @@ In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,
  \begin{figure}[tbh]
 \centering
 \subfloat[Subfigure 1 list of figures text][d = 2]{
-\includegraphics[width=0.4\textwidth]{GM_2d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.4\textwidth]{pictures/GM_2d_K1_n1000_deg1_ntrunc100_gamma01.png}
 \label{fig:subfig1}}
 \qquad
 \subfloat[Subfigure 2 list of figures text][d = 8]{
-\includegraphics[width=0.4\textwidth]{GM_8d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.4\textwidth]{pictures/GM_8d_K1_n1000_deg1_ntrunc100_gamma01.png}
 \label{fig:subfig2}}
 \caption{Boxplots of $f(x) = \sum_{i=1}^d x_i$ using ULA algorithms for the Gaussian mixture model. The compared estimators are the ordinary empirical average  (pi), our estimator of control variates (CV-B), zero variance estimator (ZV-1) and control variates using diffusion approximation (CV-1). \label{fig:1}}
 \end{figure}
