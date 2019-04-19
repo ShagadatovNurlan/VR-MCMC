@@ -118,10 +118,10 @@ Suppose that we wish to compute $\pi(f):=\mathsf{E}\left[f(X)\right]$, where $X$
 is a random vector-valued in $\mathcal{X}\subseteq\mathbb{R}^{d}$ with a density $\pi$ and $f:$
 $\mathcal{X}\to\mathbb{R}$ with $f\in L^2(\pi)$.
 The idea of the so-called control variates variance reduction method
- is to find a cheaply computable random variable $\xi$ with $\mathsf{E}[\xi]=0$ and \(\mathsf{E}[\xi^2]<\infty,\)
-such that the variance of the r.v. $f(X)-\xi$ is small.  The complexity of the problem of constructing classes $\Xi$ of control variates \(\xi\) satisfying   $\mathsf{E}[\xi]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
-For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\xi\) as a linear combination of the corresponding basis functions, see \cite{GobetCV}. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of
- \cite{mira2013zero} and further worked out in \cite{oates2017control}  suggesting  control variates  depending only on the gradient \(\nabla \log \pi.\) 
+ is to find a cheaply computable random variable $\zeta$ with $\mathsf{E}[\zeta]=0$ and \(\mathsf{E}[\zeta^2]<\infty,\)
+such that the variance of the r.v. $f(X)-\zeta$ is small.  The complexity of the problem of constructing classes $Z$ of control variates \(\zeta\) satisfying   $\mathsf{E}[\zeta]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
+For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\zeta\) as a linear combination of the corresponding basis functions, see \cite{GobetCV}. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of control variates  depending only on the gradient \(\nabla \log \pi\)  using Hamiltonian operator in  \cite{mira2013zero} and so-called Stein operator in \cite{oates2017control}, which is derived from Hamiltonian.
+
  \eric{mention the Stein operator}
 
 In some situations \(\pi\) is not known analytically, but \(X\) can be represented as a function of  simple random variables with known distribution.
@@ -164,7 +164,7 @@ discrete-time Markov chain $(X_{p})_{p\geq0}$ defined by
 X_{p+1}=X_{p}-\gamma_{p+1}\mu(X_{p})+\sqrt{\gamma_{p+1}}Z_{p+1},\end{equation}
 where $\left(Z_{p}\right)_{p\geq1}$ is an i.i.d.\ sequence of $d$-dimensional
 standard Gaussian random vectors. If
-${\mu=(1/2)\nabla U}$
+${\mu=\frac{\nabla U}{2}}$
 for some continuously differentiable function $U,$ then Markov chain~\eqref{eq:chain} can be used to approximately sample from the density
 \begin{equation}\label{eq:stationary_distr}
 \pi(x)= \mathrm{const}\,\rme^{-U(x)}, \quad \mathrm{const}= \left. 1 \middle /{\int_{\mathbb{R}^{d}} \rme^{-U(x)}\, \rmd x,} \right.
@@ -229,20 +229,20 @@ where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \(
 \erici{add here an example where $\pi$ is not explicitely known; tpicqlly we start from a diffusion $dX_t= b(X_t)dt + dW_t$ with $b$ Lipshitz and coercive. $\pi$ is not known but nevertheless we might be interested to estimate expectations under the stationary distribution of the diffusion... Our technique has no competitor in such problems. We can even be interested in estimating functionals of general Feller processes: see the recent results of Clement Rey, Gilles Pages, etc...}
 \section{Martingale representation and variance reduction}
 \label{seq:mart_repr}
-In this section we give a general discrete-time martingale representation for the Markov chain \eqref{eq:chain_gen} which is  used below to construct an efficient variance reduction algorithm. Let \((\phi_k)_{k\in \mathbb{Z}_+}\) be a complete orthonormal system in \(L^2(\mathbb{R}^m, P_{\xi})\) with \(\phi_0\equiv 1\). In particular, we have
+In this section we give a general discrete-time martingale representation for the Markov chain \eqref{eq:chain_gen} which is  used below to construct an efficient variance reduction algorithm. Let \((\phi_k)_{k\in \mathbb{Z}_+}\) be a complete orthonormal system in \(L^2(\mathbb{R}^m, P_{\xi})\) with \(\phi_0\equiv 1\).  In particular, we have
 \begin{eqnarray*}
 \mathsf{E}[\phi_i(\xi)\phi_j(\xi)]=\delta_{ij},\quad i,j\in  \mathbb{Z}_{+}.
 \end{eqnarray*}
 \eric{say here where the $\xi$ you are referreing to is defined}
 Notice that this implies that the random variables
-$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and products of Hermite and Legendre polynomials for MALA, as the Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([-1,1].\) \eric{it is more tensor product than a product. and I need that perhaps some more precise notations are needed there}
+$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and product of Hermite polynomials for "gaussian part" and Shifted Legendre polynomials for "uniform part" of random variable for MALA, as the Shifted Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([0,1].\) \eric{it is more tensor product than a product. and I need that perhaps some more precise notations are needed there}
 
 In the sequel, we denote by $(\mathcal{G}_p)_{p\in \mathbb{Z}_+}$  the filtration
 generated by generated by $(\xi_p)_{p \in \mathbb{N}^*}$ with the convention $\mathcal{G}_0=\mathrm{triv}$
 
 \begin{thm}\label{prop:29032018a1}
  Let $f$ be a Borel function $\mathbb{R}^{d}\to\mathbb R$ such that
-$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$. 
+$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$, where $X_{p}$ defined in \eqref{eq:chain_gen}. 
 \eric{say where $X_p$ is defined... add a sentence like "where $X_p$ is defined in Eq. (xx)"}
 Then,
 for $p>j$, the following representation holds in \(L^2(P)\)
@@ -602,7 +602,7 @@ the formula
 \end{eqnarray}
 The integration \eqref{eq:a_est_int} is done with respect to simple distribution.
 \par
-Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
+Upon estimating  the coefficients \((\widehat a_{l,k})\), one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
 \end{eqnarray*}
@@ -610,7 +610,7 @@ Obviously \(\mathsf{E}[\widehat M_{K,n}^N(f)|\TrainSet]=0\) and \(\widehat M_{K,
 does not introduce any bias.
 
 The following result quantifies the error of estimating the functions \((\bar Q_l)\)
-via the second algorithm and its proof follows from Theorem~2.2 in \cite{audibert2011robust}.
+via the algorithm and its proof follows from Theorem~2.2 in \cite{audibert2011robust}.
 \begin{thm}\label{berm:theorem:regression_cv}
  Suppose that for any \(l\in \{N+1,\ldots,N+n+1\},\)
 \[
