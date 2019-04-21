@@ -8,6 +8,7 @@
 \usepackage{bbm}
 \usepackage{multirow,algorithm2e}%
 \usepackage{xargs}
+\usepackage{showlabels}
 
 \newcommandx{\CPE}[3][1=]{{\mathsf E}_{#1}\left[\left. #2 \, \right| #3 \right]}
 \usepackage[textsize=footnotesize]{todonotes} % pour voir les commentaires
@@ -32,8 +33,8 @@
 \newtheorem{example}{Example}
 \newenvironment{proof}{{\noindent \bf Proof }}
  {{\hspace*{\fill}\proofendsign\par\bigskip}}
-
-
+\def\TV{\operatorname{TV}}
+\newcommand{\jac}[1]{\operatorname{J} _{#1}}
 
 \newcommand*{\argmin}{\operatornamewithlimits{arg\,min}}
 \newcommand*{\const}{\mathrm{const}}
@@ -391,11 +392,12 @@ the formula
 \label{eq:a_est_int}
 \widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,,
 \end{equation}
-where $\Phi_l$ is defined in \eqref{eq:chain_gen}. Note that the integration \eqref{eq:a_est_int} is done with respect to the known distribution of the sequence $\{\xi_k\}_{k=1}^\infty$ and can in many cases be done in closed analytical form.
+\eric{here $\xi$ is not defined. We should say that $\xi$ is a random variable independent from $\mathcal{T}$ with law $P_\xi$}
+where $\Phi_l$ is defined in \eqref{eq:chain_gen}. In many cases be done in closed analytical form.
 
- For example, in the case of ULA algorithm we have \(\xi\sim \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form, for more details see Section~\ref{sec:num}.
+ For example, in the case of ULA algorithm we have \(P_\xi$ is the multivariate normal distribution $ \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form; implementations details are provided in  Section~\ref{sec:num}.
 
-Upon estimating  the coefficients \((\widehat a_{l,k})\) by one of the above approaches, one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
+Upon estimating  the coefficients \((\widehat a_{l,k})\), one can construct an empirical estimate  of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
 \end{eqnarray*}
@@ -404,6 +406,7 @@ does not introduce any bias.
 
 \section{Analysis of variance reduced ULA}
 \label{sec:ula_analysis}
+We use in this Section the notations and definitions of Example~\ref{exam:langevin-algorithm}.
 The representation \eqref{eq:coeff_mart} suggests that the variance of  the  variance-reduced estimator
 \begin{equation}
 \label{eq:29032018a3}
@@ -494,7 +497,7 @@ similarly to the beginning of ~\cite[Section~4]{durmus:moulines:2017}:
 \end{align}
 where
 $\mathrm{osc}(f):=\sup_{x\in\mathbb R^d}f(x)-\inf_{x\in\mathbb R^d}f(x)$,
-$\|\mu-\nu\|_{TV}$ denotes the total variation distance
+$\|\mu-\nu\|_{\TV}$ denotes the total variation distance
 between probability measures $\mu$ and $\nu$, that is,
 $$
 \|\mu-\nu\|_{TV}=\sup_{A\in\mathcal B(\mathbb R^d)}
@@ -533,7 +536,7 @@ An upper bound for the variance of the classical estimator~\eqref{eq:29032018a2}
 is provided in  in~\cite[Theorem~17]{durmus:moulines:2017}.
 As for the estimator~\eqref{eq:29032018a3},
 it follows from~\eqref{eq:29032018a5}
-and Proposition~\ref{prop:29032018a1}
+and Theorem~\ref{prop:29032018a1}
 applied for $j=N$ that
 \begin{equation}\label{eq:29032018a6}
 \mathsf{Var}\left[\left.\pi_{K,n}^{N}(f)\right|\mathcal G_N\right]
@@ -543,6 +546,7 @@ applied for $j=N$ that
 \mathsf{E}\left[\left.\left|\bar a_{l,\mathbf{k}}(X_{l-1})\right|^{2}
 \right|\mathcal G_N\right].
 \end{equation}
+\erici{this is not a direct consequence of Theorem !; this is of course true, no problem. But this remains valid more generally than for ULA.. this should be at least a Lemma explaining how you obtain this result}
 Now we present an upper bound for the right-hand sides of~\eqref{eq:29032018a6}.
 \begin{thm}\label{th:mr}
 Fix $K\in\mathbb N$.
@@ -557,9 +561,9 @@ x\in\mathbb R^d
 \end{eqnarray*}
 for all \(\mathbf{k}\) with \(0<\|\mathbf{k}\|\leq  K+1\),
 \[
-\nabla\mu(x)\ge b_\mu I ,\quad x\in\mathbb R^d,
+\jac{\mu}(x)\ge b_\mu I ,\quad x\in\mathbb R^d,
 \]
-for some positive number $b_\mu\in(0,B_\mu]$ and all \(i=1,\ldots, d,\) where  \(\nabla\mu(x)\) stands for Jacobian of \(\mu.\)
+for some positive number $b_\mu\in(0,B_\mu]$  where  \(\jac{\mu}\) stands for Jacobian of \(\mu.\)
 Let $(\gamma_k)_{k\in\mathbb N}$ be a sequence of positive
 and non-increasing step sizes with $\sum_{k=1}^\infty \gamma_k=\infty$.
 We  assume that $\gamma_1<\frac1{B_\mu}$ and that
