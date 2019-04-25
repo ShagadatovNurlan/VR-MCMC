@@ -121,7 +121,7 @@ $\mathcal{X}\to\mathbb{R}$ with $f\in L^2(\pi)$.
 The idea of the so-called control variates variance reduction method
  is to find a cheaply computable random variable $\zeta$ with $\mathsf{E}[\zeta]=0$ and \(\mathsf{E}[\zeta^2]<\infty,\)
 such that the variance of the r.v. $f(X)-\zeta$ is small.  The complexity of the problem of constructing classes $Z$ of control variates \(\zeta\) satisfying   $\mathsf{E}[\zeta]=0$ essentially depends on the degree of our knowledge on \(\pi.\)
-For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\zeta\) as a linear combination of the corresponding basis functions, see \cite{GobetCV}. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of control variates  depending only on the gradient \(\nabla \log \pi\)  using Hamiltonian operator in  \cite{mira2013zero} and so-called Stein operator in \cite{oates2017control}, which is derived from Hamiltonian.
+For example, if \(\pi\) is analytically known and satisfies some regularity conditions, one can apply the well-known technique of  polynomial interpolation to construct control variates enjoying  some optimality properties, see, for example, Section~3.2 in \cite{dimov2008monte}. Alternatively, if an orthonormal system in \(L^2(\pi)\) is analytically available, one can build control variates \(\zeta\) as a linear combination of the corresponding basis functions, see \cite{GobetCV}. Furthermore, if \(\pi\) is known only up to a normalizing constant (which is often the case in Bayesian statistics), one can apply the recent approach of control variates  depending only on the gradient \(\nabla \log \pi\)  using Schr\(\ddot{\text{o}}\)dinger-type Hamiltonian operator in  \cite{mira2013zero} and so-called Stein operator in \cite{brosse2018diffusion}.
 
  \eric{mention the Stein operator}
 
@@ -134,7 +134,9 @@ The situation becomes much more difficult in the case of MCMC algorithms, where 
 Markov chain \(X_p,\) \(p=0,1,2,\ldots,\) whose marginal distribution  converges  to \(\pi\) as time grows. One important class of the variance reduction methods in this case  is based on the so-called Poisson equation for the corresponding  Markov chain. It was observed in Henderson~\cite{henderson1997variance}  that if a time-homogeneous Markov chain \((X_p)\) is stationary with stationary distribution \(\pi,\) then for any real-valued function \(G \in L^1(\pi) \) defined on the state space of the Markov chain \((X_p),\)  the function \(U(x) := G(x)-\mathsf{E}[G(X_{1})|X_0 = x]\) has zero mean with respect to \(\pi\).  The best choice for the function \(G\) corresponds to a solution of the so-called Poisson equation  \(\mathsf{E}[G(X_{1})|X_0 = x]-G(x)=-f(x)+\pi(f)\).  In fact,  the Poisson equation leads to a zero-variance control variate for the empirical mean under \(\pi.\) \eric{not completely cleqr what is meant here} \\
 Moreover, it is also related to the minimal asymptotic variance in the corresponding central limit theorem, see \cite{duncan2016variance} and \cite{mira2013zero}.   Although the Poisson equation involves the quantity of interest \(\pi(f)\)  and can not be  solved explicitly in most cases, this idea still can be used to construct some  approximations for the optimal zero-variance control variates. For example,  Henderson~\cite{henderson1997variance} proposed to compute approximations for the solution of the Poisson equation for specific Markov chains with particular emphasis on models arising in stochastic network theory. In \cite{dellaportas2012control} and \cite{brosse2018diffusion}  series-type control variates are introduced and studied for reversible Markov chains. It is assumed in \cite{dellaportas2012control}  that the one-step conditional expectations  can be computed explicitly  for a set of basis functions. The authors in \cite{brosse2018diffusion} proposed another approach tailored to diffusion setting which doesn't require the computation of integrals of basis functions and only involves  applications of the underlying generator.
 \par
-In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017} \eric{add papers by Gilles Pages, Clement Rey, Vinvent Lemaire} and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed  or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
+In this paper we focus on the  Langevin type algorithms which got much attention recently, see \cite{dalalyan2017theoretical,durmus:moulines:2017}
+ \eric{add papers by Gilles Pages, Clement Rey, Vinvent Lemaire} 
+ and references therein. We propose  a generic variance reduction method for these and other types algorithms, which is purely non-asymptotic and does not require that    the conditional expectations of the corresponding Markov chain can be computed  or that the generator is known analytically. Moreover, we do not need to assume stationarity or/and sampling under the invariant distribution \(\pi.\) We rigorously analyse the convergence of the method and study its complexity. It is shown that  our variance-reduced Langevin algorithm outperforms the standard Langevin algorithms in terms of complexity.
 \par
 The paper is organized as follows.  In Section~\ref{sec:setup} we set up the problem and introduce some notations. Section~\ref{seq:mart_repr} contains a novel martingale representation and shows how this representation can be used for variance reduction. In Section~\ref{sec:ula_analysis} we analyze the performance of the proposed variance reduction algorithm in the case of Unadjusted Langevin Algorithm (ULA). Section~\ref{sec:coeff} studies the complexity of the variance reduced ULA. Finally, numerical examples are presented in Section~\ref{sec:num}.
 
@@ -149,7 +151,6 @@ If  the dimension of the space \(\mathcal{X}\) is large and \(\pi(f)\) can not b
 \label{eq:chain_gen}
 X_{p}=\Phi_{p}(X_{p-1},\xi_{p}),\quad p=1,2,\ldots ,\quad X_{0}=x_0,
 \end{equation}
-\eric{use only one $\xi$; change the notation of the control variable}
 for some i.i.d.  random vectors \(\xi_p\in \mathbb{R}^m\) with distribution \(P_{\xi}\)
 and some Borel-measurable
 functions $\Phi_{p}\colon\mathcal{X}\times\mathbb{R}^{m}\to\mathcal{X}.$
@@ -239,7 +240,7 @@ Notice that this implies that the random variables
 $\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and product of Hermite polynomials for "gaussian part" and Shifted Legendre polynomials for "uniform part" of random variable for MALA, as the Shifted Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([0,1].\) \eric{it is more tensor product than a product. and I need that perhaps some more precise notations are needed there}
 
 In the sequel, we denote by $(\mathcal{G}_p)_{p\in \mathbb{Z}_+}$  the filtration
-generated by generated by $(\xi_p)_{p \in \mathbb{N}^*}$ with the convention $\mathcal{G}_0=\mathrm{triv}$
+generated by generated by $(\xi_p)_{p \in \mathbb{N}^*}$ with the convention $\mathcal{G}_0=\mathrm{triv}$.
 
 \begin{thm}\label{prop:29032018a1}
  Let $f$ be a Borel function $\mathbb{R}^{d}\to\mathbb R$ such that
@@ -369,44 +370,8 @@ where
 Since \(X_{l-1}\) is independent of \(\xi_{l}\) and \(\mathsf{E}[\phi_k(\xi_{l})]=0,\) \(k\geq 1,\)  the r.v.  \(M_{K,n}^N(f)\) has zero mean and can be viewed as a control variate. 
 
 
-The functions \((\bar a_{l,k})\) need to be estimated before one can apply the proposed variance reduction approach. This amounts to solve a nonparametric regression problem.
-We present a generic regression algorithm. Algorithm starts with estimating the functions $\bar{Q}_{l}$ for $l=N+1,\ldots,N+n,$ where
-\begin{equation*}
-\bar{Q}_{l}(x)=\sum_{p=l}^{N+n} \omega_{p,n}^{N} Q_{p,l}\left(x\right)=\omega_{l,n}^{N}f(x)+\mathsf{E}\left[\left.\sum_{p=l+1}^{N+n}\omega_{p,n}^{N}f(X_{p})\right|X_{l}=x\right] .
-\end{equation*}
-We first generate \(\NtrainPath\)  paths conditionally independent of the $\sigma$-algebra generated by the burn-in sequence $X_1,\dots,X_N$:
-\[
-\TrainSet=\Bigl\{(X^{(s)}_{N+1},\ldots,X^{(s)}_{N+n}),\quad s=1,\ldots,\NtrainPath\Bigr\}
-\]
-of the chain \(X\)
-(the so-called ``training paths'').
-The regression algorithm proceeds with estimating the  functions \((\bar Q_{l})\) by solving  the least squares optimization problems
-\begin{equation}\label{eq:06042018a1}
-{\widehat  Q}_{l}=\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})-\psi(X^{(s)}_{l})\right|^2
-\end{equation}
-for \(l=N+1,\ldots, N+n-1.\)
-where \(\Psi\) is a  class of  functions on \(\mathbb{R}^d.\)
-Next  we estimate the coefficients \( \bar a_{l,k}\) using
-the formula
-\begin{equation}
-\label{eq:a_est_int}
-\widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,,
-\end{equation}
-\eric{here $\xi$ is not defined. We should say that $\xi$ is a random variable independent from $\mathcal{T}$ with law $P_\xi$}
-where $\Phi_l$ is defined in \eqref{eq:chain_gen}. In many cases be done in closed analytical form.
-
- For example, in the case of ULA algorithm we have \(P_\xi$ is the multivariate normal distribution $ \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form; implementations details are provided in  Section~\ref{sec:num}.
-
-Upon estimating  the coefficients \((\widehat a_{l,k})\), one can construct an empirical estimate  of \(M_{K,n}^N(f)\) in the form
-\begin{eqnarray*}
-\widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
-\end{eqnarray*}
-Obviously \(\mathsf{E}[\widehat M_{K,n}^N(f)|\TrainSet]=0\) and \(\widehat M_{K,n}^N(f)\) is indeed a valid control variate in that it
-does not introduce any bias.
-
 \section{Analysis of variance reduced ULA}
 \label{sec:ula_analysis}
-We use in this Section the notations and definitions of Example~\ref{exam:langevin-algorithm}.
 The representation \eqref{eq:coeff_mart} suggests that the variance of  the  variance-reduced estimator
 \begin{equation}
 \label{eq:29032018a3}
@@ -423,7 +388,7 @@ $$
 For a multi-index $\mathbf{k}=(k_i)\in\mathbb N_0^d$,
 $\mathbf{H}_\mathbf{k}$ denotes the normalized Hermite polynomial on $\mathbb R^d$, that is,
 $$
-\mathbf{H}_\mathbf{k}(x)=\prod_{i=1}^d H_{k_i}(x_i),\quad x=(x_i)\in\mathbb R^d.
+\mathbf{H}_\mathbf{k}(\mathbf{x})=\prod_{i=1}^d H_{k_i}(x_i),\quad \mathbf{x}=(x_i)\in\mathbb R^d.
 $$
 In what follows, we also use the notation
 $|\mathbf{k}|=\sum_{i=1}^d k_i$ for $\mathbf{k}=(k_i)\in\mathbb N_0^d$,
@@ -442,7 +407,7 @@ with \(\|\mathbf{k}\|=\max_{i} k_i\) and
 & =\mathsf{E}\left[\left.\left(\sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X_{p})\right)\mathbf{H}_\mathbf{k}\left(Z_{l}\right)\right|X_{l-1}=x\right].
 \end{align*}
 For an estimator $\rho(f)\in\{\pi_n^N(f),\pi_{K,n}^N(f)\}$
-of $\pi(f)$ (see \eqref{eq:29032018a2} and \eqref{eq:29032018a5}), we are interested in its conditional
+of $\pi(f)$ (see \eqref{eq:29032018a2} and \eqref{eq:29032018a3}), we are interested in its conditional
 Mean Squared Error (MSE),
 which can be decomposed as the sum of the squared conditional bias
 and the conditional variance:
@@ -510,7 +475,7 @@ from $(\mathbb R^d,\mathcal B(\mathbb R^d))$
 into $(\mathbb R^d,\mathcal B(\mathbb R^d))$
 is defined by
 $$
-R_\gamma(x,\cdot)=N\left(x-\gamma\mu(x),\gamma\right),
+R_\gamma(x,\cdot)=\mathcal{N}\left(x-\gamma\mu(x),\gamma\right),
 $$
 while, for $k,l\in\mathbb N$, $k\le l$,
 the kernel $Q_\gamma^{k,l}$ is
@@ -534,10 +499,11 @@ on bounds in the total variation distance.
 \subsection{Conditional variance}
 An upper bound for the variance of the classical estimator~\eqref{eq:29032018a2}
 is provided in  in~\cite[Theorem~17]{durmus:moulines:2017}.
-As for the estimator~\eqref{eq:29032018a3},
-it follows from~\eqref{eq:29032018a5}
-and Theorem~\ref{prop:29032018a1}
-applied for $j=N$ that
+As for the estimator~\eqref{eq:29032018a3}, we introduce lemma of conditional variance decomposition.
+It follows from~\eqref{eq:29032018a5}, Theorem~\ref{prop:29032018a1} and independence condition of sequence $(Z_p)_{p \geq 1}$.
+\begin{lem}
+\label{cond_var_dec}
+For any variance-reduced estimator~\eqref{eq:29032018a3}, defined for the Markov Chain~\eqref{eq:chain_gen} the following representation holds
 \begin{equation}\label{eq:29032018a6}
 \mathsf{Var}\left[\left.\pi_{K,n}^{N}(f)\right|\mathcal G_N\right]
 %=\sum_{\min_i (k_i)\ge K+1}
@@ -546,8 +512,9 @@ applied for $j=N$ that
 \mathsf{E}\left[\left.\left|\bar a_{l,\mathbf{k}}(X_{l-1})\right|^{2}
 \right|\mathcal G_N\right].
 \end{equation}
+\end{lem}
 \erici{this is not a direct consequence of Theorem !; this is of course true, no problem. But this remains valid more generally than for ULA.. this should be at least a Lemma explaining how you obtain this result}
-Now we present an upper bound for the right-hand sides of~\eqref{eq:29032018a6}.
+Now we present an upper bound for the right-hand sides of~\eqref{eq:29032018a6} in case of ULA algorithm.
 \begin{thm}\label{th:mr}
 Fix $K\in\mathbb N$.
 Suppose that $f$  and \(\mu\) are \(K+1\) times continuously differentiable
@@ -585,33 +552,45 @@ For instance, a straightforward calculation shows
 that \eqref{eq:17042018a1} is satisfied in most interesting case
 $\gamma_k=\const/k^\alpha$ with $\alpha\in (0,1)$.
 \end{remark}
-\section{Complexity analysis for ULA}
-\label{sec:coeff}
-In order to estimate the coefficients \((a_{l,k}),\) we generate \(\NtrainPath\)  paths conditionally independent of the burn-in sequence $X_1,\dots,X_N$ (hence, from the $\sigma$-algebra $\mathcal{G}_N$),
+
+\section{Nonparametric regression}
+The functions \((\bar a_{l,k})\) need to be estimated before one can apply the proposed variance reduction approach. This amounts to solve a nonparametric regression problem.
+We present a generic regression algorithm. Algorithm starts with estimating the functions $\bar{Q}_{l}$ for $l=N+1,\ldots,N+n,$ where
+\begin{equation*}
+\bar{Q}_{l}(x)=\sum_{p=l}^{N+n} \omega_{p,n}^{N} Q_{p,l}\left(x\right)=\omega_{l,n}^{N}f(x)+\mathsf{E}\left[\left.\sum_{p=l+1}^{N+n}\omega_{p,n}^{N}f(X_{p})\right|X_{l}=x\right] .
+\end{equation*}
+We first generate \(\NtrainPath\)  paths conditionally independent of the $\sigma$-algebra generated by the burn-in sequence $X_1,\dots,X_N$:
 \[
 \TrainSet=\Bigl\{(X^{(s)}_{N+1},\ldots,X^{(s)}_{N+n}),\quad s=1,\ldots,\NtrainPath\Bigr\}
 \]
 of the chain \(X\)
 (the so-called ``training paths'').
-Then we estimate  functions \((\bar Q_{l})\) via
+The regression algorithm proceeds with estimating the  functions \((\bar Q_{l})\) by solving  the least squares optimization problems
 \begin{equation}\label{eq:06042018a1}
-{\widehat  Q}_{l}=\omega_{l,n}^{N}f(x)+\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \sum_{p=l+1}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})-\psi(X^{(s)}_{l})\right|^2
+{\widehat  Q}_{l}=\argmin_{\psi\in \Psi}\sum_{s=1}^{\NtrainPath} \left | \sum_{p=l}^{N+n}\omega_{p,n}^{N}f(X^{(s)}_{p})-\psi(X^{(s)}_{l})\right|^2
 \end{equation}
 for \(l=N+1,\ldots, N+n-1.\)
+where \(\Psi\) is a  class of  functions on \(\mathbb{R}^d.\)
 Next  we estimate the coefficients \( \bar a_{l,k}\) using
 the formula
-\begin{eqnarray}
+\begin{equation}
 \label{eq:a_est_int}
-\widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,.
-\end{eqnarray}
-The integration \eqref{eq:a_est_int} is done with respect to simple distribution.
-\par
-Upon estimating  the coefficients \((\widehat a_{l,k})\), one can construct the empirical version of \(M_{K,n}^N(f)\) in the form
+\widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,,
+\end{equation}
+\eric{here $\xi$ is not defined. We should say that $\xi$ is a random variable independent from $\mathcal{T}$ with law $P_\xi$}
+where $\Phi_l$ is defined in \eqref{eq:chain_gen} and the expectation is taken according to known distribution \(P_\xi$. Conditioning on $\TrainSet$ underlines that estimation of $\widehat Q_{l}$ derived from training trajectories. In many cases integration can be done in closed analytical form.
+
+ For example, in the case of ULA algorithm we have \(P_\xi$ is the multivariate normal distribution $ \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form; implementations details are provided in  Section~\ref{sec:num}.
+
+Upon estimating  the coefficients \((\widehat a_{l,k})\), one can construct an empirical estimate  of \(M_{K,n}^N(f)\) in the form
 \begin{eqnarray*}
 \widehat M_{K,n}^N(f) =\sum_{1\leq  k \le K}\sum_{l=N+1}^{N+n}\widehat a_{l,k}(X_{l-1})\phi_k(\xi_{l}).
 \end{eqnarray*}
 Obviously \(\mathsf{E}[\widehat M_{K,n}^N(f)|\TrainSet]=0\) and \(\widehat M_{K,n}^N(f)\) is indeed a valid control variate in that it
 does not introduce any bias.
+
+\section{Complexity analysis for ULA}
+\label{sec:coeff}
 
 The following result quantifies the error of estimating the functions \((\bar Q_l)\)
 via the algorithm and its proof follows from Theorem~2.2 in \cite{audibert2011robust}.
@@ -695,7 +674,7 @@ K \sum_{l=n+1}^{N+n}\inf_{\psi\in \Psi}
 In order to assess the complexity of the proposed algorithm,  we first prove that under some conditions the coefficients \(a_{p,l,\mathbf{k}}\) decay exponentially fast as \(|p-l|\to \infty.\)
 \begin{lem}
 \label{a_decay}
-Suppose that \(f,\mu\in C^1(\mathbb{R}^d),\) \(0<b_\mu I\leq \nabla \mu(x)\leq B_\mu I\) and \(B_\mu\gamma_{l}\leq 1,\) then
+Suppose that \(f,\mu\in C^1(\mathbb{R}^d),\) \(0<b_\mu I\leq\jac{\mu}(x)\leq B_\mu I\) and \(B_\mu\gamma_{l}\leq 1,\) then
 \begin{eqnarray*}
 \|a_{p,l,\mathbf{k}}\|_{\infty}\leq \sqrt{\gamma_l}\, \|\nabla f\|_\infty\exp\left(-b_{\mu}\sum_{r=l+1}^p \gamma_{r}  \right),\quad \mathbf{k}\in \mathbb{N}^d\setminus \{\mathbf{0}\}.
 \end{eqnarray*}
@@ -825,6 +804,7 @@ In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,
  
 In Figure ~\ref{fig:1} we compare our approach to variance reduction methods of \cite{mira2013zero} and \cite{brosse2018diffusion}.
 
+\subsection{Binary Logistic Regression}
 
 \section{Proofs}
 \label{sec:proofs}
