@@ -787,18 +787,18 @@ and
 respectively.
 In our experiments we considered dimensions $d = 2$ and $d = 8$ and defined vector $a$ as $( (2d)^{-1/2}, \dots, (2d)^{-1/2})$. 
 In order to approximate the expectation \(\pi(f)\) with \(f(x)=\sum_{i=1}^d x_i,\) 
- we have used constant step sizes $\gamma_i = \gamma=0.1.$   We generated $\NtrainPath = 50$ independent "training" trajectories and solved the least squares  problems \eqref{eq:Qcircr} using a first order polynomials for \(d=2\) and  \(d=8.\) The truncation level \(n_{\mathrm{trunc}}\) is chosen to be \(100.\) To test our variance reduction algorithm, we generated 100 independent trajectories. 
+ we have used constant step sizes $\gamma_i = \gamma=0.2$ and sampled $n = 10^4$ samples for $d = 2$ and $n = 2 \times 10^3$ for $d = 8$.  We generated $\NtrainPath = 50$ independent "training" trajectories and solved the least squares  problems \eqref{eq:Qcircr} using a first order polynomials. The truncation level \(n_{\mathrm{trunc}}\) is chosen to be \(50.\) To test our variance reduction algorithm, we generated 100 independent trajectories. 
  
  \begin{figure}[tbh]
 \centering
 \subfloat[Subfigure 1 list of figures text][d = 2]{
-\includegraphics[width=0.4\textwidth]{pictures/GM_2d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.45\textwidth]{pictures/GM_2d.png}
 \label{fig:subfig1}}
 \qquad
 \subfloat[Subfigure 2 list of figures text][d = 8]{
-\includegraphics[width=0.4\textwidth]{pictures/GM_8d_K1_n1000_deg1_ntrunc100_gamma01.png}
+\includegraphics[width=0.45\textwidth]{pictures/GM_8d.png}
 \label{fig:subfig2}}
-\caption{Boxplots of $f(x) = \sum_{i=1}^d x_i$ using ULA algorithms for the Gaussian mixture model. The compared estimators are the ordinary empirical average  (pi), our estimator of control variates (CV-B), zero variance estimator (ZV-1) and control variates using diffusion approximation (CV-1). \label{fig:1}}
+\caption{Boxplots of $f(x) = \sum_{i=1}^d x_i$ using ULA algorithms for the Gaussian mixture model. The compared estimators are the ordinary empirical average  (O), our estimator of control variates (CV-B), zero variance estimator (ZV) and control variates using diffusion approximation (CV). \label{fig:1}}
 \end{figure}
  
  
