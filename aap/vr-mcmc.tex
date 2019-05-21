@@ -87,7 +87,7 @@ Russia
 \end{aug}
 
 \begin{abstract}
-In this paper we propose an efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation for Markov chains. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.  By rigorously analyzing the  convergence of the proposed algorithm, we show that it's complexity is indeed significantly smaller than one of the original MCMC algorithm. The numerical performance of the new method is illustrated  in the case of Gaussian mixtures and binary regression.
+In this paper we propose an efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation for Markov chains. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.  By rigorously analyzing the  convergence of the proposed algorithm, we show that it's complexity is indeed significantly smaller than one of the original MCMC algorithm. The numerical performance of the new method is illustrated  in the case of Gaussian mixtures and logistic regression models.
 \end{abstract}
 
 \begin{keyword}[class=MSC]
@@ -503,7 +503,7 @@ As for the estimator~\eqref{eq:29032018a3}, we introduce lemma of conditional va
 It follows from~\eqref{eq:29032018a5}, Theorem~\ref{prop:29032018a1} and independence condition of sequence $(Z_p)_{p \geq 1}$.
 \begin{lem}
 \label{cond_var_dec}
-For variance-reduced estimator~\eqref{eq:29032018a3}, defined for the Markov Chain~\eqref{eq:chain_gen} the following representation holds
+	For variance-reduced estimator~\eqref{eq:29032018a3}, defined for the Markov Chain~\eqref{eq:chain_gen} the following representation holds
 \begin{equation}\label{eq:29032018a6}
 \mathsf{Var}\left[\left.\pi_{K,n}^{N}(f)\right|\mathcal G_N\right]
 %=\sum_{\min_i (k_i)\ge K+1}
