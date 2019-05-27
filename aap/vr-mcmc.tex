@@ -225,7 +225,10 @@ where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \(
 \begin{example}
 Invariant measures are crucial in the study of the long term behavior of stochastic differential
 systems. We invite the reader to refer to \cite{MR838085} for an overview of the subject. However, in many cases there is no explicit formula for the invariant measures.  Let \((X_t)_{t\in [0,T]}\) be the unique strong solution to the  SDE
-
+\begin{eqnarray*}
+dX_t=b(X_t)\,dt+\sigma(X_t)\,dW_t
+\end{eqnarray*}
+starting at \(X_0\) where \(W\) is a standard \(\mathbb{R}^m\)-valued Brownian motion.
 \end{example}
 \erici{add here an example where $\pi$ is not explicitely known; tpicqlly we start from a diffusion $dX_t= b(X_t)dt + dW_t$ with $b$ Lipshitz and coercive. $\pi$ is not known but nevertheless we might be interested to estimate expectations under the stationary distribution of the diffusion... Our technique has no competitor in such problems. We can even be interested in estimating functionals of general Feller processes: see the recent results of Clement Rey, Gilles Pages, etc...}
 \section{Martingale representation and variance reduction}
