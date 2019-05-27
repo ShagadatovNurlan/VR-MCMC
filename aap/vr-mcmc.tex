@@ -223,31 +223,51 @@ where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \(
 \end{eqnarray*}
 \end{example}
 \begin{example}
-Invariant measures are crucial in the study of the long term behavior of stochastic differential
-systems. We invite the reader to refer to \cite{MR838085} for an overview of the subject. However, in many cases there is no explicit formula for the invariant measures.  Let \((X_t)_{t\in [0,T]}\) be the unique strong solution to the  SDE
+  Let \((X_t)_{t\in [0,T]}\) be the unique strong solution to the  SDE
+\begin{eqnarray}
+\label{eq:sde-inv}
+dX_t=b(X_t)\,dt+\sigma(X_t)\,dW_t	
+\end{eqnarray}
+starting at \(X_0\) where \(W\) is a standard \(\mathbb{R}^m\)-valued Brownian motion, \(b:\) \(\mathbb{R}^d\to \mathbb{R}^d\) and \(\sigma:\) \(\mathbb{R}^d\times \mathbb{R}^m \to \mathbb{R}^d\) are locally Lipschitz continuous functions with at most linear growth.
+The process \((X_t)_{t\geq 0}\) is a Markov
+process and let \(L\) denote its infinitesimal generator, defined by 
 \begin{eqnarray*}
-dX_t=b(X_t)\,dt+\sigma(X_t)\,dW_t
+Lg=b^\top \nabla g+\frac{1}{2}\text{Tr}(\sigma^\top D^2g\sigma)
 \end{eqnarray*}
-starting at \(X_0\) where \(W\) is a standard \(\mathbb{R}^m\)-valued Brownian motion.
+for any \(g\in C^2(\mathbb{R}^d).\) 
+As soon as there exists a continuously twice differentiable Lyapunov function \(V:\) \(\mathbb{R}^d\to \mathbb{R}_{+}\) such that 
+\begin{eqnarray*}
+\sup_{x\in \mathbb{R}^d} LV(x) <\infty,\quad \limsup_{|x|\to \infty} LV(x)<0,
+\end{eqnarray*}
+then there exists an invariant probability measure \(\pi\)  for \(X,\) that is, \(X_t\sim \pi\) for all \(t> 0\) if \(X_0\sim \pi.\) Invariant measures are crucial in the study of the long term behavior of stochastic differential
+systems \eqref{eq:sde-inv}.   However, in many cases there is no explicit formula for the invariant measures and this makes the use of gradient based MCMC methods impossible in this case.  Under some additional assumptions,  the invariant
+measure \(\pi\) is  ergodic and this property
+can be exploited  to compute  the integrals \(\pi(f)\) for \(f\in L^2(\pi)\) by means of ergodic averages. The idea is to replace the diffusion X by a (simulable) discretization scheme of the form (see e.g. \cite{MR3861816})
+\begin{eqnarray*}
+\bar X_{n+1}=\bar X_n+\gamma_{n+1} b(\bar X_n)+\sigma(\bar X_n)(W_{\Gamma_{n+1}}-W_{\Gamma_n}), \quad n\geq 0,\quad \bar X_0=X_0,
+\end{eqnarray*}
+where \(\Gamma_n=\gamma_1+\ldots+\gamma_n\) and \((\gamma_n)_{n\geq 1}\) is a non-increasing sequence of time steps. Then for a function \(f\in L^2(\pi)\) we can approximate \(\pi(f)\) via
+\begin{eqnarray*}
+\pi_n^\gamma(f)=\frac{1}{\Gamma_n}\sum_{i=1}^n \gamma_{i}f(\bar X_{i-1}).
+\end{eqnarray*}
+Our method can be directly used to reduce variance of the ergodic estimator \(\pi_n^\gamma.\) 
 \end{example}
-\erici{add here an example where $\pi$ is not explicitely known; tpicqlly we start from a diffusion $dX_t= b(X_t)dt + dW_t$ with $b$ Lipshitz and coercive. $\pi$ is not known but nevertheless we might be interested to estimate expectations under the stationary distribution of the diffusion... Our technique has no competitor in such problems. We can even be interested in estimating functionals of general Feller processes: see the recent results of Clement Rey, Gilles Pages, etc...}
 \section{Martingale representation and variance reduction}
 \label{seq:mart_repr}
 In this section we give a general discrete-time martingale representation for the Markov chain \eqref{eq:chain_gen} which is  used below to construct an efficient variance reduction algorithm. Let \((\phi_k)_{k\in \mathbb{Z}_+}\) be a complete orthonormal system in \(L^2(\mathbb{R}^m, P_{\xi})\) with \(\phi_0\equiv 1\).  In particular, we have
 \begin{eqnarray*}
-\mathsf{E}[\phi_i(\xi)\phi_j(\xi)]=\delta_{ij},\quad i,j\in  \mathbb{Z}_{+}.
+\mathsf{E}[\phi_i(\xi)\phi_j(\xi)]=\delta_{ij},\quad i,j\in  \mathbb{Z}_{+}
 \end{eqnarray*}
-\eric{say here where the $\xi$ you are referreing to is defined}
+with \(\xi \sim P_{\xi}.\)
 Notice that this implies that the random variables
-$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and product of Shifted Legendre polynomials for "uniform part" and Hermite polynomials for "gaussian part"  of the random variable $\xi = (u, z)^T$ in MALA, as the Shifted Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([0,1].\) \eric{it is more tensor product than a product. and I need that perhaps some more precise notations are needed there}
+$\phi_k(\xi)$, $k\ge1$, are centered. As an example, we can take  multivariate Hermite polynomials for the ULA algorithm and a tensor product of Shifted Legendre polynomials for "uniform part" and Hermite polynomials for "gaussian part"  of the random variable $\xi = (u, z)^T$ in MALA, as the Shifted Legendre polynomials are orthogonal with respect to the Lebesgue measure on \([0,1].\) 
 
 In the sequel, we denote by $(\mathcal{G}_p)_{p\in \mathbb{Z}_+}$  the filtration
 generated by generated by $(\xi_p)_{p \in \mathbb{N}^*}$ with the convention $\mathcal{G}_0=\mathrm{triv}$.
 
 \begin{thm}\label{prop:29032018a1}
  Let $f$ be a Borel function $\mathbb{R}^{d}\to\mathbb R$ such that
-$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$, where $X_{p}$ defined in \eqref{eq:chain_gen}. 
-\eric{say where $X_p$ is defined... add a sentence like "where $X_p$ is defined in Eq. (xx)"}
+$\mathsf{E}\left[\left|f(X_{p})\right|^{2}\right]<\infty$, with a Markov chain $(X_{p})_{p\geq 0}$ defined in \eqref{eq:chain_gen}. 
 Then,
 for $p>j$, the following representation holds in \(L^2(P)\)
 \begin{eqnarray}
