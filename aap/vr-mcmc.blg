@@ -7,45 +7,45 @@ Repeated entry---line 248 of file refs-1.bib
  : @article{mira2013zero
  :                      ,
 I'm skipping whatever remains of this entry
-You've used 20 entries,
+You've used 23 entries,
             2118 wiz_defined-function locations,
-            621 strings with 7066 characters,
-and the built_in function-call counts, 6259 in all, are:
-= -- 615
-> -- 295
+            645 strings with 7569 characters,
+and the built_in function-call counts, 7186 in all, are:
+= -- 714
+> -- 323
 < -- 2
-+ -- 116
-- -- 96
-* -- 451
-:= -- 1077
-add.period$ -- 60
-call.type$ -- 20
-change.case$ -- 101
++ -- 128
+- -- 104
+* -- 513
+:= -- 1230
+add.period$ -- 71
+call.type$ -- 23
+change.case$ -- 113
 chr.to.int$ -- 0
-cite$ -- 20
-duplicate$ -- 218
-empty$ -- 491
-format.name$ -- 96
-if$ -- 1270
+cite$ -- 23
+duplicate$ -- 252
+empty$ -- 573
+format.name$ -- 104
+if$ -- 1465
 int.to.chr$ -- 0
-int.to.str$ -- 20
-missing$ -- 23
-newline$ -- 103
-num.names$ -- 40
-pop$ -- 104
+int.to.str$ -- 23
+missing$ -- 27
+newline$ -- 119
+num.names$ -- 46
+pop$ -- 114
 preamble$ -- 1
-purify$ -- 87
+purify$ -- 97
 quote$ -- 0
-skip$ -- 143
+skip$ -- 166
 stack$ -- 0
-substring$ -- 414
-swap$ -- 22
+substring$ -- 498
+swap$ -- 25
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 70
+type$ -- 80
 warning$ -- 0
-while$ -- 63
-width$ -- 22
-write$ -- 217
+while$ -- 73
+width$ -- 25
+write$ -- 252
 (There was 1 error message)

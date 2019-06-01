@@ -8,7 +8,7 @@
 \usepackage{bbm}
 \usepackage{multirow,algorithm2e}%
 \usepackage{xargs}
-\usepackage{showlabels}
+%\usepackage{showlabels}
 
 \newcommandx{\CPE}[3][1=]{{\mathsf E}_{#1}\left[\left. #2 \, \right| #3 \right]}
 \usepackage[textsize=footnotesize]{todonotes} % pour voir les commentaires
@@ -223,26 +223,26 @@ where \((U_{p})_{p\geq 1}\) is an i.i.d. sequence of uniformly distributed on \(
 \end{eqnarray*}
 \end{example}
 \begin{example}
-  Let \((X_t)_{t\in [0,T]}\) be the unique strong solution to the  SDE
+  Let \((X_t)_{t\in [0,T]}\) be the unique strong solution to a  SDE of the form:
 \begin{eqnarray}
 \label{eq:sde-inv}
-dX_t=b(X_t)\,dt+\sigma(X_t)\,dW_t	
+dX_t=b(X_t)\,dt+\sigma(X_t)\,dW_t,\quad t\geq 0,	
 \end{eqnarray}
-starting at \(X_0\) where \(W\) is a standard \(\mathbb{R}^m\)-valued Brownian motion, \(b:\) \(\mathbb{R}^d\to \mathbb{R}^d\) and \(\sigma:\) \(\mathbb{R}^d\times \mathbb{R}^m \to \mathbb{R}^d\) are locally Lipschitz continuous functions with at most linear growth.
+where \(W\) is a standard \(\mathbb{R}^m\)-valued Brownian motion, \(b:\) \(\mathbb{R}^d\to \mathbb{R}^d\) and \(\sigma:\) \(\mathbb{R}^d\times \mathbb{R}^m \to \mathbb{R}^d\) are locally Lipschitz continuous functions with at most linear growth.
 The process \((X_t)_{t\geq 0}\) is a Markov
-process and let \(L\) denote its infinitesimal generator, defined by 
+process and let \(L\) denote its infinitesimal generator defined by 
 \begin{eqnarray*}
 Lg=b^\top \nabla g+\frac{1}{2}\text{Tr}(\sigma^\top D^2g\sigma)
 \end{eqnarray*}
 for any \(g\in C^2(\mathbb{R}^d).\) 
-As soon as there exists a continuously twice differentiable Lyapunov function \(V:\) \(\mathbb{R}^d\to \mathbb{R}_{+}\) such that 
+If there exists a continuously twice differentiable Lyapunov function \(V:\) \(\mathbb{R}^d\to \mathbb{R}_{+}\) such that 
 \begin{eqnarray*}
 \sup_{x\in \mathbb{R}^d} LV(x) <\infty,\quad \limsup_{|x|\to \infty} LV(x)<0,
 \end{eqnarray*}
-then there exists an invariant probability measure \(\pi\)  for \(X,\) that is, \(X_t\sim \pi\) for all \(t> 0\) if \(X_0\sim \pi.\) Invariant measures are crucial in the study of the long term behavior of stochastic differential
-systems \eqref{eq:sde-inv}.   However, in many cases there is no explicit formula for the invariant measures and this makes the use of gradient based MCMC methods impossible in this case.  Under some additional assumptions,  the invariant
+then there is an invariant probability measure \(\pi\)  for \(X,\) that is, \(X_t\sim \pi\) for all \(t> 0\) if \(X_0\sim \pi.\) Invariant measures are crucial in the study of the long term behaviour of stochastic differential
+systems \eqref{eq:sde-inv}.    Under some additional assumptions,  the invariant
 measure \(\pi\) is  ergodic and this property
-can be exploited  to compute  the integrals \(\pi(f)\) for \(f\in L^2(\pi)\) by means of ergodic averages. The idea is to replace the diffusion X by a (simulable) discretization scheme of the form (see e.g. \cite{MR3861816})
+can be exploited  to compute  the integrals \(\pi(f)\) for \(f\in L^2(\pi)\) by means of ergodic averages. The idea is to replace the diffusion \(X\) by a (simulable) discretization scheme of the form (see e.g. \cite{MR3861816})
 \begin{eqnarray*}
 \bar X_{n+1}=\bar X_n+\gamma_{n+1} b(\bar X_n)+\sigma(\bar X_n)(W_{\Gamma_{n+1}}-W_{\Gamma_n}), \quad n\geq 0,\quad \bar X_0=X_0,
 \end{eqnarray*}
@@ -250,7 +250,9 @@ where \(\Gamma_n=\gamma_1+\ldots+\gamma_n\) and \((\gamma_n)_{n\geq 1}\) is a no
 \begin{eqnarray*}
 \pi_n^\gamma(f)=\frac{1}{\Gamma_n}\sum_{i=1}^n \gamma_{i}f(\bar X_{i-1}).
 \end{eqnarray*}
-Our method can be directly used to reduce variance of the ergodic estimator \(\pi_n^\gamma.\) 
+Due to typically high correlation between \(X_0,X_1,\ldots\)  variance reduction is of crucial importance here.  
+As a matter of fact, in many cases there is no explicit formula for the invariant measure and this makes the use of gradient  based  variance reduction techniques (see e.g. \cite{mira2013zero})   impossible in this case.
+On the contrary, our method can be directly used to reduce variance of the ergodic estimator \(\pi_n^\gamma\) without explicit knowledge of \(\pi.\) 
 \end{example}
 \section{Martingale representation and variance reduction}
 \label{seq:mart_repr}
@@ -522,7 +524,7 @@ on bounds in the total variation distance.
 An upper bound for the variance of the classical estimator~\eqref{eq:29032018a2}
 is provided in  in~\cite[Theorem~17]{durmus:moulines:2017}.
 As for the estimator~\eqref{eq:29032018a3}, we introduce lemma of conditional variance decomposition.
-It follows from~\eqref{eq:29032018a5}, Theorem~\ref{prop:29032018a1} and independence condition of sequence $(Z_p)_{p \geq 1}$.
+It follows from~\eqref{eq:29032018a5}, Theorem~\ref{prop:29032018a1} and independence condition for the sequence $(Z_p)_{p \geq 1}$.
 \begin{lem}
 \label{cond_var_dec}
 	For variance-reduced estimator~\eqref{eq:29032018a3}, defined for the Markov Chain~\eqref{eq:chain_gen} the following representation holds
@@ -535,7 +537,6 @@ It follows from~\eqref{eq:29032018a5}, Theorem~\ref{prop:29032018a1} and indepen
 \right|\mathcal G_N\right].
 \end{equation}
 \end{lem}
-\erici{this is not a direct consequence of Theorem !; this is of course true, no problem. But this remains valid more generally than for ULA.. this should be at least a Lemma explaining how you obtain this result}
 Now we present an upper bound for the right-hand sides of~\eqref{eq:29032018a6} in case of ULA algorithm.
 \begin{thm}\label{th:mr}
 Fix $K\in\mathbb N$.
@@ -599,8 +600,8 @@ the formula
 \label{eq:a_est_int}
 \widehat a_{l,k}(x)=\mathsf{E}\left[\left.\phi_k\left(\xi\right)\widehat Q_{l}\left(\Phi_l(x,\xi)\right)\right | \TrainSet\right] \,,
 \end{equation}
-\eric{here $\xi$ is not defined. We should say that $\xi$ is a random variable independent from $\mathcal{T}$ with law $P_\xi$}
-where $\Phi_l$ is defined in \eqref{eq:chain_gen} and the expectation is taken according to known distribution \(P_\xi$. Conditioning on $\TrainSet$ underlines that estimation of $\widehat Q_{l}$ derived from training trajectories. In many cases integration can be done in closed analytical form.
+where $\xi$ is a random variable independent from $\mathcal{T}$ with law $P_\xi,$
+$\Phi_l$ is defined in \eqref{eq:chain_gen} and the expectation is taken according to known distribution \(P_\xi\). Conditioning on $\TrainSet$ underlines that estimation of $\widehat Q_{l}$ derived from training trajectories. In many cases integration can be done in closed analytical form.
 
  For example, in the case of ULA algorithm we have \(P_\xi$ is the multivariate normal distribution $ \mathcal{N}(0,I_d)\) and \(\Phi_l(x,\xi)=x-\gamma_{l}\mu(x)+\sqrt{\gamma_{l}}\xi.\) Therefore if we use polynomials to approximate \((\bar Q_{l}),\) then \((\widehat a_{l,k})\) can be even computed in closed form; implementations details are provided in  Section~\ref{sec:num}.
 

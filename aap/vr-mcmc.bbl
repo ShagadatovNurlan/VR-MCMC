@@ -65,6 +65,13 @@ A.~Durmus and \'{E}. Moulines.
   algorithm.
 \newblock {\em Ann. Appl. Probab.}, 27(3):1551--1587, 2017.
 
+\bibitem{MR838085}
+Stewart~N. Ethier and Thomas~G. Kurtz.
+\newblock {\em Markov processes}.
+\newblock Wiley Series in Probability and Mathematical Statistics: Probability
+  and Mathematical Statistics. John Wiley \& Sons, Inc., New York, 1986.
+\newblock Characterization and convergence.
+
 \bibitem{glasserman2013monte}
 Paul Glasserman.
 \newblock {\em Monte Carlo methods in financial engineering}, volume~53.
@@ -80,6 +87,11 @@ Emmanuel Gobet.
 Shane~G Henderson.
 \newblock {\em Variance reduction via an approximating Markov process}.
 \newblock PhD thesis, Stanford University, 1997.
+
+\bibitem{MR2353037}
+Vincent Lemaire.
+\newblock An adaptive scheme for the approximation of dissipative systems.
+\newblock {\em Stochastic Process. Appl.}, 117(10):1491--1518, 2007.
 
 \bibitem{mengersen:tweedie:1996}
 K.~Mengersen and R.~L. Tweedie.
@@ -97,11 +109,16 @@ Antonietta Mira, Reza Solgi, and Daniele Imparato.
 \newblock Zero variance markov chain {M}onte {C}arlo for bayesian estimators.
 \newblock {\em Statistics and Computing}, 23(5):653--662, 2013.
 
-\bibitem{oates2017control}
-Chris~J Oates, Mark Girolami, and Nicolas Chopin.
-\newblock Control functionals for monte carlo integration.
-\newblock {\em Journal of the Royal Statistical Society: Series B (Statistical
-  Methodology)}, 79(3):695--718, 2017.
+\bibitem{MR2977986}
+Gilles Pag\`es and Fabien Panloup.
+\newblock Ergodic approximation of the distribution of a stationary diffusion:
+  rate of convergence.
+\newblock {\em Ann. Appl. Probab.}, 22(3):1059--1100, 2012.
+
+\bibitem{MR3861816}
+Gilles Pag\`es and Fabien Panloup.
+\newblock Weighted multilevel {L}angevin simulation of invariant measures.
+\newblock {\em Ann. Appl. Probab.}, 28(6):3358--3417, 2018.
 
 \bibitem{rubinstein2016simulation}
 Reuven~Y Rubinstein and Dirk~P Kroese.
