@@ -87,7 +87,7 @@ Russia
 \end{aug}
 
 \begin{abstract}
-In this paper we propose an efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation for Markov chains. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.  By rigorously analyzing the  convergence of the proposed algorithm, we show that it's complexity is indeed significantly smaller than one of the original MCMC algorithm. The numerical performance of the new method is illustrated  in the case of Gaussian mixtures and logistic regression models.
+In this paper we propose an efficient variance reduction approach for  MCMC algorithms relying on a novel discrete time martingale representation for Markov chains. Our approach is fully non-asymptotic and does not require any type of ergodicity or special product structure of the underlying density.  By rigorously analyzing the  convergence of the proposed algorithm, we show that it's complexity is indeed significantly smaller than one of the original MCMC algorithm. The numerical performance of the new method is illustrated  in the case of Gaussian mixtures and bayesian regression models.
 \end{abstract}
 
 \begin{keyword}[class=MSC]
@@ -861,7 +861,44 @@ U( \mathbf{\theta}) = \mathbf{Y}^T \mathbf{X \theta} + \sum_{i=1}^m \text{log} (
 
 To demonstrate the effectiveness of control variates for bayesian logistic regression model, we take a simple dataset from \cite{mira2013zero}, which contains the measurements of four variables on $m=200$ Swiss banknotes. Prior distribution of regression parameter $\mathbf{\theta} = \left( \theta_1, \theta_2, \theta_3, \theta_4 \right)$ assumed to be $\sigma^2 I_d$, where $\sigma^2 = 100$. To construct trajectories of length $n = 5 \times 10^3 $ we determined constant step size $\gamma_i = 0.01$ for ULA scheme, with $N = 10^3$ burn-in steps. As in previous experiment we use first order polynomials approximations to explicitly compute coefficients $\hat{a}_{p-l,\mathbf{k}}$ and fixed $T = 10$ and $n_{trunc} = 100$. The target function defined as $f(\theta) = \sum_{i=1}^{i=d}\theta_i$.  In order to test our variance reduction algorithm, we generates 100 independent test trajectories. 
 
+In Figure ~\ref{fig:2} we compare our approach to variance reduction methods of \cite{mira2013zero} and \cite{brosse2018diffusion}.
 
+\subsection{Binary Probit Regression}
+
+Finally we consider a Bayesian probit regression model in its ordinary form, following \cite{mira2013zero}. More preciselly, log-likelihood of the model looks as follows
+\begin{equation*}
+    \mathbf{L}(\mathbf{Y}| \theta, \mathbf{X}) = \sum_{i=1}^{m} \left[ \mathbf{Y}_i \text{log} (\Phi(\theta^T \mathbf{X}_i)) + (1-\mathbf{Y}_i) \text{log}(\Phi(-\theta^T \mathbf{X}_i))\right],
+\end{equation*}
+where $\theta \in \mathbb{R}^d$ is paramater of model and $\Phi$ is cumulative distribution function of standard normal distribution $\mathcal{N}(0,1)$. Then, if prior $\pi(\mathbf{\theta}) = \mathcal{N}(0, \sigma^2 I_d)$, posterior distribution expresses as
+\begin{equation*}
+    \pi(\theta | \mathbf{Y}, \mathbf{X})  \propto \text{exp} \left\{\sum_{i=1}^{m} \left[\mathbf{Y}_i \text{log} (\Phi(\theta^T \mathbf{X}_i)) + (1-\mathbf{Y}_i) \text{log}(\Phi(-\theta^T \mathbf{X}_i))\right]- \frac{1}{2\sigma^2} \left\| \mathbf{\theta}\right\|_2^2  \right\}
+\end{equation*}
+Consequently, 
+\begin{equation*}
+    U(\theta) =  - \sum_{i=1}^{m} \left[\mathbf{Y}_i \text{log} (\Phi(\theta^T \mathbf{X}_i)) + (1-\mathbf{Y}_i) \text{log}(\Phi(-\theta^T \mathbf{X}_i))\right] + \frac{1}{2\sigma^2} \left\| \mathbf{\theta}\right\|_2^2
+\end{equation*}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{pictures/Probit_banknotes_4d.png}
+\caption{Boxplots of $f(x) = \sum_{i=1}^d x_i$ using ULA algorithms for the Probit Regression. The compared estimators are the ordinary empirical average  (O), our modified estimator (CV-B), zero variance estimator (ZV) and estimator with control variates using asymptotic variance minimization (CV).
+ \label{fig:3}}
+\end{center}
+\end{figure}
+
+\begin{equation*}
+    \nabla U(\theta) = - \mathbf{X}^T s + \frac{1}{\sigma^2} \theta,
+\end{equation*}
+where the elements of m-dimensional column vector $s$ defined as
+\begin{equation*}
+    s_i = \mathbf{Y}_i \Omega (\theta^T \mathbf{X}_i) - (1 - \mathbf{Y}_i) \Omega(- \theta^T \mathbf{X}_i), \quad i = 1, 2, \dots, m,
+\end{equation*}
+and $\Omega(\theta^T \mathbf{X}_i) : = \mathcal{N}(\theta^T \mathbf{X}_i) / \Phi(\theta^T \mathbf{X}_i)$, where $\mathcal{N}$ is a density of standard normal distribution.  
+
+As in previous example, to exemplify simulation of variance reduced estimator for Bayesian probit regression model, banknotes dataset is used and regularization parameter $\sigma^2=100$.
+To generate trajectories of length $n = 5 \times 10^3 $ we determined constant step size $\gamma_i = 0.01$ for ULA scheme after $N = 10^3$ burn-in steps. As in previous experiment we use first order polynomials approximations to explicitly compute coefficients $\hat{a}_{p-l,\mathbf{k}}$ and fixed $T = 10$, $n_{trunc} = 100$ and $K=1$. The target function defined as $f(\theta) = \sum_{i=1}^{i=d}\theta_i$.  In order to test our variance reduction algorithm, we generates 100 independent test trajectories.
+
+In Figure ~\ref{fig:3} we compare our approach to variance reduction methods of \cite{mira2013zero} and \cite{brosse2018diffusion}.
 
 \section{Proofs}
 \label{sec:proofs}
