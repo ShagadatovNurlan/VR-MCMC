@@ -1,4 +1,4 @@
-#Linear regression for G_pml + explicit formula for polynomial approximation
+#Linear regression for G_pml + explicit formula for polynomial approximation + truncation
 
 import numpy as np
 from scipy.misc import comb
@@ -9,9 +9,6 @@ from itertools import product
 from sklearn.preprocessing import PolynomialFeatures
 from matplotlib import pyplot as plt
 import math
-import plotly.plotly as py
-import plotly.graph_objs as go
-import plotly
 
 def H(k, x):
     if k==0:
@@ -81,6 +78,11 @@ def G_pml_predict(x, pml, Betas, max_deg = 1):
     return (x_pol @ beta)
 
 def a_plk(traj, traj_grad, p, l, k_vec, step, degrees, Betas):
+    '''
+    
+    Explicit formula for polynomial regression
+
+    '''
     dim = traj.shape[1]
     S = 0
     x_hat = traj[l-1] - step*traj_grad[l-1]/2

@@ -1,3 +1,5 @@
+# Algorithm 1, polynomial regression for Q_l + explicit formula + truncation
+
 import numpy as np
 from scipy.misc import comb
 from scipy.special import hermitenorm
